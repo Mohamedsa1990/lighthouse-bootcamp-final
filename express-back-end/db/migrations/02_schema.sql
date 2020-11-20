@@ -1,0 +1,27 @@
+DROP TABLE IF EXISTS assignments CASCADE;
+DROP TABLE IF EXISTS skills CASCADE;
+DROP TABLE IF EXISTS requirements CASCADE;
+
+CREATE TABLE assignments (
+  id SERIAL PRIMARY KEY,
+  job_id INTEGER REFERENCES jobs(id) ON DELETE CASCADE,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  date_time TIMESTAMP,
+  estimate_hrs INTEGER
+);
+
+CREATE TABLE skills (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  task_id INTEGER REFERENCES tasks(id) ON DELETE CASCADE,
+  skill_level INTEGER
+);
+
+CREATE TABLE requirements (
+  id SERIAL PRIMARY KEY,
+  job_id INTEGER REFERENCES jobs(id) ON DELETE CASCADE,
+  task_id INTEGER REFERENCES tasks(id) ON DELETE CASCADE,
+  difficulty INTEGER,
+  estimate_time INTEGER,
+  estimate_workers INTEGER
+);
