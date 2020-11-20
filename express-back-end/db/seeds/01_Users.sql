@@ -1,4 +1,4 @@
-insert into Users (id, first_name, last_name, admin) values (1, 'Adrienne', 'Thom', null);
+insert into Users (id, first_name, last_name, admin) values (1, 'Adrienne', 'Thom', true);
 insert into Users (id, first_name, last_name, admin) values (2, 'Barbe', 'Gundrey', null);
 insert into Users (id, first_name, last_name, admin) values (3, 'Bobby', 'Cornford', null);
 insert into Users (id, first_name, last_name, admin) values (4, 'Chrysler', 'Malster', null);
