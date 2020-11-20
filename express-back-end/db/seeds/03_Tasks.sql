@@ -1,0 +1,10 @@
+insert into Tasks (id, name, description) values (1, 'Planting', 'Etiam pretium iaculis justo.');
+insert into Tasks (id, name, description) values (2, 'transplanting', 'Sed ante.');
+insert into Tasks (id, name, description) values (3, 'maintaining flowers and plants', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.');
+insert into Tasks (id, name, description) values (4, 'greenhouse and nursery stock', 'Donec ut dolor.');
+insert into Tasks (id, name, description) values (5, 'Installing rock gardens', 'Vivamus tortor. Duis mattis egestas metus.');
+insert into Tasks (id, name, description) values (6, 'ponds', 'Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst.');
+insert into Tasks (id, name, description) values (7, 'decks', 'Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.');
+insert into Tasks (id, name, description) values (8, 'drainage systems', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi.');
+insert into Tasks (id, name, description) values (9, 'fences', 'Phasellus in felis. Donec semper sapien a libero.');
+insert into Tasks (id, name, description) values (10, 'planters and playground equipment', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.');
