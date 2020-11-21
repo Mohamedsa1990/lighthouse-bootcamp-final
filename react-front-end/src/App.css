@@ -31,3 +31,12 @@
     transform: rotate(360deg);
   }
 }
+.cal_container {
+  width: 60rem;
+  height: 50rem;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}

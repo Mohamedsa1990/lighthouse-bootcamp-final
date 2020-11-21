@@ -6,7 +6,8 @@ CREATE TABLE Assignments (
   id SERIAL PRIMARY KEY,
   job_id INTEGER REFERENCES jobs(id) ON DELETE CASCADE,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  date_time VARCHAR(255),
+  starts VARCHAR(255),
+  ends VARCHAR(255),
   estimate_hrs INTEGER
 );
 
