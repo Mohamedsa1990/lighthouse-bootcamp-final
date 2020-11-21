@@ -10,7 +10,7 @@ import 'fontsource-roboto';
 
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
-const localizer = momentLocalizer(moment) // or globalizeLocalizer
+// const localizer = momentLocalizer(moment) // or globalizeLocalizer
 
 // const events = [{
 //   id: 0,
