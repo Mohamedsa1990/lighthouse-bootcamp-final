@@ -22,6 +22,13 @@ In the browser, you can click on the button and see the data get loaded.
 
 If this doesn't work, please message me!
 
+## database setup 
+from your vagrant machine:
+ run `psql -U development` password `development`
+ `CREATE DATABASE teams`
+ Exit 
+ cd into the backend folder and run `npm run reset` it will ask you for the password which is `development` in each query run 8 times
+
 ## Next steps
 
 From here, you can start working on your project!
@@ -44,3 +51,4 @@ If you'd like your project added to the list, please shoot me a message.
 ## Contact
 
 Please contact me on Slack (@garrettgsb) or Nima at `nima@lighthouselabs.com` if you have any questions, requests, or feedback, or post an issue to this repo. If you are using the boilerplate, I'd love to hear from you as well!
+
