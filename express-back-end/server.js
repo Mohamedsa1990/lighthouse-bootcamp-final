@@ -27,7 +27,7 @@ App.use(Express.static('public'));
 // test route
 const getusers = require("./route/getusers")
 
-// Sample GET route
+// routes
 App.use("/api/query", getusers(db));
 
 App.get('/api/data', (req, res) => res.json({
