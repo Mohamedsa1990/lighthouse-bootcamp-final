@@ -49,13 +49,10 @@ const testData = [{
 export default function useApplicationData(){
 
   //calendar - the main calendar data
-  const [calendar, setCalendar] = useState();
+  const [calendar, setCalendar] = useState(testData);
   
   //Load all initial site data
   useEffect(() => {
-    setCalendar(testData);
-    console.log("*************");
-    console.log(calendar)
     Promise.all([
       axios.get("/bookings"),
       //OTHER INITIAL SITE LOAD DATA REQUESTS HERE
@@ -75,9 +72,7 @@ export default function useApplicationData(){
       })
       .catch((e) => {
         console.log(e);
-        setCalendar(testData);
-        console.log("*************");
-        console.log(calendar)
+        return e;
       });
   }, []);
 

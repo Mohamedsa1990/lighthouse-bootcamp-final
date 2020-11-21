@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './JobCalendar.css'
@@ -10,13 +10,13 @@ import moment from 'moment'
 // to the correct localizer.
 const localizer = momentLocalizer(moment) // or globalizeLocalizer
 export default function App(props){
-  const {message, setMessage} = useState()
+  const [message, setMessage] = useState()
 
   const selectDay = (info) => {
     //start and end are JS Date Objects so capture date and time
     let startDate = info.start
     let endDate = info.end
-    setMessage({message: `${startDate.toDateString()} - ${endDate.toDateString()}`})
+    setMessage(`${startDate.toDateString()} - ${endDate.toDateString()}`)
   };
   const selectBooking = function(){};
 
