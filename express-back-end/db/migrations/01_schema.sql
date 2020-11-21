@@ -21,7 +21,7 @@ CREATE TABLE Jobs (
   customer_last_name VARCHAR(255),
   customer_address VARCHAR(255),
   customer_city VARCHAR(255),
-  customer_phone_number INTEGER,
+  customer_phone_number VARCHAR(255),
   customer_email VARCHAR(255)
 );
 
