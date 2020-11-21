@@ -3,6 +3,8 @@ import axios from 'axios';
 import './App.css';
 import 'fontsource-roboto';
 import JobCalendar from './components/JobCalendar'
+import JobSummary from './components/JobSummary'
+
 
 class App extends Component {
   constructor(props) {
@@ -50,7 +52,8 @@ class App extends Component {
         <button onClick={this.query} >
           query
         </button>
-        <JobCalendar/>
+        {/* <JobCalendar/> */}
+        <JobSummary />
       </div>
     );
   }
