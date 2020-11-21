@@ -1,59 +1,52 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import './App.css';
 import 'fontsource-roboto';
 import JobCalendar from './components/JobCalendar'
+import useApplicationData from './hooks/useApplicationData'
+import axios from 'axios'
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      message: 'Click the button to load data!',
-      message2: 'Click to get a query'
-    }
-  }
 
-  fetchData = () => {
+export default function App(){
+  //EXAMPLE DATA FETCH
+  const [{message, message2}, setState] = useState({message: 'Click the button to load data!', message2: 'Click to get a query'})
+  function fetchData() {
     axios.get('/api/data') // You can simply make your requests to "/api/whatever you want"
     .then((response) => {
       // handle success
       console.log(response.data) // The entire response from the Rails API
 
       console.log(response.data.message) // Just the message
-      this.setState({
-        message: response.data.message
+      setState((oldState) => {
+        return { ...oldState, message: response.data.message}
       });
     }) 
   }
 
-  query = () => {
+  function query() {
     axios.get('/api/query') // You can simply make your requests to "/api/whatever you want"
     .then((response) => {
       // handle success
-      console.log(response.data) // The entire response from the Rails API
+      console.log(response.data); // The entire response from the Rails API
 
-      console.log(response.data.first_name) // Just the message
-      this.setState({
-        message2: response.data.first_name
+      console.log(response.data.first_name); // Just the message
+      setState((oldState) => {
+        return { ...oldState, message2: response.data.first_name}
       });
     }) 
   }
 
-  render() {
-    return (
-      <div className="App">
-        <h1>{ this.state.message }</h1>
-        <button onClick={this.fetchData} >
-          Fetch Data
-        </button> 
-        <h1>{ this.state.message2 }</h1>
-        <button onClick={this.query} >
-          query
-        </button>
-        <JobCalendar/>
-      </div>
-    );
-  }
+  const {calendar} = useApplicationData();
+  return (
+    <div className="App">
+      <h1>{ message }</h1>
+      <button onClick={fetchData} >
+        Fetch Data
+      </button> 
+      <h1>{ message2 }</h1>
+      <button onClick={query} >
+        query
+      </button>
+      <JobCalendar bookings={calendar}/>
+    </div>
+  );
 }
-
-export default App;
