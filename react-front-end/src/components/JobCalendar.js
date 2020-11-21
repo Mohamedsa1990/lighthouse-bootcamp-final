@@ -76,16 +76,16 @@ class JobCalendar extends Component {
           </h1>
         )}
         <div className="JobCalendar">
-            <Calendar
-              events={this.state.bookings}
-              selectable={true}
-              onSelectSlot={this.selectDay}
-              onSelectEvent={this.selectBooking}
-              startAccessor="start"
-              endAccessor="end"
-              defaultDate={moment().toDate()}
-              localizer={localizer}
-            />
+          <Calendar
+            events={this.state.bookings}
+            selectable={true}
+            onSelectSlot={this.selectDay}
+            onSelectEvent={this.selectBooking}
+            startAccessor="start"
+            endAccessor="end"
+            defaultDate={moment().toDate()}
+            localizer={localizer}
+          />
         </div>
       </>
     );
