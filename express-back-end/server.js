@@ -1,12 +1,36 @@
+// load .env data into process.env
+require("dotenv").config();
+
+
+// Web server config
 const Express = require('express');
 const App = Express();
 const BodyParser = require('body-parser');
-const PORT = 8080;
+const PORT = process.env.PORT || 8000;
+const ENV = process.env.ENV || "development";
+
+// PG database client/connection setup
+const { Pool } = require("pg");
+const dbParams = require("./lib/db.js");
+const db = new Pool(dbParams);
+db.connect();
+
+
+
 
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
 App.use(BodyParser.json());
 App.use(Express.static('public'));
+
+
+// test route
+App.get('/api/query', (req, res) => {
+  db.query("SELECT * FROM users WHERE id=1")
+    .then(data =>{
+      res.json(data.rows[0])
+    })
+});
 
 // Sample GET route
 App.get('/api/data', (req, res) => res.json({
