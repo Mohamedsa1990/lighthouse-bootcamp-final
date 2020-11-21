@@ -41,8 +41,8 @@ const events = [{
 {
   id: 4,
   title: 'Some Event',
-  start: new Date(2020, 11, 9, 0, 0, 0),
-  end: new Date(2020, 11, 10, 0, 0, 0),
+  start: "2020, 11, 9",
+  end: "2020, 11, 16",
 },
 {
   id: 5,

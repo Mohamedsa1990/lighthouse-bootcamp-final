@@ -41,15 +41,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>{ this.state.message }</h1>
+      <div className="layout">
+        {/* <h1>{ this.state.message }</h1>
         <button onClick={this.fetchData} >
           Fetch Data
         </button> 
         <h1>{ this.state.message2 }</h1>
         <button onClick={this.query} >
           query
-        </button>
+        </button> */}
         <JobCalendar/>
       </div>
     );

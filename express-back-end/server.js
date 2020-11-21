@@ -25,14 +25,11 @@ App.use(Express.static('public'));
 
 
 // test route
-App.get('/api/query', (req, res) => {
-  db.query("SELECT * FROM users WHERE id=1")
-    .then(data =>{
-      res.json(data.rows[0])
-    })
-});
+const getusers = require("./route/getusers")
 
 // Sample GET route
+App.use("/api/query", getusers(db));
+
 App.get('/api/data', (req, res) => res.json({
   message: "Seems to work!",
 }));

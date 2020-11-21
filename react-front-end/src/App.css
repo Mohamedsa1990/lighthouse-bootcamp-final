@@ -35,3 +35,8 @@
   width: 60rem;
   height: 50rem;
 }
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
