@@ -54,12 +54,13 @@ export default function useApplicationData(){
   //Load all initial site data
   useEffect(() => {
     Promise.all([
-      axios.get("/bookings"),
+      axios.get("/api/bookings"),
       //OTHER INITIAL SITE LOAD DATA REQUESTS HERE
     ])
       .then((all) => {
         //load bookings into calendar array
-        setCalendar(all[0].map((booking) => {
+        console.log(all);
+        setCalendar(all[0].data.map((booking) => {
           return { 
             id: booking.id,
             title: booking.name,
