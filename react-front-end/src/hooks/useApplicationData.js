@@ -47,34 +47,44 @@ const testData = [{
  * main site data and maintaining consistency with the server 
  */
 export default function useApplicationData(){
-
+  //*****STATE HOOKS START
   //calendar - the main calendar data
   const [calendar, setCalendar] = useState(testData);
-  const [bookings, setBookings] = useState([])
+  //bookings - holds all the data about bookings(not just what can be passed to calendar)
+  const [jobs, setJobs] = useState([]);
+  //*****STATE HOOKS END
+
   //Load all initial site data
   useEffect(() => {
     Promise.all([
-      axios.get("/api/bookings"),
+      axios.get("/api/jobs"),
       //OTHER INITIAL SITE LOAD DATA REQUESTS HERE
     ])
       .then((all) => {
         //load bookings into calendar array
-        let bookingList = all[0].data;
-        for (let i = 0; i < bookingList.length ; i++) {
-          bookingList[i].bookingID = i;
+        let jobList = all[0].data;
+        let calendarEntries = [];
+        for (const job of jobList) {
+          let dates = [];
+          let calendarIDs = [];
+          for (const assignment of job.assignments) {
+            if (!dates.includes(assignment.starts)) {
+              dates.push(assignment.starts);
+              let index = calendarEntries.length
+              calendarIDs.push(index);
+              calendarEntries.push({
+                id: index,
+                title: job.name,
+                desc: `Workers: ${job.estimate_total_workers}, Time(p-hrs): ${job.estimate_total_time}`,
+                start: (new Date(assignment.starts)),
+                end: (new Date(assignment.ends))
+              });
+            }
+          }
+          job.calendarIDs = calendarIDs;
         }
-        setBookings(bookingList);
-        setCalendar(bookingList.map((booking) => {
-          return { 
-            id: booking.bookingID,
-            title: booking.name,
-            desc: `Workers: ${booking.estimate_total_workers}, Time(p-hrs): ${booking.estimate_total_time}`,
-            start: (new Date(booking.starts)),
-            end: (new Date(booking.ends))
-          };
-        }))
-                  console.log(calendar[0]);
-
+        setJobs(jobList);
+        setCalendar(calendarEntries);
         //OTHER INITIAL SITE LOAD DATA SAVING HERE
       })
       .catch((e) => {
@@ -90,24 +100,41 @@ export default function useApplicationData(){
     }
     return axios.put(`/api/job/${jobDetails.id}`, jobDetails)
     .then((response) => {
-      //create the updated/new calendar entry
-      let newBooking = { 
-        id: response.id,
-        title: jobDetails.name,
-        desc: `Workers: ${jobDetails.totalWorkers}, Time(p-hrs): ${jobDetails.totalTime}`,
-        start: (new Date(jobDetails.start)),
-        end: (new Date(jobDetails.end))
-      };
-      //get the index in the calendar bookings of the old entry if it exists 
-      let bookingIndex = calendar.map((booking) => booking.id).indexOf(response.id);
-      if (bookingIndex === -1) {
-        //add a new booking
-        setCalendar((old) => old.push(newBooking));
-      } else {
-        //update an old booking
-        setCalendar((old) => old[bookingIndex] = newBooking);
+      let newJob = {...jobDetails, id: response.id};
+      let calendarEntries = [...calendar]
+      let dates = [];
+      let calendarIDs = [];
+      if (jobDetails.id !== 0) {
+        calendarIDs = jobDetails.calendarIDs;
+        for(const index of calendarIDs){
+          calendarEntries = calendarEntries.splice(index, 1);
+        }
       }
-      //OTHER JOB DATA SAVING HERE
+      for (const assignment of newJob.assignments) {
+        if (!dates.includes(assignment.starts)) {
+          dates.push(assignment.starts);
+          let index = calendarEntries.length
+          calendarIDs.push(index);
+          calendarEntries.push({
+            id: index,
+            title: newJob.name,
+            desc: `Workers: ${newJob.estimate_total_workers}, Time(p-hrs): ${newJob.estimate_total_time}`,
+            start: (new Date(assignment.starts)),
+            end: (new Date(assignment.ends))
+          });
+        }
+      }
+      setCalendar(calendarEntries);
+      setJobs((old) => {
+        let output = [...old]
+        let oldJob = output.filter((job) => newJob.id === job.id)[0];
+        if (oldJob) {
+          oldJob = newJob;
+        } else {
+          output.push(newJob);
+        }
+        return output;
+      });
     })
     .catch((e) => {
       console.log("*************Error Saving Job************");
@@ -117,11 +144,17 @@ export default function useApplicationData(){
 
   function cancelJob(id) {
     //request that the server delete the Job
-    return axios.delete(`/api/appointments/${id}`)
+    return axios.delete(`/api/jobs/${id}`)
     .then(() => {
-      let bookingIndex = calendar.map((booking) => booking.id).indexOf(id);
-      setCalendar((old) => old.splice(bookingIndex, 1));
-      //OTHER JOB DATA DELETING HERE
+      let jobIndex = jobs.map((job) => job.id).indexOf(id);
+      let newCalendar = [...calendar];
+      let newJobs = [...jobs];
+      for (const id of jobs[jobIndex].calendarIDs) {
+        newCalendar = newCalendar.splice(id, 1);
+      }
+      newJobs = newJobs.splice(jobIndex, 1);
+      setCalendar(newCalendar);
+      setJobs(newJobs);
     })
     .catch((e) => {
       console.log("*************Error Deleting Job************");
