@@ -41,15 +41,32 @@ fakeBookings = [
 
 module.exports = (db) => {
     router.get('/', (req, res) => {
-      console.log("request for bookings recieved")
+      console.log("******************************");
+      console.log("request for bookings received");
+      let output = [];
       db.query(`SELECT jobs.*, starts, ends FROM jobs JOIN 
                   (SELECT job_id, starts, ends FROM (SELECT DISTINCT(starts), job_id, ends FROM assignments)AS list1
                   UNION
                   SELECT DISTINCT(job_id), starts, ends FROM assignments)as bookings
                 ON jobs.id = job_id`)
         .then(data =>{
-          console.log(Object.keys(data.rows[0]))
-          return res.json(data.rows);
+          output = data.rows
+          return db.query(`SELECT * FROM requirements JOIN tasks ON task_id = tasks.id`);
+          // res.json(data.rows);
+        })
+        .then((data) => {
+          output = output.map((booking) => {
+            let requirements = data.rows.filter((requirement) => {
+              return requirement.job_id === booking.id;
+            });
+            if (!requirements) {
+              requirements = [];
+            }
+            return {...booking, requirements}
+          });
+          console.log("response for bookings request sent");
+          console.log("******************************");
+          return res.json(output);
         });
     });
   return router;
