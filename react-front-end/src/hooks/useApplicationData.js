@@ -50,7 +50,7 @@ export default function useApplicationData(){
 
   //calendar - the main calendar data
   const [calendar, setCalendar] = useState(testData);
-  
+  const [bookings, setBookings] = useState([])
   //Load all initial site data
   useEffect(() => {
     Promise.all([
@@ -59,16 +59,22 @@ export default function useApplicationData(){
     ])
       .then((all) => {
         //load bookings into calendar array
-        console.log(all);
-        setCalendar(all[0].data.map((booking) => {
+        let bookingList = all[0].data;
+        for (let i = 0; i < bookingList.length ; i++) {
+          bookingList[i].bookingID = i;
+        }
+        setBookings(bookingList);
+        setCalendar(bookingList.map((booking) => {
           return { 
-            id: booking.id,
+            id: booking.bookingID,
             title: booking.name,
-            desc: `Workers: ${booking.totalWorkers}, Time(p-hrs): ${booking.totalTime}`,
-            start: (new Date(booking.start)),
-            end: (new Date(booking.end))
+            desc: `Workers: ${booking.estimate_total_workers}, Time(p-hrs): ${booking.estimate_total_time}`,
+            start: (new Date(booking.starts)),
+            end: (new Date(booking.ends))
           };
         }))
+                  console.log(calendar[0]);
+
         //OTHER INITIAL SITE LOAD DATA SAVING HERE
       })
       .catch((e) => {
