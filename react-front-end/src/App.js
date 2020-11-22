@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import 'fontsource-roboto';
 import JobCalendar from './components/JobCalendar'
+import AddJob from './components/AddJob'
 
 class App extends Component {
   constructor(props) {
@@ -42,15 +43,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>{ this.state.message }</h1>
+        {/* <h1>{ this.state.message }</h1>
         <button onClick={this.fetchData} >
           Fetch Data
         </button> 
         <h1>{ this.state.message2 }</h1>
         <button onClick={this.query} >
           query
-        </button>
-        <JobCalendar/>
+        </button> */}
+        {/* <JobCalendar/> */}
+        <AddJob/>
       </div>
     );
   }
