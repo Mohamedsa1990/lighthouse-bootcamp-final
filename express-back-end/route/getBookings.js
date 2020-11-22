@@ -42,9 +42,14 @@ fakeBookings = [
 module.exports = (db) => {
     router.get('/', (req, res) => {
       console.log("request for bookings recieved")
-      db.query("SELECT * FROM users WHERE id=100")
+      db.query(`SELECT jobs.*, starts, ends FROM jobs JOIN 
+                  (SELECT job_id, starts, ends FROM (SELECT DISTINCT(starts), job_id, ends FROM assignments)AS list1
+                  UNION
+                  SELECT DISTINCT(job_id), starts, ends FROM assignments)as bookings
+                ON jobs.id = job_id`)
         .then(data =>{
-          return res.json(fakeBookings);
+          console.log(Object.keys(data.rows[0]))
+          return res.json(data.rows);
         });
     });
   return router;
