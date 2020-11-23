@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Requirements from './Requirements';
 import NewJob from './NewJob';
-import AssignWorker from './AssignWorkerAssignWorker';
+import AssignWorker from './AssignWorker';
 
 
 

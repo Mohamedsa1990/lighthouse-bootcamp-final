@@ -3,7 +3,7 @@ import axios from 'axios';
 import './App.css';
 import 'fontsource-roboto';
 import JobCalendar from './components/JobCalendar'
-import AddJob from './components/AddJob'
+import AddJob from './components/Add Job/AddJob'
 
 class App extends Component {
   constructor(props) {
