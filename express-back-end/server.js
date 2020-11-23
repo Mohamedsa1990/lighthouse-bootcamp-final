@@ -26,11 +26,11 @@ App.use(Express.static('public'));
 
 // test route
 const getusers = require("./route/getusers")
-const getJobs = require("./route/getJobs")
+const jobs = require("./route/jobs")
 
 // routes
 App.use("/api/query", getusers(db));
-App.use("/api/jobs", getJobs(db));
+App.use("/api/jobs", jobs(db));
 
 App.get('/api/data', (req, res) => res.json({
   message: "Seems to work!",
