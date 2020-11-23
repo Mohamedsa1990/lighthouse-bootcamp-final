@@ -61,6 +61,7 @@ export default function useApplicationData(){
       //OTHER INITIAL SITE LOAD DATA REQUESTS HERE
     ])
       .then((all) => {
+        // console.log("response for jobs request: ", all[0].data)
         //load bookings into calendar array
         let jobList = all[0].data;
         let calendarEntries = [];
@@ -203,5 +204,5 @@ export default function useApplicationData(){
     });
   };
 
-  return {calendar, addChangeJob, cancelJob, addChangeAssignment};
+  return {calendar, addChangeJob, cancelJob, addChangeAssignment, jobs};
 };

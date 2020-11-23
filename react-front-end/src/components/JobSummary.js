@@ -29,15 +29,15 @@ export default function JobSummary(props) {
           <Box m={2}>
             <Typography variant="h5">Job Summary</Typography>
           </Box>
-          <QuoteNotes />
+          <QuoteNotes jobs={props.jobs}/>
           <Divider />
-          <CustomerInfo/>
+          <CustomerInfo jobs={props.jobs}/>
           <Divider/>
-          <Estimates />
+          <Estimates jobs={props.jobs}/>
           <Divider/>
-          <Requirements/>
+          <Requirements jobs={props.jobs}/>
           <Divider/>
-          <Assignments />
+          <Assignments jobs={props.jobs}/>
         </Paper>
       </Container>
     </main>

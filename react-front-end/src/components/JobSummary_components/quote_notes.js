@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
-import axios from 'axios'
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,20 +15,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const notesData = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-
-
-// const fetchNotesData = () => {
-//   axios.get('/api/jobsummary')
-//   .then((res) => {
-//     console.log("fetchNotesData: ", res.data)
-//   })
-// };
-// fetchNotesData();
-
-export default function QuoteNotes() {
+export default function QuoteNotes(props) {
   const classes = useStyles();
-  
 
   return (
     <div className={classes.root} >
@@ -38,19 +24,10 @@ export default function QuoteNotes() {
         <Grid  item xs>
           <Paper elevetion={3} className={classes.paper} >
             <Typography color="textPrimary" component="span">Quote Notes: </Typography> 
-            {notesData}
+            {/* {props.jobs[0].notes} */}
           </Paper>
         </Grid>    
       </Grid>
     </div>
   );
 }
-
-// from express/... server.js
-// App.get('/api/jobsummary', (req, res) => {
-//   db.query ("SELECT * FROM jobs WHERE id = 1")
-//   .then(data => {
-//     res.json(data.rows)
-//     // return res.json(data.rows)
-//   })
-// });

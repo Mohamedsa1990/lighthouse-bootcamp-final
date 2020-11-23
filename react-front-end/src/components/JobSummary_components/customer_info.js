@@ -13,6 +13,7 @@ import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { Typography } from '@material-ui/core';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -23,15 +24,8 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(4),
   },
 }));
-const customerData = {
-  name: "Homer",
-  lastname: "Simpson",
-  phone: "778-976-0843",
-  email: "homer@email.com",
-  address: "123-simpson lane",
-  city: "Springfield"
-}
-export default function CustomerInfo() {
+
+export default function CustomerInfo(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -51,7 +45,10 @@ export default function CustomerInfo() {
       className={classes.root}
     >
       <ListItem button onClick={handleClick}>
-        <ListItemText primary="Name:" secondary={customerData.name + " " + customerData.lastname}/>
+        <ListItemText primary="Name:" 
+
+        // secondary={props.jobs[0].customer_first_name + " " + props.jobs[0].customer_last_name}
+        />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       
@@ -61,19 +58,20 @@ export default function CustomerInfo() {
             <ListItemIcon>
               <CallIcon color="primary"/>
             </ListItemIcon>
-            <ListItemText primary="Phone:" secondary={customerData.phone} />
+
+            {/* <ListItemText primary="Phone:" secondary={props.jobs[0].customer_phone_number} /> */}
           </ListItem>
           <ListItem className={classes.nested}>
             <ListItemIcon>
               <AlternateEmailIcon color="primary"/>
             </ListItemIcon>
-            <ListItemText primary="Email:" secondary={customerData.email} />        
+            {/* <ListItemText primary="Email:" secondary={props.jobs[0].customer_email} />         */}
           </ListItem>
           <ListItem className={classes.nested}>
             <ListItemIcon>
               <LocationOnIcon color="primary"/>
             </ListItemIcon>
-            <ListItemText primary="Location:" secondary={customerData.address + ", " + customerData.city}/>
+            {/* <ListItemText primary="Location:" secondary={props.jobs[0].customer_address + ", " + props.jobs[0].customer_city}/> */}
           </ListItem>
         </List>
       </Collapse>

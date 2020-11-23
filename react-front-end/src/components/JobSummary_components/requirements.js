@@ -15,12 +15,13 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
+
 const columns = [
   { id: 'tasks', label: 'Tasks', minWidth: 50, maxWidth: 100},
   { id: 'workers', label: 'Workers', minWidth: 10, maxWidth: 30, align: 'center' },
   {
     id: 'time_quoted',
-    label: 'Time\u00a0Quoted',
+    label: 'Time\u00a0Quoted\u00a0(hrs)',
     minWidth: 10, 
     maxWidth: 30,
     align: 'center',
@@ -38,21 +39,6 @@ function createData(tasks, workers, time_quoted, difficulty) {
   return { tasks, workers, time_quoted, difficulty };
 }
 
-const rows = [
-  createData('Lawn Mowing', 1, '1 hr', 2),
-  createData('Trimming', 1, '45 min', 1),
-  createData('Hedge Pruning', 2, '1 hr', 3),
-  createData('Cleanup', 1, '15 min', 1),
-];
-
-// const useStyles = makeStyles({
-//   root: {
-//     width: '100%',
-//   },
-//   container: {
-//     maxHeight: 250,
-//   },
-// });
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -67,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Requirements() {
+export default function Requirements(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -86,6 +72,13 @@ export default function Requirements() {
   const handleClick = () => {
     setOpen(!open);
   };
+  // const requirementsArray = props.jobs[1].requirements;
+  // console.log("requirementsArray: ", requirementsArray)
+  // const rows = requirementsArray.map((obj) => {
+  //   return createData(obj.name, obj.estimate_workers, obj.estimate_time, obj.difficulty)
+  // });
+
+  const rows = [ ]; // comment this out when uncommenting above
 
   return (
     <List

@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
-import useApplicationData from '../../hooks/useApplicationData'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,33 +15,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const estimatesData = {
-  time: "4 p-hrs",
-  workers: 4
-}
 
-export default function Estimates() {
+export default function Estimates(props) {
   const classes = useStyles();
-
-  const hookObject = useApplicationData();
-  // console.log("calendar data, object 0, estimates: ", hookObject.calendar[0].desc);
-
+  
   return (
     <div className={classes.root} >
       <Grid container spacing={3} >
         <Grid  item xs>
           <Paper className={classes.paper}>
-  <Typography color="textPrimary" component="span">Time Estimate: </Typography>
-            {/* {estimatesData.time} */}
-            {hookObject.calendar[0].desc}
+            <Typography color="textPrimary">Time Estimate: </Typography>
+            {/* <Typography align="right"> {props.jobs[0].estimate_total_time} p-hrs</Typography> */}
           </Paper>
         </Grid>
-        {/* <Grid item xs>
+        <Grid item xs>
           <Paper className={classes.paper}>
-            <Typography color="textPrimary" component="span">Required Workers: </Typography>
-            {estimatesData.workers}
+            <Typography color="textPrimary" >Required Workers: </Typography>
+            {/* <Typography align="right">{props.jobs[0].estimate_total_workers}</Typography> */}
           </Paper>
-        </Grid> */}
+        </Grid>
       </Grid>
     </div>
   );
