@@ -128,7 +128,7 @@ export default function useApplicationData(){
       //job id=0 -> new job
       jobDetails.id = 0;
     }
-
+    console.log("************saving Job*************")
     return axios.put(`/api/jobs/${jobDetails.id}`, jobDetails)
     .then((response) => {
       let newJob = {...jobDetails, id: response.id};
@@ -137,12 +137,13 @@ export default function useApplicationData(){
         let output = [...old]
         let oldJob = output.filter((job) => newJob.id === job.id)[0];
         if (oldJob) {
-          oldJob = {...old, ...newJob};//replaces only the keys in newJob
+          oldJob = {...oldJob, ...newJob};//replaces only the keys in newJob
         } else {
           output.push(newJob);
         }
         return output;
       });
+      console.log(jobs)
       return response.id;
     })
     .catch((e) => {
@@ -167,10 +168,11 @@ export default function useApplicationData(){
         let job = output.filter((job) => newAssignment.job_id === job.id)[0];
         let assignment = job.assignments.filter((assignment) => newAssignment.id === assignment.id)[0];
         if (assignment) {
-          assignment = newAssignment;
+          assignment = {...assignment, newAssignment};
         } else {
           job.assignments.push(newAssignment);
         }
+        console.log(job);
         updateCalendar(job);
         return output;
       });
@@ -181,7 +183,30 @@ export default function useApplicationData(){
     });
   };
 
-  
+  function cancelAssignment(id) {
+    //request that the server delete the Job
+    return axios.delete(`/api/assignments/${id}`)
+    .then(() => {
+      let job = {}
+      setJobs((oldJobs) => {
+        job = oldJobs.filter((job) => {
+          let assignment = job.assignments.filter((assignment) => id === assignment.id)[0];
+          
+          return assignment
+        })[0];
+        console.log(job);
+        let index = job.assignments.map((assignment) => assignment.id).indexOf(id);
+        job.assignments = job.assignments.splice(index, 1);
+        return oldJobs;
+      })
+      updateCalendar(job);
+      console.log(`success ${job}`);
+    })
+    .catch((e) => {
+      console.log("*************Error Deleting Job************");
+      return e;
+    });
+  };
 
   function cancelJob(id) {
     //request that the server delete the Job
@@ -203,5 +228,7 @@ export default function useApplicationData(){
     });
   };
 
-  return {calendar, addChangeJob, cancelJob, addChangeAssignment};
+  return {calendar, addChangeJob, cancelJob, addChangeAssignment, cancelAssignment};
 };
+
+

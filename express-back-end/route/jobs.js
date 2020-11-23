@@ -66,13 +66,13 @@ module.exports = (db) => {
       }
       queryString = `INSERT INTO jobs (${keysString}) VALUES (${variableString})`;
       return db.query(queryString, values)
-        .then((res) => {
+        .then((data) => {
           return db.query(`SELECT currval('jobs_id_seq')`);
         })
-        .then((res2) => {
+        .then((data2) => {
           console.log("*******************")
           console.log("response for successfully saved new job");
-          return res2.rows[0].currval;
+          return res.json(data2.rows[0].currval);
         })
         .catch(err => console.log(err));
     }
@@ -93,17 +93,17 @@ module.exports = (db) => {
     queryString = `UPDATE jobs SET ${setString}`;
 
     return db.query(queryString, values)
-        .then((res) => {
+        .then((data) => {
           console.log("*******************");
           console.log("response for successfully saved job update")
-          return incomingID;
+          return res.json(incomingID);
         })
         .catch(err => console.log(err));
   });
 
   router.delete('/:id', (req, res) => {
     return db.query(`DELETE FROM jobs WHERE id = $1`, [req.params.id])
-      .then(res => res.row)
+      .then(data => res.json(data.row))
       .catch(err => console.log('delete error: ', err));
   })
   return router;

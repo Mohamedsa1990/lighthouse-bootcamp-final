@@ -25,15 +25,15 @@ module.exports = (db) => {
           }
         }
       }
-      queryString = `INSERT INTO requirements (${keysString}) VALUES (${variableString})`;
+      queryString = `INSERT INTO assignments (${keysString}) VALUES (${variableString})`;
       return db.query(queryString, values)
-        .then((res) => {
-          return db.query(`SELECT currval('requirements_id_seq')`);
+        .then((data) => {
+          return db.query(`SELECT currval('assignments_id_seq')`);
         })
-        .then((res2) => {
+        .then((data2) => {
           console.log("*******************")
           console.log("response for successfully saved new requirement");
-          return res2.rows[0].currval;
+          return res.json(data2.rows[0].currval);
         })
         .catch(err => console.log(err));
     }
@@ -51,19 +51,19 @@ module.exports = (db) => {
     }
     values.push(incomingID);
     setString += ` WHERE id = $${values.length}`;
-    queryString = `UPDATE requirements SET ${setString}`;
+    queryString = `UPDATE assignments SET ${setString}`;
 
     return db.query(queryString, values)
-        .then((res) => {
+        .then((data) => {
           console.log("*******************");
           console.log("response for successfully saved requirement update")
-          return incomingID;
+          return res.json(incomingID);
         })
         .catch(err => console.log(err));
   });
   router.delete('/:id', (req, res) => {
-    return db.query(`DELETE FROM requirements WHERE id = $1`, [req.params.id])
-      .then(res => res.row)
+    return db.query(`DELETE FROM assignments WHERE id = $1`, [req.params.id])
+      .then(data => res.json(data.row))
       .catch(err => console.log('delete error: ', err));
   })
   return router;

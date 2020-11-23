@@ -53,7 +53,7 @@ export default function App(){
             <JobCalendar bookings={calendar}/>
           </Grid>
           <Grid  item xs>
-            <JobSummary />
+            {/* <JobSummary /> */}
           </Grid>
         </Grid>
     </div>

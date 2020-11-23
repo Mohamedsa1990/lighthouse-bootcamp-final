@@ -27,13 +27,13 @@ module.exports = (db) => {
       }
       queryString = `INSERT INTO assignments (${keysString}) VALUES (${variableString})`;
       return db.query(queryString, values)
-        .then((res) => {
+        .then((data) => {
           return db.query(`SELECT currval('assignments_id_seq')`);
         })
-        .then((res2) => {
+        .then((data2) => {
           console.log("*******************")
           console.log("response for successfully saved new assignment");
-          return res2.rows[0].currval;
+          return res.json(data2.rows[0].currval);
         })
         .catch(err => console.log(err));
     }
@@ -54,16 +54,16 @@ module.exports = (db) => {
     queryString = `UPDATE assignments SET ${setString}`;
 
     return db.query(queryString, values)
-        .then((res) => {
+        .then((data) => {
           console.log("*******************");
           console.log("response for successfully saved assignment update")
-          return incomingID;
+          return res.json(incomingID);
         })
         .catch(err => console.log(err));
   });
   router.delete('/:id', (req, res) => {
     return db.query(`DELETE FROM assignments WHERE id = $1`, [req.params.id])
-      .then(res => res.row)
+      .then(data => res.json(data.row))
       .catch(err => console.log('delete error: ', err));
   })
   return router;
