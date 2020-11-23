@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Requirements from './Requirements';
-// import Review from './Review';
 import NewJob from './NewJob';
+import AssignWorker from './AssignWorkerAssignWorker';
+
+
+
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -53,28 +52,61 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Job details', 'Requirement details', 'Assign employees'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <NewJob />;
-    case 1:
-      return <Requirements />
-    default:
-      throw new Error('Unknown step');
-  }
-}
 
 export default function Checkout() {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-
+  const [activeStep, setActiveStep] = useState(0);
+  const [jobName, setJobName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [Email, setEmail] = useState('');
+  const [Start, setStart] = useState('');
+  const [end, setEnd] = useState('');
+  const [tasks, setTasks] = useState([]);
+  
+  
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
-
+  
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+  
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <NewJob 
+          jobName = {jobName} 
+          setJobName = {setJobName} 
+          firstName = {firstName} 
+          setFirstName= {setFirstName}
+          lastName= {lastName}
+          setLastName = {setLastName}
+          address = {address}
+          setAddress = {setAddress}
+          city = {city} 
+          setCity = {setCity}
+          phoneNumber={phoneNumber}
+          setPhoneNumber={setPhoneNumber}
+          Email = {Email} 
+          setEmail = {setEmail}
+          start = {Start}
+          setStart = {setStart}
+          end = {end} 
+          setEnd = {setEnd}
+          />
+      case 1:
+        return <Requirements tasks={tasks} setTasks={setTasks} />
+      case 2:
+        return <AssignWorker />
+      default:
+        throw new Error('Unknown step');
+    }
+  }
 
   return (
     <React.Fragment>

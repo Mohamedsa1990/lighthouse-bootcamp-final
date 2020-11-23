@@ -3,11 +3,26 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid'
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
-import Divider from '@material-ui/core/Divider';
 import TaskDialogComponent from './taskDialogComponent'
 import TaskListComponent from './taskListComponent'
+import {useFormik} from 'formik'
 
-export default function Requirements() {
+
+export default function Requirements({tasks, setTasks}) {
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      difficulty: '',
+      worker: '',
+      time: '',
+      description: '',
+    },
+    onSubmit: (values, {resetForm}) => {
+      setTasks([...tasks, values])
+      resetForm({values: ''})
+      setTaskDialogOpen(false);
+    },
+  });
   const [taskDialogOpen, setTaskDialogOpen] = useState(false)
   const handleaTaskDialogOpen = () => {
     setTaskDialogOpen(true);
@@ -15,30 +30,11 @@ export default function Requirements() {
   const handleTaskDialogClose = () => {
     setTaskDialogOpen(false);
   }
-
-  const [tasks, setTasks] = useState([
-    {
-      id:1,
-      name:"Lawn Mowing1",
-      difficulty: "Med",
-      time: 240,
-      description: "lorem ipsum Hello world"
-    },
-    {
-      id:2,
-      name:"Lawn Mowing2",
-      difficulty: "Low",
-      time: 180,
-      description: "lorem ipsum Hello world"
-    },
-    {
-      id:3,
-      name:"Lawn Mowing3",
-      difficulty: "High",
-      time: 120,
-      description: "lorem ipsum Hello world"
-    },
-  ]);
+  const handleDelete = (name) => {
+    const newTasks = [...tasks];
+    setTasks([...newTasks.filter(t => t.name !== name)])
+  }
+  
   return (
     <React.Fragment>
       <Grid container spacing={3} justify="space-between" alignItems="center">
@@ -52,12 +48,10 @@ export default function Requirements() {
           <AddIcon />
           </Fab>
         </Grid>
-        <Grid item xs={12}>
-          <Divider />
-        </Grid>
         <Grid container spacing={2} direction="column" align="center">
           <TaskListComponent
           tasks={tasks}
+          delete={handleDelete}
           />
         </Grid>
       </Grid>
@@ -65,6 +59,7 @@ export default function Requirements() {
         <TaskDialogComponent 
           open={taskDialogOpen}
           handleClose= {handleTaskDialogClose}
+          formik={formik}
         />
       </Grid>
     </React.Fragment>
