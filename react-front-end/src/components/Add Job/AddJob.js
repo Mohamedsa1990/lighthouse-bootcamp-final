@@ -66,6 +66,8 @@ export default function Checkout() {
   const [Start, setStart] = useState('');
   const [end, setEnd] = useState('');
   const [tasks, setTasks] = useState([]);
+
+  const [checkedEmployee, setCheckedEmployee] = useState([]);
   
   
   const handleNext = () => {
@@ -102,7 +104,7 @@ export default function Checkout() {
       case 1:
         return <Requirements tasks={tasks} setTasks={setTasks} />
       case 2:
-        return <AssignWorker />
+        return <AssignWorker checkedEmployee={checkedEmployee} setCheckedEmployee={setCheckedEmployee}/>
       default:
         throw new Error('Unknown step');
     }
@@ -148,7 +150,7 @@ export default function Checkout() {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                    {activeStep === steps.length - 1 ? 'Save Job' : 'Next'}
                   </Button>
                 </div>
               </React.Fragment>

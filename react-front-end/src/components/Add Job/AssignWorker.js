@@ -1,123 +1,115 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Checkbox from '@material-ui/core/Checkbox';
+import Avatar from '@material-ui/core/Avatar';
+import { Grid } from '@material-ui/core';
+import { Typography } from '@material-ui/core'
 
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
-export default function AssignWorker({jobname, setJobName, firstName, setFirstName, lastName, setLastName, address,setAddress
-  , city, setCity,phoneNumber, setPhoneNumber, Email, setEmail, start, setStart, end, setEnd }) {
+export default function AssignWorker({checkedEmployee, setCheckedEmployee}) {
+  const classes = useStyles();
+  const users = [{
+    id:1,
+    first_name:"John",
+    last_name:"Doe",
+    admin:false
+  },{
+    id:2,
+    first_name:"James",
+    last_name:"Morgan",
+    admin:false
+  },{
+    id:3,
+    first_name:"Dan",
+    last_name:"Smith",
+    admin:false
+  },{
+    id:3,
+    first_name:"Dan",
+    last_name:"Smith",
+    admin:false
+  },{
+    id:3,
+    first_name:"Dan",
+    last_name:"Smith",
+    admin:false
+  },{
+    id:3,
+    first_name:"Dan",
+    last_name:"Smith",
+    admin:false
+  },{
+    id:3,
+    first_name:"Dan",
+    last_name:"Smith",
+    admin:false
+  },{
+    id:3,
+    first_name:"Dan",
+    last_name:"Smith",
+    admin:false
+  }]
+  
+  
+  const handleToggle = (value) => () => {
+    const currentIndex = checkedEmployee.map(e => e.id).indexOf(value.id);
+    const newChecked = [...checkedEmployee];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setCheckedEmployee(newChecked);
+  };
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom align="left">
-        Job details
+        Assign Worker
       </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="Job name"
-            name="Job name"
-            label="Job name"
-            fullWidth
-            value={jobname}
-            onChange={e => setJobName(e.target.value)}
-            />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="firstName"
-            name="firstName"
-            label="First name"
-            fullWidth
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
-            />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="lastName"
-            name="lastName"
-            label="Last name"
-            fullWidth
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
-            />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="address"
-            name="address"
-            label="Address"
-            fullWidth
-            value={address}
-            onChange={e => setAddress(e.target.value)}
-            />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="city"
-            name="city"
-            label="City"
-            fullWidth
-            value={city}
-            onChange={e => setCity(e.target.value)}
-            />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="Phone number"
-            name="Phone number"
-            label="Phone number"
-            fullWidth
-            value={phoneNumber}
-            onChange={e => setPhoneNumber(e.target.value)}
-            />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="Email"
-            name="Email"
-            label="Email"
-            fullWidth
-            value={Email}
-            onChange={e => setEmail(e.target.value)}
-            />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="datetime-local"
-            label="Start"
-            type="datetime-local"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            fullWidth
-            value={start}
-            onChange={e => setStart(e.target.value)}
-            />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="datetime-local"
-            label="End"
-            type="datetime-local"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            fullWidth
-            value={end}
-            onChange={e => setEnd(e.target.value)}
-            />
-        </Grid>
+      <Grid container>
+        <List dense className={classes.root}>
+        {users.map((value) => {
+          const labelId = `checkbox-list-secondary-label-${value}`;
+          return (
+            <ListItem key={value.id} button>
+              <ListItemAvatar>
+                <Avatar
+                  alt={`${value.first_name[0]}`}
+                  src={`/static/images/avatar/${value + 1}.jpg`}
+                />
+              </ListItemAvatar>
+              <ListItemText id={labelId} primary={`${value.first_name} ${value.last_name}`} />
+              <ListItemSecondaryAction>
+                <Checkbox
+                  edge="end"
+                  onChange={handleToggle(value)}
+                  checked={checkedEmployee.map(e => e.id).indexOf(value.id) !== -1}
+                  inputProps={{ 'aria-labelledby': labelId }}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+          );
+        })}
+        </List>
       </Grid>
     </React.Fragment>
   );
