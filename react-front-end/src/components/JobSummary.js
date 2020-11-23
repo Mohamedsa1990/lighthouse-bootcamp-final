@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Typography, Container, Box, Divider, Paper} from '@material-ui/core';
+import {Typography, Container, Box, Divider, Paper} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import CustomerInfo from './JobSummary_components/customer_info';
 import Requirements from './JobSummary_components/requirements';
@@ -33,16 +33,10 @@ export default function JobSummary(props) {
           <Divider />
           <CustomerInfo/>
           <Divider/>
-          <Estimates m={2}/>
+          <Estimates />
           <Divider/>
-          <Box mt={2} ml={2}>
-            <Typography align="left">Requirements:</Typography>
-          </Box>
           <Requirements/>
           <Divider/>
-          <Box mt={2} ml={2}>
-            <Typography align="left">Assignments:</Typography>
-          </Box>
           <Assignments />
         </Paper>
       </Container>
