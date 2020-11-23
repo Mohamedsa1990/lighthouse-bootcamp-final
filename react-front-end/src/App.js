@@ -4,6 +4,7 @@ import './App.css';
 import 'fontsource-roboto';
 import JobCalendar from './components/JobCalendar'
 import JobSummary from './components/JobSummary'
+import { Container, Box, Grid } from '@material-ui/core';
 
 
 class App extends Component {
@@ -52,8 +53,14 @@ class App extends Component {
         <button onClick={this.query} >
           query
         </button>
-        {/* <JobCalendar/> */}
-        <JobSummary />
+        <Grid container spacing={1}>
+          <Grid  item xs>
+            <JobCalendar/>
+          </Grid>
+          <Grid  item xs>
+            <JobSummary />
+          </Grid>
+        </Grid>
       </div>
     );
   }
