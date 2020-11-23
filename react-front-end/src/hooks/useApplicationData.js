@@ -143,6 +143,7 @@ export default function useApplicationData(){
         }
         return output;
       });
+      return response.id;
     })
     .catch((e) => {
       console.log("*************Error Saving Job************");
