@@ -4,7 +4,7 @@ const router = express.Router();
 module.exports = (db) => {
   router.put('/:id', (req, res) => {
     console.log("******************************");
-    console.log("request to save assignment received");
+    console.log("request to save requirement received");
     let incomingID = req.params.id;
     let incoming = req.body;
     let queryString = "";
@@ -25,14 +25,14 @@ module.exports = (db) => {
           }
         }
       }
-      queryString = `INSERT INTO assignments (${keysString}) VALUES (${variableString})`;
+      queryString = `INSERT INTO requirements (${keysString}) VALUES (${variableString})`;
       return db.query(queryString, values)
         .then((res) => {
-          return db.query(`SELECT currval('assignments_id_seq')`);
+          return db.query(`SELECT currval('requirements_id_seq')`);
         })
         .then((res2) => {
           console.log("*******************")
-          console.log("response for successfully saved new assignment");
+          console.log("response for successfully saved new requirement");
           return res2.rows[0].currval;
         })
         .catch(err => console.log(err));
@@ -51,18 +51,18 @@ module.exports = (db) => {
     }
     values.push(incomingID);
     setString += ` WHERE id = $${values.length}`;
-    queryString = `UPDATE assignments SET ${setString}`;
+    queryString = `UPDATE requirements SET ${setString}`;
 
     return db.query(queryString, values)
         .then((res) => {
           console.log("*******************");
-          console.log("response for successfully saved assignment update")
+          console.log("response for successfully saved requirement update")
           return incomingID;
         })
         .catch(err => console.log(err));
   });
   router.delete('/:id', (req, res) => {
-    return db.query(`DELETE FROM assignments WHERE id = $1`, [req.params.id])
+    return db.query(`DELETE FROM requirements WHERE id = $1`, [req.params.id])
       .then(res => res.row)
       .catch(err => console.log('delete error: ', err));
   })
