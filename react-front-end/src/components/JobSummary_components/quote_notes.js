@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
 import axios from 'axios'
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -18,17 +19,18 @@ const useStyles = makeStyles((theme) => ({
 
 const notesData = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
 
-const fetchNotesData = () => {
-  axios.get('/api/jobsummary')
-  .then((res) => {
-    console.log("fetchNotesData: ", res.data)
-  })
-};
 
-fetchNotesData();
+// const fetchNotesData = () => {
+//   axios.get('/api/jobsummary')
+//   .then((res) => {
+//     console.log("fetchNotesData: ", res.data)
+//   })
+// };
+// fetchNotesData();
 
 export default function QuoteNotes() {
   const classes = useStyles();
+  
 
   return (
     <div className={classes.root} >
