@@ -131,7 +131,7 @@ export default function useApplicationData(){
     console.log("************saving Job*************")
     return axios.put(`/api/jobs/${jobDetails.id}`, jobDetails)
     .then((response) => {
-      let newJob = {...jobDetails, id: response.id};
+      let newJob = {...jobDetails, id: response.data};
       
       setJobs((old) => {
         let output = [...old]
@@ -161,8 +161,8 @@ export default function useApplicationData(){
 
     return axios.put(`/api/assignments/${assignmentDetails.id}`, assignmentDetails)
     .then((response) => {
-      let newAssignment = {...assignmentDetails, id: response.id};
-      
+      let newAssignment = {...assignmentDetails, id: response.data};
+      console.log(`************responce:`, response)
       setJobs((old) => {
         let output = [...old]
         let job = output.filter((job) => newAssignment.job_id === job.id)[0];
