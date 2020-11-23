@@ -93,43 +93,51 @@ export default function useApplicationData(){
       });
   }, []);
 
+  const updateCalendar = function(job) {
+    let calendarEntries = [...calendar]
+    let dates = [];
+    let calendarIDs = [];
+    if (job.calendarIDs) {
+      calendarIDs = job.calendarIDs;
+      for(const index of calendarIDs){
+        calendarEntries = calendarEntries.splice(index, 1);
+      }
+    }
+    for (const assignment of job.assignments) {
+      if (!dates.includes(assignment.starts)) {
+        dates.push(assignment.starts);
+        let index = calendarEntries.length
+        calendarIDs.push(index);
+        calendarEntries.push({
+          id: index,
+          title: job.name,
+          desc: `Workers: ${job.estimate_total_workers}, Time(p-hrs): ${job.estimate_total_time}`,
+          start: (new Date(assignment.starts)),
+          end: (new Date(assignment.ends))
+        });
+      }
+    }
+    
+    setCalendar(calendarEntries);
+    return calendarIDs;
+  }
+
   const addChangeJob = function(jobDetails) {
+    //check if it is a new job, then all details will be new
     if (!jobDetails.id) {
-      //job id=0 > new job
+      //job id=0 -> new job
       jobDetails.id = 0;
     }
-    return axios.put(`/api/job/${jobDetails.id}`, jobDetails)
+
+    return axios.put(`/api/jobs/${jobDetails.id}`, jobDetails)
     .then((response) => {
       let newJob = {...jobDetails, id: response.id};
-      let calendarEntries = [...calendar]
-      let dates = [];
-      let calendarIDs = [];
-      if (jobDetails.id !== 0) {
-        calendarIDs = jobDetails.calendarIDs;
-        for(const index of calendarIDs){
-          calendarEntries = calendarEntries.splice(index, 1);
-        }
-      }
-      for (const assignment of newJob.assignments) {
-        if (!dates.includes(assignment.starts)) {
-          dates.push(assignment.starts);
-          let index = calendarEntries.length
-          calendarIDs.push(index);
-          calendarEntries.push({
-            id: index,
-            title: newJob.name,
-            desc: `Workers: ${newJob.estimate_total_workers}, Time(p-hrs): ${newJob.estimate_total_time}`,
-            start: (new Date(assignment.starts)),
-            end: (new Date(assignment.ends))
-          });
-        }
-      }
-      setCalendar(calendarEntries);
+      
       setJobs((old) => {
         let output = [...old]
         let oldJob = output.filter((job) => newJob.id === job.id)[0];
         if (oldJob) {
-          oldJob = newJob;
+          oldJob = {...old, ...newJob};//replaces only the keys in newJob
         } else {
           output.push(newJob);
         }
@@ -141,6 +149,38 @@ export default function useApplicationData(){
       return e;
     });
   };
+
+  const addChangeAssignment = function(assignmentDetails) {
+    //check if it is a new job, then all details will be new
+    if (!assignmentDetails.id) {
+      //job id=0 -> new job
+      assignmentDetails.id = 0;
+    }
+
+    return axios.put(`/api/assignments/${assignmentDetails.id}`, assignmentDetails)
+    .then((response) => {
+      let newAssignment = {...assignmentDetails, id: response.id};
+      
+      setJobs((old) => {
+        let output = [...old]
+        let job = output.filter((job) => newAssignment.job_id === job.id)[0];
+        let assignment = job.assignments.filter((assignment) => newAssignment.id === assignment.id)[0];
+        if (assignment) {
+          assignment = newAssignment;
+        } else {
+          job.assignments.push(newAssignment);
+        }
+        updateCalendar(job);
+        return output;
+      });
+    })
+    .catch((e) => {
+      console.log("*************Error Saving Job************");
+      return e;
+    });
+  };
+
+  
 
   function cancelJob(id) {
     //request that the server delete the Job
@@ -162,5 +202,5 @@ export default function useApplicationData(){
     });
   };
 
-  return {calendar, addChangeJob, cancelJob};
+  return {calendar, addChangeJob, cancelJob, addChangeAssignment};
 };

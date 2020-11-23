@@ -11,15 +11,19 @@ export default function App(){
   //EXAMPLE DATA FETCH
   const [{message, message2}, setState] = useState({message: 'Click the button to load data!', message2: 'Click to get a query'})
   function fetchData() {
-    axios.get('/api/data') // You can simply make your requests to "/api/whatever you want"
-    .then((response) => {
-      // handle success
-      console.log(response.data) // The entire response from the Rails API
-
-      console.log(response.data.message) // Just the message
-      setState((oldState) => {
-        return { ...oldState, message: response.data.message}
-      });
+    addChangeJob({
+      name: 'total Junk',
+      notes: 'you do not want to know',
+      status: 'Quote Requested',
+      estimate_total_time: 15,
+      estimate_total_workers: 25,
+      estimate_travel_time: 45,
+      customer_first_name: 'Jackie',
+      customer_last_name: 'Verecker',
+      customer_address: '8607 Meadow Vale Avenue',
+      customer_city: 'Zlataritsa',
+      customer_phone_number: '994-624-0020',
+      customer_email: 'jverecker1q@imageshack.us',
     }) 
   }
 
@@ -36,7 +40,7 @@ export default function App(){
     }) 
   }
 
-  const {calendar} = useApplicationData();
+  const {calendar, addChangeJob} = useApplicationData();
   return (
     <div className="App">
       <h1>{ message }</h1>
