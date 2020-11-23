@@ -40,24 +40,7 @@ function createData(name, date_time, duration, remove) {
 }
 
 const deleteIcon = <DeleteForeverIcon />
-const rows = [
-  createData('John (TL)', 'Dec 1, 11:30', '1 hr', deleteIcon),
-  createData('James', 'Dec 1, 11:30', '1 hr', deleteIcon),
-  createData('Jimmy', 'Dec 1, 11:30', '1 hr', deleteIcon),
-  createData('Jacky', 'Dec 1, 11:30', '1 hr', deleteIcon),
-  createData('Tom', 'Dec 1, 11:30', '1 hr', deleteIcon),
-  createData('Ronald', 'Dec 1, 11:30', '1 hr', deleteIcon),
-  createData('Carl', 'Dec 1, 11:30', '1 hr', deleteIcon),
-];
 
-// const useStyles = makeStyles({
-//   root: {
-//     width: '100%',
-//   },
-//   container: {
-//     maxHeight: 250,
-//   },
-// });
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -72,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Assignments() {
+export default function Assignments(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -90,6 +73,14 @@ export default function Assignments() {
   const handleClick = () => {
     setOpen(!open);
   };
+
+  // const assignmentsArray = props.jobs[0].assignments;
+  // // console.log("assignmentsArray: ", assignmentsArray)
+  // const rows = assignmentsArray.map((obj) => {
+  //   return createData(`${obj.first_name} ${obj.last_name}`, obj.starts, obj.estimate_hrs, deleteIcon)
+  // });
+
+  const rows = [ ]; // comment this out when uncommenting above
 
   return (
     <List
