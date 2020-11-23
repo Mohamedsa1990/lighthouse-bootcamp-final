@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import './App.css';
 import 'fontsource-roboto';
 import JobCalendar from './components/JobCalendar'
+import JobSummary from './components/JobSummary'
 import useApplicationData from './hooks/useApplicationData'
 import axios from 'axios'
-
+import Grid from '@material-ui/core/Grid';
 
 export default function App(){
   //EXAMPLE DATA FETCH
@@ -46,7 +47,14 @@ export default function App(){
       <button onClick={query} >
         query
       </button>
-      <JobCalendar bookings={calendar}/>
+        <Grid container spacing={1}>
+          <Grid  item xs>
+            <JobCalendar bookings={calendar}/>
+          </Grid>
+          <Grid  item xs>
+            <JobSummary />
+          </Grid>
+        </Grid>
     </div>
   );
 }
