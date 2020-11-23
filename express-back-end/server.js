@@ -27,10 +27,12 @@ App.use(Express.static('public'));
 // test route
 const getusers = require("./route/getusers")
 const jobs = require("./route/jobs")
+const assignments = require("./route/assignments")
 
 // routes
 App.use("/api/query", getusers(db));
 App.use("/api/jobs", jobs(db));
+App.use("/api/assignments", assignments(db));
 
 App.get('/api/data', (req, res) => res.json({
   message: "Seems to work!",

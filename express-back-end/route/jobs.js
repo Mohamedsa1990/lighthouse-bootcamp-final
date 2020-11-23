@@ -100,5 +100,11 @@ module.exports = (db) => {
         })
         .catch(err => console.log(err));
   });
+
+  router.delete('/:id', (req, res) => {
+    return db.query(`DELETE FROM jobs WHERE id = $1`, [req.params.id])
+      .then(res => res.row)
+      .catch(err => console.log('delete error: ', err));
+  })
   return router;
 };

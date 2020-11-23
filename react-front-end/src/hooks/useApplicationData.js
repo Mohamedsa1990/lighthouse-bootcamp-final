@@ -151,7 +151,7 @@ export default function useApplicationData(){
   };
 
   const addChangeAssignment = function(assignmentDetails) {
-    //check if it is a new job, then all details will be new
+    //check if it is a new assignment, then all details will be new
     if (!assignmentDetails.id) {
       //job id=0 -> new job
       assignmentDetails.id = 0;

@@ -28,19 +28,16 @@ export default function App(){
   }
 
   function query() {
-    axios.get('/api/query') // You can simply make your requests to "/api/whatever you want"
-    .then((response) => {
-      // handle success
-      console.log(response.data); // The entire response from the Rails API
-
-      console.log(response.data.first_name); // Just the message
-      setState((oldState) => {
-        return { ...oldState, message2: response.data.first_name}
-      });
-    }) 
+    addChangeAssignment({
+      job_id: 87,
+      user_id: 49,
+      starts: '2020-11-16T9:00:00-06:00',
+      ends: '2020-11-16T13:00:00-06:00',
+      estimate_hrs: 4, 
+    })
   }
 
-  const {calendar, addChangeJob} = useApplicationData();
+  const {calendar, addChangeJob, addChangeAssignment} = useApplicationData();
   return (
     <div className="App">
       <h1>{ message }</h1>
