@@ -149,19 +149,20 @@ export default function useApplicationData(){
 
     return axios.put(`/api/assignments/${assignmentDetails.id}`, assignmentDetails)
     .then((response) => {
-      let newAssignment = {...assignmentDetails, id: response.data};
+      let newAssignment = {...response.data};
       setJobs((old) => {
         let output = [...old]
         let job = output.filter((job) => newAssignment.job_id === job.id)[0];
+        job = {...job};
         let assignment = job.assignments.filter((assignment) => newAssignment.id === assignment.id)[0];
         if (assignment) {
-          assignment = {...assignment, newAssignment};
+          assignment = {...newAssignment};
         } else {
           job.assignments.push(newAssignment);
         }
         return output;
       });
-      return response.data;
+      return response.data.id;
     })
     .catch((e) => {
       console.log("*************Error Saving Job************");
@@ -179,6 +180,7 @@ export default function useApplicationData(){
         let assignment = job.assignments.filter((assignment) => id === assignment.id)[0];
         if (assignment) return true; else return false;
       })[0];
+      job = {...job}
       console.log("before");
       for(const assignment of job.assignments){
         console.log(assignment.id);
@@ -206,13 +208,14 @@ export default function useApplicationData(){
 
     return axios.put(`/api/requirements/${requirementDetails.id}`, requirementDetails)
     .then((response) => {
-      let newRequirement = {...requirementDetails, id: response.data};
+      let newRequirement = {...response.data};
       setJobs((old) => {
         let output = [...old]
         let job = output.filter((job) => newRequirement.job_id === job.id)[0];
+        job = {...job};
         let requirement = job.requirements.filter((requirement) => newRequirement.id === requirement.id)[0];
         if (requirement) {
-          requirement = {...requirement, newRequirement};
+          requirement = {...newRequirement};
         } else {
           job.requirements.push(newRequirement);
         }
@@ -236,6 +239,7 @@ export default function useApplicationData(){
         let requirement = job.requirements.filter((requirement) => id === requirement.id)[0];
         if (requirement) return true; else return false;
       })[0];
+      job = {...job};
       console.log("before");
       for(const requirement of job.requirements){
         console.log(requirement.id);

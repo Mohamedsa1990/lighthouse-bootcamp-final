@@ -12,36 +12,44 @@ export default function App(){
   const [{message, message2}, setState] = useState({message: 'Click the button to load data!', message2: 'Click to get a query'})
   const [id, setID] = useState(0);
   function fetchData() {
-    console.log("starting save")
-    const assignedJob = jobs.filter((job) => job.id === 6)[0];
-    console.log(assignedJob.requirements.length)
-    addChangeRequirement({
-      job_id: 6,
-      task_id: 6,
-      difficulty: 3,
-      estimate_time: 10,
-      estimate_workers: 3,
-    })
-    .then((asignID) => {
-        setID(asignID);
-        const assignedJob = jobs.filter((job) => job.id === 6)[0];
-        console.log(assignedJob.requirements.length)
-        console.log("assgned ID", asignID);
-      });
-
+    // addChangeJob({
+    //   name: 'total Junk',
+    //   notes: 'you do not want to know',
+    //   status: 'Quote Requested',
+    //   estimate_total_time: 15,
+    //   estimate_total_workers: 25,
+    //   estimate_travel_time: 45,
+    //   customer_first_name: 'Jackie',
+    //   customer_last_name: 'Verecker',
+    //   customer_address: '8607 Meadow Vale Avenue',
+    //   customer_city: 'Zlataritsa',
+    //   customer_phone_number: '994-624-0020',
+    //   customer_email: 'jverecker1q@imageshack.us',
+    // })
+    cancelAssignment(id)
+      .then(() => {
+        let job = jobs.filter((job) => job.id === 5)[0];
+        console.log("*** exit",job.assignments);
+      })
   }
 
   function query() {
-    const assignedJob = jobs.filter((job) => job.id === 6)[0];
-    console.log("****",assignedJob.requirements.length);
-    cancelRequirement(id)
-      .then(() => {
-        console.log("****",assignedJob.requirements.length);
-      })
-    
+    addChangeAssignment({
+      job_id: 5,
+      user_id: 49,
+      starts: '2020-11-16T08:00:00-06:00',
+      ends: '2020-11-16T13:00:00-06:00',
+      estimate_hrs: 4, 
+    })
+      .then((asignID) => {
+        setID(asignID);
+        console.log("assgned ID",asignID);
+        let job = jobs.filter((job) => job.id === 5)[0];
+        console.log("*** enter",job.assignments);
+      });
   }
 
-  const {calendar, jobs, addChangeJob, addChangeRequirement, cancelRequirement} = useApplicationData();
+  const {jobs, calendar, addChangeJob, addChangeAssignment, cancelAssignment} = useApplicationData();
   return (
     <div className="App">
       <h1>{ message }</h1>

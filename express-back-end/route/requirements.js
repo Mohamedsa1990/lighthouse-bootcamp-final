@@ -31,9 +31,13 @@ module.exports = (db) => {
           return db.query(`SELECT currval('requirements_id_seq')`);
         })
         .then((data2) => {
+          let id = data2.rows[0].currval
+          return db.query(`SELECT * FROM requirements JOIN tasks ON task_id = tasks.id WHERE requirements.id = $1`, [id]);
+        })
+        .then((data3) => {
           console.log("*******************")
           console.log("response for successfully saved new requirement");
-          return res.json(data2.rows[0].currval);
+          return res.json(data3.rows[0]);
         })
         .catch(err => console.log(err));
     }
@@ -55,9 +59,12 @@ module.exports = (db) => {
 
     return db.query(queryString, values)
         .then((data) => {
-          console.log("*******************");
-          console.log("response for successfully saved requirement update")
-          return res.json(incomingID);
+          return db.query(`SELECT * FROM requirements JOIN tasks ON task_id = tasks.id WHERE requirements.id = $1`, [incomingID]);
+        })
+        .then((data3) => {
+          console.log("*******************")
+          console.log("response for successfully saved requirement update");
+          return res.json(data3.rows[0]);
         })
         .catch(err => console.log(err));
   });

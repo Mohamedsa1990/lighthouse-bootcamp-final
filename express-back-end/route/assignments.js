@@ -31,9 +31,13 @@ module.exports = (db) => {
           return db.query(`SELECT currval('assignments_id_seq')`);
         })
         .then((data2) => {
+          let id = data2.rows[0].currval
+          return db.query(`SELECT * FROM assignments JOIN users ON user_id = users.id WHERE assignments.id = $1`, [id]);
+        })
+        .then((data3) => {
           console.log("*******************")
           console.log("response for successfully saved new assignment");
-          return res.json(data2.rows[0].currval);
+          return res.json(data3.rows[0]);
         })
         .catch(err => console.log(err));
     }
@@ -54,12 +58,15 @@ module.exports = (db) => {
     queryString = `UPDATE assignments SET ${setString}`;
 
     return db.query(queryString, values)
-        .then((data) => {
-          console.log("*******************");
-          console.log("response for successfully saved assignment update")
-          return res.json(incomingID);
-        })
-        .catch(err => console.log(err));
+      .then((data) => {
+        return db.query(`SELECT * FROM assignments JOIN users ON user_id = users.id WHERE assignments.id = $1`, [incomingID]);
+      })
+      .then((data3) => {
+        console.log("*******************")
+        console.log("response for successfully saved assignment update");
+        return res.json(data3.rows[0]);
+      })
+      .catch(err => console.log(err));
   });
   router.delete('/:id', (req, res) => {
     return db.query(`DELETE FROM assignments WHERE id = $1`, [req.params.id])
