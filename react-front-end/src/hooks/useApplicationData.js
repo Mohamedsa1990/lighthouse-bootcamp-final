@@ -44,7 +44,17 @@ const testData = [{
 }];
 
 const jobsData = [{
-  assignments: [],
+  assignments: [{
+    admin: null,
+    ends: "04/01/2020",
+    estimate_hrs: 1020,
+    first_name: "Hillyer",
+    id: 49,
+    job_id: 1,
+    last_name: "Morrel",
+    starts: "16/12/2020",
+    user_id: 49
+  }],
   calendarIDs: [],
   customer_address: "35 Straubel Street",
   customer_city: "Arcoverde",
@@ -68,24 +78,24 @@ const jobsData = [{
     name: "decks",
     task_id: 7
   }],
-    status: "Quote Requested"},
-    {
-      assignments: [],
-      calendarIDs: [],
-      customer_address: "35 Straubel Street",
-      customer_city: "Arcoverde",
-      customer_email: "bnickoll6@wunderground.com",
-      customer_first_name: "Bamby",
-      customer_last_name: "Nickoll",
-      customer_phone_number: "835-489-3765",
-      estimate_total_time: 1110,
-      estimate_total_workers: 5,
-      estimate_travel_time: 180,
-      id: 11,
-      name: "nunc viverra dapibus",
-      notes: "In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.↵↵In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.",
-      requirements: [],
-        status: "Quote Requested"
+  status: "Quote Requested"},
+  {
+  assignments: [],
+  calendarIDs: [],
+  customer_address: "35 Straubel Street",
+  customer_city: "Arcoverde",
+  customer_email: "bnickoll6@wunderground.com",
+  customer_first_name: "Bamby",
+  customer_last_name: "Nickoll",
+  customer_phone_number: "835-489-3765",
+  estimate_total_time: 1110,
+  estimate_total_workers: 5,
+  estimate_travel_time: 180,
+  id: 11,
+  name: "nunc viverra dapibus",
+  notes: "In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.↵↵In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.",
+  requirements: [],
+  status: "Quote Requested"
 }];
 
 /**

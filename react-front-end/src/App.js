@@ -7,6 +7,7 @@ import useApplicationData from './hooks/useApplicationData'
 import axios from 'axios'
 import Grid from '@material-ui/core/Grid';
 import AddJob from './components/Add Job/AddJob'
+import JobsOfDay from './components/JobsOfDay';
 
 export default function App(){
   //EXAMPLE DATA FETCH
@@ -39,7 +40,7 @@ export default function App(){
   }
 
   const {calendar, addChangeJob, addChangeAssignment, jobs} = useApplicationData();
-
+  // console.log("all jobs from hook: ", jobs)
   return (
     <div className="App">
       <h1>{ message }</h1>
@@ -55,7 +56,8 @@ export default function App(){
             <JobCalendar bookings={calendar}/>
           </Grid>
           <Grid  item xs>
-            <JobSummary jobs= {jobs} />
+            {/* <JobSummary jobs= {jobs} /> */}
+            <JobsOfDay jobs={jobs}/>
           </Grid>
         </Grid>
     </div>
