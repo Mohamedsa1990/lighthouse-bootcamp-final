@@ -36,7 +36,7 @@ module.exports = (db) => {
         });
         console.log("response for jobs request sent");
         console.log("******************************");
-        console.log(output[86]);
+        console.log(output[5]);
         return res.json(output);
       });
   });

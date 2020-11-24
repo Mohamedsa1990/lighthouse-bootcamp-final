@@ -25,10 +25,10 @@ module.exports = (db) => {
           }
         }
       }
-      queryString = `INSERT INTO assignments (${keysString}) VALUES (${variableString})`;
+      queryString = `INSERT INTO requirements (${keysString}) VALUES (${variableString})`;
       return db.query(queryString, values)
         .then((data) => {
-          return db.query(`SELECT currval('assignments_id_seq')`);
+          return db.query(`SELECT currval('requirements_id_seq')`);
         })
         .then((data2) => {
           console.log("*******************")
@@ -51,7 +51,7 @@ module.exports = (db) => {
     }
     values.push(incomingID);
     setString += ` WHERE id = $${values.length}`;
-    queryString = `UPDATE assignments SET ${setString}`;
+    queryString = `UPDATE requirements SET ${setString}`;
 
     return db.query(queryString, values)
         .then((data) => {
@@ -62,7 +62,7 @@ module.exports = (db) => {
         .catch(err => console.log(err));
   });
   router.delete('/:id', (req, res) => {
-    return db.query(`DELETE FROM assignments WHERE id = $1`, [req.params.id])
+    return db.query(`DELETE FROM requirements WHERE id = $1`, [req.params.id])
       .then(data => res.json(data.row))
       .catch(err => console.log('delete error: ', err));
   })

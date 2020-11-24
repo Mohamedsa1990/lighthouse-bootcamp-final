@@ -63,28 +63,7 @@ export default function useApplicationData(){
       .then((all) => {
         //load bookings into calendar array
         let jobList = all[0].data;
-        let calendarEntries = [];
-        for (const job of jobList) {
-          let dates = [];
-          let calendarIDs = [];
-          for (const assignment of job.assignments) {
-            if (!dates.includes(assignment.starts)) {
-              dates.push(assignment.starts);
-              let index = calendarEntries.length
-              calendarIDs.push(index);
-              calendarEntries.push({
-                id: index,
-                title: job.name,
-                desc: `Workers: ${job.estimate_total_workers}, Time(p-hrs): ${job.estimate_total_time}`,
-                start: (new Date(assignment.starts)),
-                end: (new Date(assignment.ends))
-              });
-            }
-          }
-          job.calendarIDs = calendarIDs;
-        }
         setJobs(jobList);
-        setCalendar(calendarEntries);
         //OTHER INITIAL SITE LOAD DATA SAVING HERE
       })
       .catch((e) => {
@@ -93,34 +72,27 @@ export default function useApplicationData(){
       });
   }, []);
 
-  const updateCalendar = function(job) {
-    let calendarEntries = [...calendar]
-    let dates = [];
-    let calendarIDs = [];
-    if (job.calendarIDs) {
-      calendarIDs = job.calendarIDs;
-      for(const index of calendarIDs){
-        calendarEntries = calendarEntries.splice(index, 1);
+  useEffect(() => {
+    console.log("calendar Reload")
+    let calendarEntries = [];
+    for (const job of jobs) {
+      let dates = [];
+      for (const assignment of job.assignments) {
+        if (!dates.includes(assignment.starts)) {
+          dates.push(assignment.starts);
+          let index = calendarEntries.length;
+          calendarEntries.push({
+            id: index,
+            title: job.name,
+            desc: `Workers: ${job.estimate_total_workers}, Time(p-hrs): ${job.estimate_total_time}`,
+            start: (new Date(assignment.starts)),
+            end: (new Date(assignment.ends))
+          });
+        }
       }
     }
-    for (const assignment of job.assignments) {
-      if (!dates.includes(assignment.starts)) {
-        dates.push(assignment.starts);
-        let index = calendarEntries.length
-        calendarIDs.push(index);
-        calendarEntries.push({
-          id: index,
-          title: job.name,
-          desc: `Workers: ${job.estimate_total_workers}, Time(p-hrs): ${job.estimate_total_time}`,
-          start: (new Date(assignment.starts)),
-          end: (new Date(assignment.ends))
-        });
-      }
-    }
-    
     setCalendar(calendarEntries);
-    return calendarIDs;
-  }
+  }, [jobs])
 
   const addChangeJob = function(jobDetails) {
     //check if it is a new job, then all details will be new
@@ -139,15 +111,31 @@ export default function useApplicationData(){
         if (oldJob) {
           oldJob = {...oldJob, ...newJob};//replaces only the keys in newJob
         } else {
+          newJob.assignments = [];
+          newJob.requirements = [];
           output.push(newJob);
         }
         return output;
       });
-      console.log(jobs)
-      return response.id;
+      return response.data;
     })
     .catch((e) => {
       console.log("*************Error Saving Job************");
+      return e;
+    });
+  };
+
+  function cancelJob(id) {
+    //request that the server delete the Job
+    return axios.delete(`/api/jobs/${id}`)
+    .then(() => {
+      let jobIndex = jobs.map((job) => job.id).indexOf(id);
+      let newJobs = [...jobs];
+      newJobs.splice(jobIndex, 1);
+      setJobs(newJobs);
+    })
+    .catch((e) => {
+      console.log("*************Error Deleting Job************");
       return e;
     });
   };
@@ -162,7 +150,6 @@ export default function useApplicationData(){
     return axios.put(`/api/assignments/${assignmentDetails.id}`, assignmentDetails)
     .then((response) => {
       let newAssignment = {...assignmentDetails, id: response.data};
-      console.log(`************responce:`, response)
       setJobs((old) => {
         let output = [...old]
         let job = output.filter((job) => newAssignment.job_id === job.id)[0];
@@ -172,10 +159,9 @@ export default function useApplicationData(){
         } else {
           job.assignments.push(newAssignment);
         }
-        console.log(job);
-        updateCalendar(job);
         return output;
       });
+      return response.data;
     })
     .catch((e) => {
       console.log("*************Error Saving Job************");
@@ -185,42 +171,25 @@ export default function useApplicationData(){
 
   function cancelAssignment(id) {
     //request that the server delete the Job
+    console.log(id);
     return axios.delete(`/api/assignments/${id}`)
     .then(() => {
-      let job = {}
-      setJobs((oldJobs) => {
-        job = oldJobs.filter((job) => {
-          let assignment = job.assignments.filter((assignment) => id === assignment.id)[0];
-          
-          return assignment
-        })[0];
-        console.log(job);
-        let index = job.assignments.map((assignment) => assignment.id).indexOf(id);
-        job.assignments = job.assignments.splice(index, 1);
-        return oldJobs;
-      })
-      updateCalendar(job);
-      console.log(`success ${job}`);
-    })
-    .catch((e) => {
-      console.log("*************Error Deleting Job************");
-      return e;
-    });
-  };
-
-  function cancelJob(id) {
-    //request that the server delete the Job
-    return axios.delete(`/api/jobs/${id}`)
-    .then(() => {
-      let jobIndex = jobs.map((job) => job.id).indexOf(id);
-      let newCalendar = [...calendar];
-      let newJobs = [...jobs];
-      for (const id of jobs[jobIndex].calendarIDs) {
-        newCalendar = newCalendar.splice(id, 1);
+      let jobList = [...jobs];
+      let job = jobList.filter((job) => {
+        let assignment = job.assignments.filter((assignment) => id === assignment.id)[0];
+        if (assignment) return true; else return false;
+      })[0];
+      console.log("before");
+      for(const assignment of job.assignments){
+        console.log(assignment.id);
       }
-      newJobs = newJobs.splice(jobIndex, 1);
-      setCalendar(newCalendar);
-      setJobs(newJobs);
+      let index = job.assignments.map((assignment) => assignment.id).indexOf(id);
+      job.assignments.splice(index, 1);
+      console.log("after");
+      for(const assignment of job.assignments){
+        console.log(assignment.id);
+      }
+      setJobs(jobList)
     })
     .catch((e) => {
       console.log("*************Error Deleting Job************");
@@ -228,7 +197,73 @@ export default function useApplicationData(){
     });
   };
 
-  return {calendar, addChangeJob, cancelJob, addChangeAssignment, cancelAssignment};
+  const addChangeRequirement = function(requirementDetails) {
+    //check if it is a new requirement, then all details will be new
+    if (!requirementDetails.id) {
+      //job id=0 -> new job
+      requirementDetails.id = 0;
+    }
+
+    return axios.put(`/api/requirements/${requirementDetails.id}`, requirementDetails)
+    .then((response) => {
+      let newRequirement = {...requirementDetails, id: response.data};
+      setJobs((old) => {
+        let output = [...old]
+        let job = output.filter((job) => newRequirement.job_id === job.id)[0];
+        let requirement = job.requirements.filter((requirement) => newRequirement.id === requirement.id)[0];
+        if (requirement) {
+          requirement = {...requirement, newRequirement};
+        } else {
+          job.requirements.push(newRequirement);
+        }
+        return output;
+      });
+      return response.data;
+    })
+    .catch((e) => {
+      console.log("*************Error Saving Job************");
+      return e;
+    });
+  };
+
+  function cancelRequirement(id) {
+    //request that the server delete the Job
+    console.log("enter cancelRequirement",id);
+    return axios.delete(`/api/requirements/${id}`)
+    .then(() => {
+      let jobList = [...jobs];
+      let job = jobList.filter((job) => {
+        let requirement = job.requirements.filter((requirement) => id === requirement.id)[0];
+        if (requirement) return true; else return false;
+      })[0];
+      console.log("before");
+      for(const requirement of job.requirements){
+        console.log(requirement.id);
+      }
+      let index = job.requirements.map((requirement) => requirement.id).indexOf(id);
+      job.requirements.splice(index, 1);
+      console.log("after");
+      for(const requirement of job.requirements){
+        console.log(requirement.id);
+      }
+      setJobs(jobList)
+    })
+    .catch((e) => {
+      console.log("*************Error Deleting Job************");
+      return e;
+    });
+  };
+
+  return {
+    jobs,
+    calendar,
+    addChangeJob,
+    cancelJob,
+    addChangeRequirement,
+    cancelRequirement,
+    addChangeAssignment,
+    cancelAssignment,
+  };
 };
 
 
