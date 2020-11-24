@@ -32,11 +32,22 @@ module.exports = (db) => {
         })
         .then((data2) => {
           let id = data2.rows[0].currval
-          return db.query(`SELECT * FROM assignments JOIN users ON user_id = users.id WHERE assignments.id = $1`, [id]);
+          return db.query(`SELECT 
+            assignments.id AS id,
+            job_id,
+            user_id,
+            starts,
+            ends,
+            first_name,
+            last_name,
+            admin
+          FROM assignments JOIN users ON user_id = users.id WHERE assignments.id = $1`, [id]);
         })
         .then((data3) => {
           console.log("*******************")
           console.log("response for successfully saved new assignment");
+          console.log(incoming);
+          console.log(data3.rows[0]);
           return res.json(data3.rows[0]);
         })
         .catch(err => console.log(err));
@@ -59,7 +70,16 @@ module.exports = (db) => {
 
     return db.query(queryString, values)
       .then((data) => {
-        return db.query(`SELECT * FROM assignments JOIN users ON user_id = users.id WHERE assignments.id = $1`, [incomingID]);
+        return db.query(`SELECT 
+          assignments.id AS id,
+          job_id,
+          user_id,
+          starts,
+          ends,
+          first_name,
+          last_name,
+          admin
+        FROM assignments JOIN users ON user_id = users.id WHERE assignments.id = $1`, [incomingID]);
       })
       .then((data3) => {
         console.log("*******************")
