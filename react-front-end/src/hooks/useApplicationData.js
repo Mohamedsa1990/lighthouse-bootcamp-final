@@ -202,7 +202,7 @@ export default function useApplicationData(){
       let newRequirement = {...response.data};
       setJobs((old) => {
         let output = [...old]
-        let job = output.filter((job) => newRequirement.job_id === job.id)[0];
+        let job = output.filter((tempJob) => newRequirement.job_id === tempJob.id)[0];
         job = {...job};
         let requirement = job.requirements.filter((requirement) => newRequirement.id === requirement.id)[0];
         if (requirement) {
@@ -212,7 +212,7 @@ export default function useApplicationData(){
         }
         return output;
       });
-      return response.data;
+      return response.data.id;
     })
     .catch((e) => {
       console.log("*************Error Saving Job************");
