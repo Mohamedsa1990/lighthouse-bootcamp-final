@@ -74,13 +74,11 @@ export default function Assignments(props) {
     setOpen(!open);
   };
 
-  // const assignmentsArray = props.jobs[0].assignments;
-  // // console.log("assignmentsArray: ", assignmentsArray)
-  // const rows = assignmentsArray.map((obj) => {
-  //   return createData(`${obj.first_name} ${obj.last_name}`, obj.starts, obj.estimate_hrs, deleteIcon)
-  // });
-
-  const rows = [ ]; // comment this out when uncommenting above
+  const assignmentsArray = props.jobs[0].assignments;
+  // console.log("assignmentsArray: ", assignmentsArray)
+  const rows = assignmentsArray.map((obj) => {
+    return createData(`${obj.first_name} ${obj.last_name}`, obj.starts, obj.estimate_hrs, deleteIcon)
+  });
 
   return (
     <List

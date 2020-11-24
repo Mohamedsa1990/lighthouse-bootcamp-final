@@ -39,6 +39,7 @@ export default function App(){
   }
 
   const {calendar, addChangeJob, addChangeAssignment, jobs} = useApplicationData();
+
   return (
     <div className="App">
       <h1>{ message }</h1>

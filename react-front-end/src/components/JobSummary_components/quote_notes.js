@@ -24,7 +24,7 @@ export default function QuoteNotes(props) {
         <Grid  item xs>
           <Paper elevetion={3} className={classes.paper} >
             <Typography color="textPrimary" component="span">Quote Notes: </Typography> 
-            {/* {props.jobs[0].notes} */}
+            {props.jobs[0].notes}
           </Paper>
         </Grid>    
       </Grid>
