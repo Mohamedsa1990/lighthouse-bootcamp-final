@@ -42,6 +42,52 @@ const testData = [{
   end: new Date(2020, 11, 13),
   desc: 'Big conference for important people',
 }];
+
+const jobsData = [{
+  assignments: [],
+  calendarIDs: [],
+  customer_address: "35 Straubel Street",
+  customer_city: "Arcoverde",
+  customer_email: "bnickoll6@wunderground.com",
+  customer_first_name: "Bamby",
+  customer_last_name: "Nickoll",
+  customer_phone_number: "835-489-3765",
+  estimate_total_time: 1110,
+  estimate_total_workers: 5,
+  estimate_travel_time: 180,
+  id: 11,
+  name: "nunc viverra dapibus",
+  notes: "In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.↵↵In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.",
+  requirements: [{
+    description: "Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+    difficulty: 10,
+    estimate_time: 780,
+    estimate_workers: 1,
+    id: 7,
+    job_id: 11,
+    name: "decks",
+    task_id: 7
+  }],
+    status: "Quote Requested"},
+    {
+      assignments: [],
+      calendarIDs: [],
+      customer_address: "35 Straubel Street",
+      customer_city: "Arcoverde",
+      customer_email: "bnickoll6@wunderground.com",
+      customer_first_name: "Bamby",
+      customer_last_name: "Nickoll",
+      customer_phone_number: "835-489-3765",
+      estimate_total_time: 1110,
+      estimate_total_workers: 5,
+      estimate_travel_time: 180,
+      id: 11,
+      name: "nunc viverra dapibus",
+      notes: "In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.↵↵In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.",
+      requirements: [],
+        status: "Quote Requested"
+}];
+
 /**
  * useApplicationData - a custom hook for managing
  * main site data and maintaining consistency with the server 
@@ -51,7 +97,7 @@ export default function useApplicationData(){
   //calendar - the main calendar data
   const [calendar, setCalendar] = useState(testData);
   //bookings - holds all the data about bookings(not just what can be passed to calendar)
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState(jobsData);
   //*****STATE HOOKS END
 
   //Load all initial site data

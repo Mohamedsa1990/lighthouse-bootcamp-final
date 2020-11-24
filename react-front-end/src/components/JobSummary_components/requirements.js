@@ -72,13 +72,11 @@ export default function Requirements(props) {
   const handleClick = () => {
     setOpen(!open);
   };
-  // const requirementsArray = props.jobs[1].requirements;
+  const requirementsArray = props.jobs[1].requirements;
   // console.log("requirementsArray: ", requirementsArray)
-  // const rows = requirementsArray.map((obj) => {
-  //   return createData(obj.name, obj.estimate_workers, obj.estimate_time, obj.difficulty)
-  // });
-
-  const rows = [ ]; // comment this out when uncommenting above
+  const rows = requirementsArray.map((obj) => {
+    return createData(obj.name, obj.estimate_workers, obj.estimate_time, obj.difficulty)
+  });
 
   return (
     <List
