@@ -9,7 +9,16 @@ module.exports = (db) => {
     db.query(`SELECT * FROM jobs`)
       .then(data =>{
         output = data.rows
-        return db.query(`SELECT * FROM requirements JOIN tasks ON task_id = tasks.id`);
+        return db.query(`SELECT
+            requirements.id AS id,
+            job_id,
+            task_id,
+            difficulty,
+            estimate_time,
+            estimate_workers,
+            name,
+            description
+          FROM requirements JOIN tasks ON task_id = tasks.id`);
       })
       .then((data) => {
         output = output.map((job) => {
@@ -21,7 +30,16 @@ module.exports = (db) => {
           }
           return {...job, requirements};
         });
-        return db.query(`SELECT * FROM assignments JOIN users ON user_id = users.id`);
+        return db.query(`SELECT 
+            assignments.id AS id,
+            job_id,
+            user_id,
+            starts,
+            ends,
+            first_name,
+            last_name,
+            admin
+          FROM assignments JOIN users ON user_id = users.id`);
       })
       .then((data) => {
         allAssignments = data.rows;
@@ -29,6 +47,11 @@ module.exports = (db) => {
           let assignments = allAssignments.filter((assignment) => {
             return assignment.job_id === job.id;
           });
+          if (job.id === 5) {
+            console.log("XXXXXXXXXXXXXXXX")
+            console.log(assignments);
+            console.log("XXXXXXXXXXXXXXXX")
+          }
           if (!assignments) {
             assignments = [];
           }
