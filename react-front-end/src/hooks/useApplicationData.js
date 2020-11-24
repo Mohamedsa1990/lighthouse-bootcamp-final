@@ -180,7 +180,7 @@ export default function useApplicationData(){
         let assignment = job.assignments.filter((assignment) => id === assignment.id)[0];
         if (assignment) return true; else return false;
       })[0];
-      job = {...job}
+      job = {...job};
       console.log("before");
       for(const assignment of job.assignments){
         console.log(assignment.id);

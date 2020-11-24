@@ -4,7 +4,6 @@ import 'fontsource-roboto';
 import JobCalendar from './components/JobCalendar'
 import JobSummary from './components/JobSummary'
 import useApplicationData from './hooks/useApplicationData'
-import axios from 'axios'
 import Grid from '@material-ui/core/Grid';
 
 export default function App(){
