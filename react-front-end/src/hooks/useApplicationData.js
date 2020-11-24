@@ -152,7 +152,7 @@ export default function useApplicationData(){
       let newAssignment = {...response.data};
       setJobs((old) => {
         let output = [...old]
-        let job = output.filter((job) => newAssignment.job_id === job.id)[0];
+        let job = output.filter((tempJob) => newAssignment.job_id === tempJob.id)[0];
         job = {...job};
         let assignment = job.assignments.filter((assignment) => newAssignment.id === assignment.id)[0];
         if (assignment) {
@@ -172,7 +172,6 @@ export default function useApplicationData(){
 
   function cancelAssignment(id) {
     //request that the server delete the Job
-    console.log(id);
     return axios.delete(`/api/assignments/${id}`)
     .then(() => {
       let jobList = [...jobs];
@@ -181,16 +180,8 @@ export default function useApplicationData(){
         if (assignment) return true; else return false;
       })[0];
       job = {...job};
-      console.log("before");
-      for(const assignment of job.assignments){
-        console.log(assignment.id);
-      }
       let index = job.assignments.map((assignment) => assignment.id).indexOf(id);
       job.assignments.splice(index, 1);
-      console.log("after");
-      for(const assignment of job.assignments){
-        console.log(assignment.id);
-      }
       setJobs(jobList)
     })
     .catch((e) => {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import 'fontsource-roboto';
 import JobCalendar from './components/JobCalendar'
-import JobSummary from './components/JobSummary'
+//import JobSummary from './components/JobSummary'
 import useApplicationData from './hooks/useApplicationData'
 import Grid from '@material-ui/core/Grid';
 
@@ -25,11 +25,14 @@ export default function App(){
     //   customer_phone_number: '994-624-0020',
     //   customer_email: 'jverecker1q@imageshack.us',
     // })
+    let job = jobs.filter((job) => job.id === 5)[0];
+    console.log(job.assignments);
     cancelAssignment(id)
-      .then(() => {
-        let job = jobs.filter((job) => job.id === 5)[0];
-        console.log("*** exit",job.assignments);
-      })
+    .then(() => {
+      console.log("deleted ID", id);
+      let job = jobs.filter((job) => job.id === 5)[0];
+      console.log("*** exit", job);
+    });
   }
 
   function query() {
@@ -44,11 +47,12 @@ export default function App(){
         setID(asignID);
         console.log("assgned ID",asignID);
         let job = jobs.filter((job) => job.id === 5)[0];
-        console.log("*** enter",job.assignments);
+        let assignment = job.assignments.filter((assignment) => assignment.id === asignID)[0];
+        console.log("*** enter", job.assignments);
       });
   }
 
-  const {jobs, calendar, addChangeJob, addChangeAssignment, cancelAssignment} = useApplicationData();
+  const {jobs, calendar, addChangeAssignment, cancelAssignment} = useApplicationData();
   return (
     <div className="App">
       <h1>{ message }</h1>

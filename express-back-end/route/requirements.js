@@ -32,7 +32,16 @@ module.exports = (db) => {
         })
         .then((data2) => {
           let id = data2.rows[0].currval
-          return db.query(`SELECT * FROM requirements JOIN tasks ON task_id = tasks.id WHERE requirements.id = $1`, [id]);
+          return db.query(`SELECT
+              requirements.id AS id,
+              job_id,
+              task_id,
+              difficulty,
+              estimate_time,
+              estimate_workers,
+              name,
+              description
+            FROM requirements JOIN tasks ON task_id = tasks.id WHERE requirements.id = $1`, [id]);
         })
         .then((data3) => {
           console.log("*******************")
@@ -59,7 +68,16 @@ module.exports = (db) => {
 
     return db.query(queryString, values)
         .then((data) => {
-          return db.query(`SELECT * FROM requirements JOIN tasks ON task_id = tasks.id WHERE requirements.id = $1`, [incomingID]);
+          return db.query(`SELECT
+              requirements.id AS id,
+              job_id,
+              task_id,
+              difficulty,
+              estimate_time,
+              estimate_workers,
+              name,
+              description
+            FROM requirements JOIN tasks ON task_id = tasks.id WHERE requirements.id = $1`, [incomingID]);
         })
         .then((data3) => {
           console.log("*******************")
