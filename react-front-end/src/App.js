@@ -20,6 +20,9 @@ export default function App(){
   const [id, setID] = useState(0);
 
   useEffect(() => {
+    console.log("app selectDay Update")
+    console.log(selectDay);
+    console.log("end app selectDay")
     const dayJobs = jobs.filter((job) => {
       let dayAssignments = job.assignments.filter((assignment) => {
         return (new Date(assignment.starts)) < selectDay.ends && (new Date(assignment.ends)) > selectDay.starts;
@@ -127,12 +130,12 @@ export default function App(){
       </button>
       <Grid container spacing={1}>
         <Grid  item xs>
-          <JobCalendar bookings={calendar} setDay={setSelectDay}/>
+          <JobCalendar bookings={calendar} setDay={setSelectDay} selectedDay={selectDay}/>
         </Grid>
         <Grid  item xs>
           {/* <JobSummary jobs= {jobs} /> */}
-          <JobsOfDay jobs={jobs}/>
-          <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/>
+          {/* <JobsOfDay jobs={jobs}/>
+          <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/> */}
           
         </Grid>
       </Grid>
