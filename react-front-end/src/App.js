@@ -3,12 +3,9 @@ import moment from 'moment';
 import './App.css';
 import 'fontsource-roboto';
 import JobCalendar from './components/JobCalendar'
-//import JobSummary from './components/JobSummary'
 import useApplicationData from './hooks/useApplicationData'
 import Grid from '@material-ui/core/Grid';
 import JobsOfDay from './components/JobsOfDay';
-import AddJob from './components/Add Job/AddJob'
-
 import AddJob from './components/Add Job/AddJob'
 import JobsPanel from './components/JobsPanel';
 
@@ -132,7 +129,7 @@ export default function App(){
           <JobCalendar bookings={calendar} setDay={setSelectDay}/>
         </Grid>
         <Grid  item xs>
-          {/* <JobSummary jobs= {jobs} /> */}
+          {/* <JobsPanel jobs={jobs}/> to replace below*/}
           <JobsOfDay jobs={jobs}/>
           <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/>
           
