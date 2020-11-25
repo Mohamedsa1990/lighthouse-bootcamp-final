@@ -14,26 +14,13 @@ const section = {
 const localizer = momentLocalizer(moment) // or globalizeLocalizer
 
 export default function App({selectedDay, setDay, bookings}){
-
-  useEffect(() => {
-    console.log("useEffect");
-    console.log(selectedDay.starts);
-    console.log("endEffect")
-  }, [selectedDay])
-
-
-  
   const selectDay = (info) => {
-    console.log("HHHHHHHHHH")
-    console.log(info);
     //start and end are JS Date Objects so capture date and time
     let startDate = new Date(info.start.getTime());
     let endDate = new Date(info.end.getTime());
     startDate.setHours( 0, 0, 0);
     endDate.setHours(23, 59, 59);
     setDay({starts: startDate, ends: endDate});
-    console.log("**********selectDay")
-    console.log(startDate.getDate());
   };
 
   const onNavigate = (date) => {
@@ -57,7 +44,9 @@ export default function App({selectedDay, setDay, bookings}){
       }
     else return {}
   }
-  const selectBooking = function(){};
+  const selectBooking = function(booking){
+    console.log(booking.job_id);
+  };
 
   return (
     <div className="JobCalendar" style={section}>

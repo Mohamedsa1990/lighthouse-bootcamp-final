@@ -13,31 +13,27 @@ import AddJob from './components/Add Job/AddJob'
 export default function App(){
   const {jobs, tasks, users, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob} = useApplicationData();
 
+  // selectDay - sets the currently selected day when navigating with the calendar
   const [selectDay, setSelectDay] = useState({starts: moment().startOf('day').toDate(), ends: moment().endOf('day').toDate()});
+  // day - contains all the jobs for the selected day
   const [day, setDay] = useState([]);
-  //EXAMPLE DATA FETCH
-  const [{message, message2}, setState] = useState({message: 'Click the button to load data!', message2: 'Click to get a query'})
-  const [id, setID] = useState(0);
 
   useEffect(() => {
-    console.log("app selectDay Update")
-    console.log(selectDay);
-    console.log("end app selectDay")
     const dayJobs = jobs.filter((job) => {
       let dayAssignments = job.assignments.filter((assignment) => {
         return (new Date(assignment.starts)) < selectDay.ends && (new Date(assignment.ends)) > selectDay.starts;
       })
-      if(job.id === 5){
-        console.log(new Date("2020-03-25T12:00:00-06:30"), selectDay.ends);
-        console.log(dayAssignments);
-      } 
-      
       return dayAssignments.length !== 0;
     });
-    console.log(dayJobs);
     setDay(dayJobs);
   }, [selectDay, jobs])
 
+  //START EXAMPLE FUNCTIONS
+  //START EXAMPLE STATE
+  const [{message, message2}, setState] = useState({message: 'Click the button to load data!', message2: 'Click to get a query'})
+  const [id, setID] = useState(0);
+  //END EXAMPLE STATE
+  
   function fetchData() {
     console.log(selectDay);
     // let job = jobs.filter((job) => job.id === id)[0];
@@ -116,10 +112,11 @@ export default function App(){
     //     console.log("*** enter", job.assignments);
     //   });
   }
-
+  //END EXAMPLE FUNCTIONS
   
   return (
     <div className="App">
+      {/* START EXAMPLE COMPONENTS */}
       <h1>{ message }</h1>
       <button onClick={fetchData} >
         Fetch Data
@@ -128,14 +125,15 @@ export default function App(){
       <button onClick={query} >
         query
       </button>
+      {/* END EXAMPLE COMPONENETS */}
       <Grid container spacing={1}>
         <Grid  item xs>
           <JobCalendar bookings={calendar} setDay={setSelectDay} selectedDay={selectDay}/>
         </Grid>
         <Grid  item xs>
           {/* <JobSummary jobs= {jobs} /> */}
-          {/* <JobsOfDay jobs={jobs}/>
-          <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/> */}
+          {/* <JobsOfDay jobs={day}/> */}
+          {/* <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/> */}
           
         </Grid>
       </Grid>

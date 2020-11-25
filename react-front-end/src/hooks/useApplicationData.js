@@ -141,7 +141,6 @@ export default function useApplicationData(){
   }, []);
 
   useEffect(() => {
-    console.log("calendar Reload")
     let calendarEntries = [];
     for (const job of jobs) {
       let dates = [];
@@ -154,7 +153,8 @@ export default function useApplicationData(){
             title: job.name,
             desc: `Workers: ${job.estimate_total_workers}, Time(p-hrs): ${job.estimate_total_time}`,
             start: (new Date(assignment.starts)),
-            end: (new Date(assignment.ends))
+            end: (new Date(assignment.ends)),
+            job_id: job.id,
           });
         }
       }
