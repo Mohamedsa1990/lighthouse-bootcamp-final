@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
   },
   layout: {
-    maxWidth: 480,
     width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),

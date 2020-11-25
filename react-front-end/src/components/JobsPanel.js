@@ -12,7 +12,7 @@ const JOB_CREATOR ="JOB_CREATOR";
 
 export default function JobsPanel(props) {
   const { mode, transition, back } = useVisualMode(
-    EMPTY
+    JOBS_OF_DAY
     // props. ? JOBS_OF_DAY : EMPTY 
   );
 
@@ -29,7 +29,7 @@ export default function JobsPanel(props) {
       {mode === JOB_SUMMARY && (
       <JobSummary jobs={props.jobs} 
         onNewJob={() => transition(JOB_CREATOR)} 
-        onBack={() => back()}/>)}
+        onAllJobs={() => transition(JOBS_OF_DAY)}/>)}
       {mode === JOB_CREATOR && (
       <Checkout />)}
     </Fragment>
