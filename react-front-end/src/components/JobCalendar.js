@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import './JobCalendar.css'
+//import './JobCalendar.css'
 
 import moment from 'moment'
-
+const section = {
+  height: "100%",
+  padding: 5
+};
 
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
@@ -27,7 +30,7 @@ export default function App(props){
           {message}
         </h1>
       )}
-      <div className="JobCalendar">
+      <div className="JobCalendar" style={section}>
         <Calendar
           events={props.bookings}
           selectable={true}

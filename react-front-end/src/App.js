@@ -5,7 +5,6 @@ import JobCalendar from './components/JobCalendar'
 //import JobSummary from './components/JobSummary'
 import useApplicationData from './hooks/useApplicationData'
 import Grid from '@material-ui/core/Grid';
-import AddJob from './components/Add Job/AddJob'
 import JobsOfDay from './components/JobsOfDay';
 
 export default function App(){
@@ -101,15 +100,15 @@ export default function App(){
       <button onClick={query} >
         query
       </button>
-        <Grid container spacing={1}>
-          <Grid  item xs>
-            <JobCalendar bookings={calendar}/>
-          </Grid>
-          <Grid  item xs>
-            {/* <JobSummary jobs= {jobs} /> */}
-            <JobsOfDay jobs={jobs}/>
-          </Grid>
+      <Grid container spacing={1}>
+        <Grid  item xs>
+          <JobCalendar bookings={calendar}/>
         </Grid>
+        <Grid  item xs>
+          {/* <JobSummary jobs= {jobs} /> */}
+          <JobsOfDay jobs={jobs}/>
+        </Grid>
+      </Grid>
     </div>
   );
 }
