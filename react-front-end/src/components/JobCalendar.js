@@ -24,8 +24,9 @@ export default function App({selectedDay, setDay, bookings}){
   
   const selectDay = (info) => {
     //start and end are JS Date Objects so capture date and time
-    let startDate = info.start;
-    let endDate = info.end;
+    let startDate = new Date(info.start.getTime());
+    let endDate = new Date(info.end.getTime());
+    endDate.setHours(23, 59, 59);
     setMessage(`${startDate.toDateString()} - ${endDate.toDateString()}`)
     setDay({starts: startDate, ends: endDate});
     console.log("**********selectDay")
@@ -33,13 +34,18 @@ export default function App({selectedDay, setDay, bookings}){
   };
 
   const highlightDays = (date) => {
-    let currentDay = (new Date()).getDate();
-    let selection = selectedDay.starts.getDate();
-    if (date.getDate() === currentDay || date.getDate() === selection)
+    let currentDay = new Date();
+    const currentMonth = currentDay.getMonth;
+    currentDay = currentDay.getDate;
+    
+    const selectDay = selectedDay.starts.getDate();
+    const selectMonth = selectedDay.starts.getMonth();
+
+    if ((date.getDate() === currentDay && date.getMonth() === currentMonth )|| (date.getDate() === selectDay && date.getMonth() === selectMonth))
       return {
         className: 'highlighted-day',
         style: {
-          border: 'solid 3px ' + (date.getDate() === currentDay ? '#afa' : '#faa'),
+          border: 'solid 3px #afa',
         },
       }
     else return {}
