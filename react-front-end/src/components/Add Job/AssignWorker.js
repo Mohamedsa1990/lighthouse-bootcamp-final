@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -8,89 +8,98 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import { Grid } from '@material-ui/core';
-import { Typography } from '@material-ui/core'
-
+import { Typography,TextField } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    justifyContent: 'center',
+    width: '100%',
+    maxWidth: 600,
     flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
+    backgroundColor: theme.palette.background.paper,
   },
 }));
 
-export default function AssignWorker({checkedEmployee, setCheckedEmployee}) {
+export default function AssignWorker({requirements, users, start, end, setStart, setEnd, assignments, setAssignments}) {
+  
   const classes = useStyles();
-  const users = [{
-    id:1,
-    first_name:"John",
-    last_name:"Doe",
-    admin:false
-  },{
-    id:2,
-    first_name:"James",
-    last_name:"Morgan",
-    admin:false
-  },{
-    id:3,
-    first_name:"Dan",
-    last_name:"Smith",
-    admin:false
-  },{
-    id:3,
-    first_name:"Dan",
-    last_name:"Smith",
-    admin:false
-  },{
-    id:3,
-    first_name:"Dan",
-    last_name:"Smith",
-    admin:false
-  },{
-    id:3,
-    first_name:"Dan",
-    last_name:"Smith",
-    admin:false
-  },{
-    id:3,
-    first_name:"Dan",
-    last_name:"Smith",
-    admin:false
-  },{
-    id:3,
-    first_name:"Dan",
-    last_name:"Smith",
-    admin:false
-  }]
+  const [checkedEmployee, setCheckedEmployee] = useState([]);
+
+  const jobSkills = requirements.map(requirement => requirement.task_id)
   
+  const filteredUsers = function (users, jobSkills) {
+    const userAccum = [];
+    users.forEach (user => {
+      user.skills.forEach(skill => {
+        if (jobSkills.includes(skill.task_id)) {
+          userAccum.push(user)
+        }
+      })
+    })
+    return userAccum;
+  } 
+
+  console.log(checkedEmployee)
+  console.log('assignments', assignments)
   
+  const userList = filteredUsers(users,jobSkills)
+
+  const usersWithoutDuplicate = userList.filter((item, index) => userList.indexOf(item) === index)
+
   const handleToggle = (value) => () => {
     const currentIndex = checkedEmployee.map(e => e.id).indexOf(value.id);
+    const newAssigned = [...assignments]
     const newChecked = [...checkedEmployee];
 
     if (currentIndex === -1) {
       newChecked.push(value);
+      newAssigned.push({user_id: value.id, start: start, end: end});
+
     } else {
       newChecked.splice(currentIndex, 1);
+      newAssigned.splice(currentIndex, 1);
     }
-
+    setAssignments(newAssigned);
     setCheckedEmployee(newChecked);
   };
-
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom align="left">
         Assign Worker
       </Typography>
-      <Grid container>
+      <Grid container justify="space-between">
+      <Grid item xs={12} sm={5}>
+          <TextField
+            required
+            id="datetime-local"
+            label="Start"
+            type="datetime-local"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            fullWidth
+            value={start}
+            onChange={e => setStart(e.target.value)}
+            />
+        </Grid>
+        <Grid item xs={12} sm={5}>
+          <TextField
+            required
+            id="datetime-local"
+            label="End"
+            type="datetime-local"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            fullWidth
+            value={end}
+            onChange={e => setEnd(e.target.value)}
+            />
+        </Grid>
         <List dense className={classes.root}>
-        {users.map((value) => {
+        {usersWithoutDuplicate.map((value) => {
           const labelId = `checkbox-list-secondary-label-${value}`;
           return (
-            <ListItem key={value.id} button>
+            <ListItem key={value.id} button >
               <ListItemAvatar>
                 <Avatar
                   alt={`${value.first_name[0]}`}

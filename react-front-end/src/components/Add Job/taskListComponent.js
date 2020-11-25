@@ -5,36 +5,33 @@ import {Chip, Grid, Paper, Typography, ButtonGroup, IconButton} from '@material-
 
 
 export default function TaskListComponent (props) {
-  const tasks = props.tasks.map(task => {
+  const requirements = props.requirements.map(requirement => {
     return (
-      <Grid item key={task.name}>
+      <Grid item key={requirement.task_id}>
         <Paper >
           <Grid container style={{padding:'0.8rem'}} justify="space-between" spacing={2}>
             <Grid item xs={3} align="left">
-              {task.name}
+              {props.tasks.filter(task => task.id === requirement.task_id)[0].name}
             </Grid>
             <Grid item xs={3} align="center">
-              Time: {task.time}
+              Time: {requirement.estimate_time}
             </Grid>
             <Grid item xs={3} align="center">
-              Workers: {task.worker}
+              Workers: {requirement.estimate_workers}
             </Grid>
             <Grid item xs={3} align="right">
               <Chip
               size="small"
               color="primary"
-              label={task.difficulty}
+              label={requirement.difficulty}
               />
             </Grid>
-            <Grid item xs={12}>
-              <Typography >{task.description}</Typography>
+            <Grid item xs={10}>
             </Grid>
-            <Grid item xs={9}>
-            </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={2}>
               <ButtonGroup  aria-label="outlined primary button group" size="small">
                 <IconButton></IconButton>
-                <IconButton onClick={()=>{props.delete(task.name)}}><DeleteIcon color="secondary"/></IconButton>
+                <IconButton onClick={()=>{props.delete(requirement.task_id)}}><DeleteIcon color="secondary"/></IconButton>
               </ButtonGroup>
             </Grid>
           </Grid>
@@ -42,5 +39,5 @@ export default function TaskListComponent (props) {
       </Grid>  
     );
   });
-  return tasks;
+  return requirements;
 };

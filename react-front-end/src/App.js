@@ -6,6 +6,7 @@ import JobCalendar from './components/JobCalendar'
 import useApplicationData from './hooks/useApplicationData'
 import Grid from '@material-ui/core/Grid';
 import JobsOfDay from './components/JobsOfDay';
+import AddJob from './components/Add Job/AddJob'
 
 export default function App(){
   //EXAMPLE DATA FETCH
@@ -89,7 +90,7 @@ export default function App(){
     //   });
   }
 
-  const {jobs, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob} = useApplicationData();
+  const {jobs, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob, tasks, users} = useApplicationData();
   return (
     <div className="App">
       <h1>{ message }</h1>
@@ -107,6 +108,8 @@ export default function App(){
         <Grid  item xs>
           {/* <JobSummary jobs= {jobs} /> */}
           <JobsOfDay jobs={jobs}/>
+          <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/>
+          
         </Grid>
       </Grid>
     </div>
