@@ -9,7 +9,16 @@ module.exports = (db) => {
     db.query(`SELECT * FROM jobs`)
       .then(data =>{
         output = data.rows
-        return db.query(`SELECT * FROM requirements JOIN tasks ON task_id = tasks.id`);
+        return db.query(`SELECT
+            requirements.id AS id,
+            job_id,
+            task_id,
+            difficulty,
+            estimate_time,
+            estimate_workers,
+            name,
+            description
+          FROM requirements JOIN tasks ON task_id = tasks.id`);
       })
       .then((data) => {
         output = output.map((job) => {
@@ -21,7 +30,16 @@ module.exports = (db) => {
           }
           return {...job, requirements};
         });
-        return db.query(`SELECT * FROM assignments JOIN users ON user_id = users.id`);
+        return db.query(`SELECT 
+            assignments.id AS id,
+            job_id,
+            user_id,
+            starts,
+            ends,
+            first_name,
+            last_name,
+            admin
+          FROM assignments JOIN users ON user_id = users.id`);
       })
       .then((data) => {
         allAssignments = data.rows;
@@ -29,6 +47,11 @@ module.exports = (db) => {
           let assignments = allAssignments.filter((assignment) => {
             return assignment.job_id === job.id;
           });
+          if (job.id === 5) {
+            console.log("XXXXXXXXXXXXXXXX")
+            console.log(assignments);
+            console.log("XXXXXXXXXXXXXXXX")
+          }
           if (!assignments) {
             assignments = [];
           }
@@ -36,7 +59,7 @@ module.exports = (db) => {
         });
         console.log("response for jobs request sent");
         console.log("******************************");
-        console.log(output[86]);
+        console.log(output[5]);
         return res.json(output);
       });
   });
@@ -66,13 +89,13 @@ module.exports = (db) => {
       }
       queryString = `INSERT INTO jobs (${keysString}) VALUES (${variableString})`;
       return db.query(queryString, values)
-        .then((res) => {
+        .then((data) => {
           return db.query(`SELECT currval('jobs_id_seq')`);
         })
-        .then((res2) => {
+        .then((data2) => {
           console.log("*******************")
           console.log("response for successfully saved new job");
-          return res2.rows[0].currval;
+          return res.json(data2.rows[0].currval);
         })
         .catch(err => console.log(err));
     }
@@ -93,17 +116,21 @@ module.exports = (db) => {
     queryString = `UPDATE jobs SET ${setString}`;
 
     return db.query(queryString, values)
-        .then((res) => {
+        .then((data) => {
           console.log("*******************");
           console.log("response for successfully saved job update")
-          return incomingID;
+          return res.json(incomingID);
         })
         .catch(err => console.log(err));
   });
 
   router.delete('/:id', (req, res) => {
+    console.log("request to delete", req.params.id)
     return db.query(`DELETE FROM jobs WHERE id = $1`, [req.params.id])
-      .then(res => res.row)
+      .then(data => {
+        console.log("**** deleted ", req.params.id)
+        return res.json(data.row);
+      })
       .catch(err => console.log('delete error: ', err));
   })
   return router;

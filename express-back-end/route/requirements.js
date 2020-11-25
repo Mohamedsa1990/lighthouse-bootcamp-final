@@ -4,7 +4,7 @@ const router = express.Router();
 module.exports = (db) => {
   router.put('/:id', (req, res) => {
     console.log("******************************");
-    console.log("request to save assignment received");
+    console.log("request to save requirement received");
     let incomingID = req.params.id;
     let incoming = req.body;
     let queryString = "";
@@ -25,27 +25,27 @@ module.exports = (db) => {
           }
         }
       }
-      queryString = `INSERT INTO assignments (${keysString}) VALUES (${variableString})`;
+      queryString = `INSERT INTO requirements (${keysString}) VALUES (${variableString})`;
       return db.query(queryString, values)
         .then((data) => {
-          return db.query(`SELECT currval('assignments_id_seq')`);
+          return db.query(`SELECT currval('requirements_id_seq')`);
         })
         .then((data2) => {
           let id = data2.rows[0].currval
-          return db.query(`SELECT 
-            assignments.id AS id,
+          return db.query(`SELECT
+            requirements.id AS id,
             job_id,
-            user_id,
-            starts,
-            ends,
-            first_name,
-            last_name,
-            admin
-          FROM assignments JOIN users ON user_id = users.id WHERE assignments.id = $1`, [id]);
+            task_id,
+            difficulty,
+            estimate_time,
+            estimate_workers,
+            name,
+            description
+          FROM requirements JOIN tasks ON task_id = tasks.id WHERE requirements.id = $1`, [id]);
         })
         .then((data3) => {
           console.log("*******************")
-          console.log("response for successfully saved new assignment");
+          console.log("response for successfully saved new requirement");
           console.log(incoming);
           console.log(data3.rows[0]);
           return res.json(data3.rows[0]);
@@ -66,30 +66,30 @@ module.exports = (db) => {
     }
     values.push(incomingID);
     setString += ` WHERE id = $${values.length}`;
-    queryString = `UPDATE assignments SET ${setString}`;
+    queryString = `UPDATE requirements SET ${setString}`;
 
     return db.query(queryString, values)
       .then((data) => {
-        return db.query(`SELECT 
-          assignments.id AS id,
+        return db.query(`SELECT
+          requirements.id AS id,
           job_id,
-          user_id,
-          starts,
-          ends,
-          first_name,
-          last_name,
-          admin
-        FROM assignments JOIN users ON user_id = users.id WHERE assignments.id = $1`, [incomingID]);
+          task_id,
+          difficulty,
+          estimate_time,
+          estimate_workers,
+          name,
+          description
+        FROM requirements JOIN tasks ON task_id = tasks.id WHERE requirements.id = $1`, [incomingID]);
       })
       .then((data3) => {
         console.log("*******************")
-        console.log("response for successfully saved assignment update");
+        console.log("response for successfully saved requirement update");
         return res.json(data3.rows[0]);
       })
       .catch(err => console.log(err));
   });
   router.delete('/:id', (req, res) => {
-    return db.query(`DELETE FROM assignments WHERE id = $1`, [req.params.id])
+    return db.query(`DELETE FROM requirements WHERE id = $1`, [req.params.id])
       .then(data => res.json(data.row))
       .catch(err => console.log('delete error: ', err));
   })
