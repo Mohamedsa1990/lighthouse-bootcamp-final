@@ -21,17 +21,26 @@ export default function App({selectedDay, setDay, bookings}){
     console.log(selectedDay.starts);
     console.log("endEffect")
   }, [selectedDay])
+
+
   
   const selectDay = (info) => {
+    console.log("HHHHHHHHHH")
+    console.log(info);
     //start and end are JS Date Objects so capture date and time
     let startDate = new Date(info.start.getTime());
     let endDate = new Date(info.end.getTime());
+    startDate.setHours( 0, 0, 0);
     endDate.setHours(23, 59, 59);
     setMessage(`${startDate.toDateString()} - ${endDate.toDateString()}`)
     setDay({starts: startDate, ends: endDate});
     console.log("**********selectDay")
     console.log(startDate.getDate());
   };
+
+  const onNavigate = (date) => {
+    selectDay({start: date, end: date});
+  }
 
   const highlightDays = (date) => {
     let currentDay = new Date();
@@ -64,6 +73,7 @@ export default function App({selectedDay, setDay, bookings}){
           events={bookings}
           selectable={true}
           onSelectSlot={selectDay}
+          onNavigate={onNavigate}
           dayPropGetter={highlightDays}
           onSelectEvent={selectBooking}
           startAccessor="start"
