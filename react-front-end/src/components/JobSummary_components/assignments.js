@@ -39,7 +39,7 @@ function createData(name, date_time, duration, remove) {
   return { name, date_time, duration, remove };
 }
 
-const deleteIcon = <DeleteForeverIcon />
+// const deleteIcon = <DeleteForeverIcon button onClick={handleClick}/>
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,10 +74,11 @@ export default function Assignments(props) {
     setOpen(!open);
   };
 
-  const assignmentsArray = props.jobs[0].assignments;
+
+  const assignmentsArray = props.jobs[4].assignments;
   // console.log("assignmentsArray: ", assignmentsArray)
   const rows = assignmentsArray.map((obj) => {
-    return createData(`${obj.first_name} ${obj.last_name}`, obj.starts, obj.estimate_hrs, deleteIcon)
+    return createData(`${obj.first_name} ${obj.last_name}`, obj.starts, obj.estimate_hrs, <DeleteForeverIcon />)
   });
 
   return (
@@ -107,11 +108,13 @@ export default function Assignments(props) {
                   ))}
                 </TableRow>
               </TableHead>
+
               <TableBody>
                 {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                   return (
+                    
                     <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                      {columns.map((column) => {
+                      {columns.map((column) => { 
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} align={column.align}>
@@ -120,9 +123,11 @@ export default function Assignments(props) {
                         );
                       })}
                     </TableRow>
+                     
                   );
                 })}
               </TableBody>
+
             </Table>
           </TableContainer>
           <TablePagination

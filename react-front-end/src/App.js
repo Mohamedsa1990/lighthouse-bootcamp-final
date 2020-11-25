@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import JobsOfDay from './components/JobsOfDay';
 import AddJob from './components/Add Job/AddJob'
 
+import AddJob from './components/Add Job/AddJob'
+import JobsPanel from './components/JobsPanel';
 
 export default function App(){
   const {jobs, tasks, users, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob} = useApplicationData();

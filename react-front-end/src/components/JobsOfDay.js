@@ -109,7 +109,7 @@ export default function JobOfDay(props) {
   return (
       <Container >
         <Paper elevation={4} >
-          <Header />
+          <Header onNewJob={props.onNewJob}/>
           <List 
             aria-labelledby="nested-list-subheader"
           >
@@ -118,7 +118,12 @@ export default function JobOfDay(props) {
                 <Paper variant="outlined">
                     <ListItem>
                       <Box>
-                        <JobsNav jobObj={obj} id={index}/>
+                        <JobsNav 
+                          jobObj={obj} 
+                          id={index} 
+                          onDetails={props.onDetails}
+                          onEdit={props.onEdit}
+                        />
                         <RequirementsList jobObj={obj}/>
                         <Divider />
                       </Box>
