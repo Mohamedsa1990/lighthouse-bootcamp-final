@@ -38,7 +38,7 @@ export default function App(){
     })
   }
 
-  const {calendar, addChangeJob, addChangeAssignment, jobs} = useApplicationData();
+  const {calendar, addChangeJob, addChangeAssignment, jobs, tasks, users} = useApplicationData();
   return (
     <div className="App">
       <h1>{ message }</h1>
@@ -54,7 +54,8 @@ export default function App(){
             <JobCalendar bookings={calendar}/>
           </Grid>
           <Grid  item xs>
-            <JobSummary jobs= {jobs} />
+            {/* <JobSummary jobs={jobs}/> */}
+            <AddJob tasks={tasks} users={users}/>
           </Grid>
         </Grid>
     </div>

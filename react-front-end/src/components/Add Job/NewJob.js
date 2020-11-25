@@ -2,11 +2,12 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import { FormControl, Select, InputLabel, MenuItem} from '@material-ui/core'
 
 
 
-export default function NewJob({jobname, setJobName, firstName, setFirstName, lastName, setLastName, address,setAddress
-  , city, setCity,phoneNumber, setPhoneNumber, Email, setEmail, start, setStart, end, setEnd }) {
+export default function NewJob({travelTime, setTravelTime, status, setStatus, jobname, setJobName, firstName, setFirstName, lastName, setLastName, address,setAddress
+  , city, setCity,phoneNumber, setPhoneNumber, email, setEmail, notes, setNotes }) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom align="left">
@@ -21,7 +22,7 @@ export default function NewJob({jobname, setJobName, firstName, setFirstName, la
             label="Job name"
             fullWidth
             value={jobname}
-            onChange={e => setJobName(e.target.value)}
+            onChange={(event) => setJobName(event.target.value)}
             />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -83,41 +84,57 @@ export default function NewJob({jobname, setJobName, firstName, setFirstName, la
           <TextField
             required
             id="Email"
-            name="Email"
-            label="Email"
+            name="email"
+            label="email"
             fullWidth
-            value={Email}
+            value={email}
             onChange={e => setEmail(e.target.value)}
             />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="datetime-local"
-            label="Start"
-            type="datetime-local"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            fullWidth
-            value={start}
-            onChange={e => setStart(e.target.value)}
-            />
+          <FormControl fullWidth>
+            <InputLabel id="Status">Status</InputLabel>
+              <Select
+                align="left"
+                labelId="Status"
+                id="simple-select"
+                value={status}
+                onChange={e => setStatus(e.target.value)}
+              >
+                <MenuItem value={"Qouted"}>Qouted</MenuItem>
+                <MenuItem value={"In process"}>In process</MenuItem>
+                <MenuItem value={"Done"}>Done</MenuItem>
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            required
-            id="datetime-local"
-            label="End"
-            type="datetime-local"
+            fullWidth
+            id="time"
+            label="Estimated travel time"
+            type="time"
             InputLabelProps={{
               shrink: true,
             }}
-            fullWidth
-            value={end}
-            onChange={e => setEnd(e.target.value)}
-            />
+            value={travelTime}
+            onChange={e => setTravelTime(e.target.value)}
+            inputProps={{
+              step: 300, // 5 min
+            }}
+          />
         </Grid>
+        <Grid item xs={12} sm={12}>
+          <TextField
+            id="standard-textarea"
+            label="Notes"
+            placeholder="Notes"
+            multiline
+            fullWidth
+            value={notes}
+            onChange={e => setNotes(e.target.value)}
+          />
+        </Grid>
+        
       </Grid>
     </React.Fragment>
   );

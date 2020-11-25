@@ -6,10 +6,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { FormControl, Select, InputLabel, MenuItem, TextField, Button } from '@material-ui/core';
 
+
 export default function TaskDialogComponent (props) {
   
   return (
-    <Dialog open={props.open} onClose={props.handleClose} style={{minWidth: '60vw'}} >
+    <Dialog open={props.open} onClose={props.handleClose} style={{minWidth: '100vw'}} >
       <form onSubmit={props.formik.handleSubmit}>
         <DialogTitle>
           Add task
@@ -18,16 +19,19 @@ export default function TaskDialogComponent (props) {
           <Grid container direction="column" spacing={2}>
             <Grid item >
               <FormControl variant="outlined" fullWidth>
-                <InputLabel id="Name">Name</InputLabel>
+                <InputLabel id="Name">Task name</InputLabel>
                 <Select
+                  required
                   label="Name"
-                  name="name"
+                  name="task_id"
                   onChange={props.formik.handleChange}
-                  value={props.formik.values.name}
+                  value={props.formik.values.task_id}
                 >
-                  <MenuItem value={"Low"}>Low</MenuItem>
-                  <MenuItem value={"Medium"}>Medium</MenuItem>
-                  <MenuItem value={"High"}>High</MenuItem>
+                  {props.tasks.map(task => {
+                    return (
+                      <MenuItem key={task.id} value={task.id}>{task.name}</MenuItem>
+                     )
+                  })}
                 </Select>
               </FormControl>
             </Grid>
@@ -53,38 +57,21 @@ export default function TaskDialogComponent (props) {
               label="Worker"
               type="number"
               variant="outlined"
-              name="worker"
+              name="estimate_workers"
               onChange={props.formik.handleChange}
-              value={props.formik.values.worker}
+              value={props.formik.values.estimate_workers}
               />
             </Grid>
             <Grid item>
               <TextField
               fullWidth
               id="time"
-              label="Estimated time"
-              type="time"
+              label="Estimated time hrs"
+              type="number"
               variant="outlined"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                step: 1800, // 30 min
-              }}
-              name="time"
+              name="estimate_time"
               onChange={props.formik.handleChange}
-              value={props.formik.values.time}
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-              fullWidth
-              id="outlined-basic"
-              label="Discription"
-              variant="outlined"
-              name="description"
-              onChange={props.formik.handleChange}
-              value={props.formik.values.discription}
+              value={props.formik.values.estimate_time}
               />
             </Grid>
           </Grid>

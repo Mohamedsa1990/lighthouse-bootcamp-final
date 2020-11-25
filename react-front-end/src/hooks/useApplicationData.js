@@ -52,12 +52,18 @@ export default function useApplicationData(){
   const [calendar, setCalendar] = useState(testData);
   //bookings - holds all the data about bookings(not just what can be passed to calendar)
   const [jobs, setJobs] = useState([]);
+  // Tasks - holds the tasks data to choose from ing the new job form
+  const [tasks, setTasks] = useState([]);
+  // Users - holds all the users data to render them in assign worker component
+  const [users, setUsers] = useState([]);
   //*****STATE HOOKS END
 
   //Load all initial site data
   useEffect(() => {
     Promise.all([
       axios.get("/api/jobs"),
+      axios.get("/api/tasks"),
+      axios.get("/api/users")
       //OTHER INITIAL SITE LOAD DATA REQUESTS HERE
     ])
       .then((all) => {
@@ -87,6 +93,11 @@ export default function useApplicationData(){
         setJobs(jobList);
         setCalendar(calendarEntries);
         //OTHER INITIAL SITE LOAD DATA SAVING HERE
+        //set the tasks data
+        setTasks(all[1].data);
+        // sets the users data
+        setUsers(all[2].data);
+        // console.log(all[2].data);
       })
       .catch((e) => {
         console.log(e);
@@ -204,5 +215,5 @@ export default function useApplicationData(){
     });
   };
 
-  return {calendar, addChangeJob, cancelJob, addChangeAssignment, jobs};
+  return {calendar, addChangeJob, cancelJob, addChangeAssignment, jobs, tasks, users};
 };

@@ -53,23 +53,32 @@ const useStyles = makeStyles((theme) => ({
 const steps = ['Job details', 'Requirement details', 'Assign employees'];
 
 
-export default function Checkout() {
+export default function AddJob({tasks, users}) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+
   const [jobName, setJobName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [Email, setEmail] = useState('');
-  const [Start, setStart] = useState('');
+  const [email, setEmail] = useState('');
+  const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
-  const [tasks, setTasks] = useState([]);
+  const [totalWorker, setTotalWorker] = useState();
+  const [totalTime, setTotalTime] = useState();
+  const [notes, setNotes] = useState('')
+  const [status, setStatus] = useState('')
+  const [travelTime, setTravelTime] = useState('')
+  
+
+  const [requirements, setRequirements] = useState([]);
 
   const [checkedEmployee, setCheckedEmployee] = useState([]);
   
-  
+  const job = {jobName, firstName, lastName, address, city, phoneNumber, email, notes,status,travelTime, totalTime, totalWorker};
+
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -82,31 +91,50 @@ export default function Checkout() {
     switch (step) {
       case 0:
         return <NewJob 
-          jobName = {jobName} 
-          setJobName = {setJobName} 
-          firstName = {firstName} 
-          setFirstName= {setFirstName}
-          lastName= {lastName}
-          setLastName = {setLastName}
-          address = {address}
-          setAddress = {setAddress}
-          city = {city} 
-          setCity = {setCity}
-          phoneNumber={phoneNumber}
-          setPhoneNumber={setPhoneNumber}
-          Email = {Email} 
-          setEmail = {setEmail}
-          start = {Start}
-          setStart = {setStart}
-          end = {end} 
-          setEnd = {setEnd}
-          />
+                jobName = {jobName} 
+                setJobName = {setJobName} 
+                firstName = {firstName} 
+                setFirstName= {setFirstName}
+                lastName= {lastName}
+                setLastName = {setLastName}
+                address = {address}
+                setAddress = {setAddress}
+                city = {city} 
+                setCity = {setCity}
+                phoneNumber={phoneNumber}
+                setPhoneNumber={setPhoneNumber}
+                email = {email} 
+                setEmail = {setEmail}
+                notes={notes}
+                setNotes={setNotes}
+                status={status}
+                setStatus={setStatus}
+                travelTime={travelTime}
+                setTravelTime={setTravelTime}
+                />
       case 1:
-        return <Requirements tasks={tasks} setTasks={setTasks} />
+        return <Requirements 
+                tasks={tasks} 
+                requirements={requirements} 
+                setRequirements={setRequirements}
+                totalTime={totalTime}
+                setTotalTime={setTotalTime}
+                totalWorker={totalWorker}
+                setTotalWorker={setTotalWorker}
+                />
       case 2:
-        return <AssignWorker checkedEmployee={checkedEmployee} setCheckedEmployee={setCheckedEmployee}/>
-      default:
-        throw new Error('Unknown step');
+        return <AssignWorker 
+                users={users} 
+                start = {start}
+                setStart = {setStart}
+                end = {end} 
+                setEnd = {setEnd}
+                requirements={requirements} 
+                checkedEmployee={checkedEmployee} 
+                setCheckedEmployee={setCheckedEmployee}
+                />
+    default:
+      throw new Error('Unknown step');
     }
   }
 
@@ -127,13 +155,10 @@ export default function Checkout() {
           <React.Fragment>
             {activeStep === steps.length ? (
               <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
-                </Typography>
+                {console.log('job', job)}
+                {console.log('requirements', requirements)}
+                {/* {setCheckedEmployee([...checkedEmployee, start, end])} */}
+                {console.log('assignments', checkedEmployee)}
               </React.Fragment>
             ) : (
               <React.Fragment>
