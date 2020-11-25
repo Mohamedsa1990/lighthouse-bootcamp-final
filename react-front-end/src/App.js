@@ -11,7 +11,7 @@ import AddJob from './components/Add Job/AddJob'
 
 
 export default function App(){
-  const {jobs, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob} = useApplicationData();
+  const {jobs, tasks, users, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob} = useApplicationData();
 
   const [selectDay, setSelectDay] = useState({starts: moment().startOf('day').toDate(), ends: moment().endOf('day').toDate()});
   const [day, setDay] = useState([]);
@@ -114,7 +114,7 @@ export default function App(){
     //   });
   }
 
-  const {jobs, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob, tasks, users} = useApplicationData();
+  
   return (
     <div className="App">
       <h1>{ message }</h1>
