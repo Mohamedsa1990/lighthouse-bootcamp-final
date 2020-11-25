@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import './App.css';
 import 'fontsource-roboto';
 import JobCalendar from './components/JobCalendar'
-import JobSummary from './components/JobSummary'
 import useApplicationData from './hooks/useApplicationData'
 import axios from 'axios'
 import Grid from '@material-ui/core/Grid';
 import AddJob from './components/Add Job/AddJob'
-import JobsOfDay from './components/JobsOfDay';
+import JobsPanel from './components/JobsPanel';
 
 export default function App(){
   //EXAMPLE DATA FETCH
@@ -56,8 +55,7 @@ export default function App(){
             <JobCalendar bookings={calendar}/>
           </Grid>
           <Grid  item xs>
-            {/* <JobSummary jobs= {jobs} /> */}
-            <JobsOfDay jobs={jobs}/>
+            <JobsPanel jobs={jobs}/>
           </Grid>
         </Grid>
     </div>

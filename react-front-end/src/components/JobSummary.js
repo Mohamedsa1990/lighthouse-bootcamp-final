@@ -1,5 +1,5 @@
 import React from 'react';
-import {Typography, Container, Box, Divider, Paper} from '@material-ui/core';
+import {Typography, Container, Box, Divider, Paper, Button, ButtonGroup} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import CustomerInfo from './JobSummary_components/customer_info';
 import Requirements from './JobSummary_components/requirements';
@@ -17,6 +17,14 @@ const useStyles = makeStyles((theme) => ({
       height: theme.spacing(30),
     },
   },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  button: {
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(1),
+  },
 }));
 
 export default function JobSummary(props) {
@@ -28,6 +36,10 @@ export default function JobSummary(props) {
         <Paper elevation={4} >
           <Box m={2}>
             <Typography variant="h5">Job Summary</Typography>
+            <ButtonGroup variant="outlined" aria-label="outlined primary button group">
+              <Button color="secondary" onClick={props.onBack}>Back</Button>
+              <Button onClick={props.onNewJob} color="primary">New Job</Button>
+            </ButtonGroup>
           </Box>
           <QuoteNotes jobs={props.jobs}/>
           <Divider />

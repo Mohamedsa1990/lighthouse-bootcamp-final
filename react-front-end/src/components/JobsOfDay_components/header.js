@@ -28,7 +28,7 @@ export default function Header(props) {
         <Button
           variant="outlined"
           color="primary"
-          // onClick={}
+          onClick={props.onNewJob}
           className={classes.button}
         >
           New Job
