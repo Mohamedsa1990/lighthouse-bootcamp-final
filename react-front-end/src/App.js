@@ -129,9 +129,9 @@ export default function App(){
           <JobCalendar bookings={calendar} setDay={setSelectDay}/>
         </Grid>
         <Grid  item xs>
-          {/* <JobsPanel jobs={jobs}/> to replace below*/}
-          <JobsOfDay jobs={jobs}/>
-          <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/>
+          <JobsPanel jobs={jobs} tasks={tasks} users={users} addChangeJob={addChangeJob}/>
+          {/* <JobsOfDay jobs={jobs}/>
+          <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/> */}
           
         </Grid>
       </Grid>

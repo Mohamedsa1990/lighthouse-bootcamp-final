@@ -3,7 +3,7 @@ import useVisualMode from '../hooks/useVisualMode'
 import Empty from './JobsPanel_components/empty';
 import JobsOfDay from './JobsOfDay';
 import JobSummary from './JobSummary';
-import Checkout from './Add Job/AddJob';
+import AddJob from './Add Job/AddJob';
 
 const EMPTY = "EMPTY";
 const JOBS_OF_DAY = "JOBS_OF_DAY";
@@ -31,7 +31,7 @@ export default function JobsPanel(props) {
         onNewJob={() => transition(JOB_CREATOR)} 
         onAllJobs={() => transition(JOBS_OF_DAY)}/>)}
       {mode === JOB_CREATOR && (
-      <Checkout />)}
+      <AddJob tasks={props.tasks} users={props.users} addChangeJob={props.addChangeJob} />)}
     </Fragment>
   );
 }

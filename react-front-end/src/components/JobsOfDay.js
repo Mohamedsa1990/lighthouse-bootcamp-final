@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     '& > *': {
       margin: theme.spacing(1),
-      width: theme.spacing(60),
+      width: theme.spacing(80),
       height: theme.spacing(30),
     },
   },
@@ -107,6 +107,7 @@ export default function JobsOfDay(props) {
   const classes = useStyles();
   
   return (
+    <main className={classes.root}>
       <Container >
         <Paper elevation={4} >
           <Header onNewJob={props.onNewJob}/>
@@ -133,7 +134,8 @@ export default function JobsOfDay(props) {
             })} 
           </List>
         </Paper>
-      </Container>  
+      </Container>
+    </main>
     
   )
 }
