@@ -14,7 +14,6 @@ const section = {
 const localizer = momentLocalizer(moment) // or globalizeLocalizer
 
 export default function App({selectedDay, setDay, bookings}){
-  const [message, setMessage] = useState()
 
   useEffect(() => {
     console.log("useEffect");
@@ -32,7 +31,6 @@ export default function App({selectedDay, setDay, bookings}){
     let endDate = new Date(info.end.getTime());
     startDate.setHours( 0, 0, 0);
     endDate.setHours(23, 59, 59);
-    setMessage(`${startDate.toDateString()} - ${endDate.toDateString()}`)
     setDay({starts: startDate, ends: endDate});
     console.log("**********selectDay")
     console.log(startDate.getDate());
@@ -62,27 +60,21 @@ export default function App({selectedDay, setDay, bookings}){
   const selectBooking = function(){};
 
   return (
-    <>
-      {message && (
-        <h1>
-          {message}
-        </h1>
-      )}
-      <div className="JobCalendar" style={section}>
-        <Calendar
-          events={bookings}
-          selectable={true}
-          onSelectSlot={selectDay}
-          onNavigate={onNavigate}
-          dayPropGetter={highlightDays}
-          onSelectEvent={selectBooking}
-          startAccessor="start"
-          endAccessor="end"
-          defaultDate={moment().toDate()}
-          localizer={localizer}
-        />
-      </div>
-    </>
+    <div className="JobCalendar" style={section}>
+      <Calendar
+        date={selectedDay.starts}
+        events={bookings}
+        selectable={true}
+        onSelectSlot={selectDay}
+        onNavigate={onNavigate}
+        dayPropGetter={highlightDays}
+        onSelectEvent={selectBooking}
+        startAccessor="start"
+        endAccessor="end"
+        defaultDate={moment().toDate()}
+        localizer={localizer}
+      />
+    </div>
   );
 }
 
