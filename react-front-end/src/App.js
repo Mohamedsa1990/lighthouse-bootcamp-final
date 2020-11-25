@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 import './App.css';
 import 'fontsource-roboto';
 import JobCalendar from './components/JobCalendar'
@@ -7,12 +8,34 @@ import useApplicationData from './hooks/useApplicationData'
 import Grid from '@material-ui/core/Grid';
 import JobsOfDay from './components/JobsOfDay';
 
+
 export default function App(){
+  const {jobs, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob} = useApplicationData();
+
+  const [selectDay, setSelectDay] = useState({starts: moment().startOf('day').toDate(), ends: moment().endOf('day').toDate()});
+  const [day, setDay] = useState([]);
   //EXAMPLE DATA FETCH
   const [{message, message2}, setState] = useState({message: 'Click the button to load data!', message2: 'Click to get a query'})
   const [id, setID] = useState(0);
-  function fetchData() {
 
+  useEffect(() => {
+    const dayJobs = jobs.filter((job) => {
+      let dayAssignments = job.assignments.filter((assignment) => {
+        return (new Date(assignment.starts)) < selectDay.ends && (new Date(assignment.ends)) > selectDay.starts;
+      })
+      if(job.id === 5){
+        console.log(new Date("2020-03-25T12:00:00-06:30"), selectDay.ends);
+        console.log(dayAssignments);
+      } 
+      
+      return dayAssignments.length !== 0;
+    });
+    console.log(dayJobs);
+    setDay(dayJobs);
+  }, [selectDay, jobs])
+
+  function fetchData() {
+    console.log(selectDay);
     // let job = jobs.filter((job) => job.id === id)[0];
     // console.log(job)
     // cancelJob(id)
@@ -38,6 +61,7 @@ export default function App(){
   }
 
   function query() {
+    console.log(day);
     // addChangeJob({
     //   name: 'total Junk',
     //   notes: 'you do not want to know',
@@ -76,8 +100,8 @@ export default function App(){
     // addChangeAssignment({
     //   job_id: 5,
     //   user_id: 49,
-    //   starts: '2020-11-16T08:00:00-06:00',
-    //   ends: '2020-11-16T13:00:00-06:00',
+    //   starts: '2015-03-25T12:00:00-06:30',
+    //   ends: '2020-24-16T13:00:00-06:00',
     //   estimate_hrs: 4, 
     // })
     //   .then((asignID) => {
@@ -89,7 +113,6 @@ export default function App(){
     //   });
   }
 
-  const {jobs, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob} = useApplicationData();
   return (
     <div className="App">
       <h1>{ message }</h1>
@@ -102,11 +125,11 @@ export default function App(){
       </button>
       <Grid container spacing={1}>
         <Grid  item xs>
-          <JobCalendar bookings={calendar}/>
+          <JobCalendar bookings={calendar} setDay={setSelectDay}/>
         </Grid>
         <Grid  item xs>
           {/* <JobSummary jobs= {jobs} /> */}
-          <JobsOfDay jobs={jobs}/>
+          {/* <JobsOfDay jobs={jobs}/> */}
         </Grid>
       </Grid>
     </div>

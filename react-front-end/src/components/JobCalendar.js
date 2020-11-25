@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-//import './JobCalendar.css'
+import './JobCalendar.css'
 
 import moment from 'moment'
 const section = {
@@ -17,9 +17,10 @@ export default function App(props){
 
   const selectDay = (info) => {
     //start and end are JS Date Objects so capture date and time
-    let startDate = info.start
-    let endDate = info.end
+    let startDate = info.start;
+    let endDate = info.end;
     setMessage(`${startDate.toDateString()} - ${endDate.toDateString()}`)
+    props.setDay([startDate, endDate]);
   };
   const selectBooking = function(){};
 
