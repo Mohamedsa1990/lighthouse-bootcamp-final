@@ -103,7 +103,7 @@ const jobsDataArray = [{
   }
 ];
 
-export default function JobOfDay(props) {
+export default function JobsOfDay(props) {
   const classes = useStyles();
   
   return (
