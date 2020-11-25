@@ -141,7 +141,6 @@ export default function useApplicationData(){
   }, []);
 
   useEffect(() => {
-    console.log("calendar Reload")
     let calendarEntries = [];
     for (const job of jobs) {
       let dates = [];
@@ -154,7 +153,8 @@ export default function useApplicationData(){
             title: job.name,
             desc: `Workers: ${job.estimate_total_workers}, Time(p-hrs): ${job.estimate_total_time}`,
             start: (new Date(assignment.starts)),
-            end: (new Date(assignment.ends))
+            end: (new Date(assignment.ends)),
+            job_id: job.id,
           });
         }
       }
@@ -170,27 +170,27 @@ export default function useApplicationData(){
     }
     console.log("************saving Job*************")
     return axios.put(`/api/jobs/${jobDetails.id}`, jobDetails)
-    .then((response) => {
-      let newJob = {...jobDetails, id: response.data};
-      
-      setJobs((old) => {
-        let output = [...old]
-        let oldJob = output.filter((job) => newJob.id === job.id)[0];
-        if (oldJob) {
-          oldJob = {...oldJob, ...newJob};//replaces only the keys in newJob
-        } else {
-          newJob.assignments = [];
-          newJob.requirements = [];
-          output.push(newJob);
-        }
-        return output;
+      .then((response) => {
+        let newJob = {...jobDetails, id: response.data};
+        
+        setJobs((old) => {
+          let output = [...old]
+          let oldJob = output.filter((job) => newJob.id === job.id)[0];
+          if (oldJob) {
+            oldJob = {...oldJob, ...newJob};//replaces only the keys in newJob
+          } else {
+            newJob.assignments = [];
+            newJob.requirements = [];
+            output.push(newJob);
+          }
+          return output;
+        });
+        return response.data;
+      })
+      .catch((e) => {
+        console.log("*************Error Saving Job************");
+        return e;
       });
-      return response.data;
-    })
-    .catch((e) => {
-      console.log("*************Error Saving Job************");
-      return e;
-    });
   };
 
   function cancelJob(id) {
