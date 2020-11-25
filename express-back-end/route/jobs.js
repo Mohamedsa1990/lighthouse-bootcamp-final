@@ -125,8 +125,12 @@ module.exports = (db) => {
   });
 
   router.delete('/:id', (req, res) => {
+    console.log("request to delete", req.params.id)
     return db.query(`DELETE FROM jobs WHERE id = $1`, [req.params.id])
-      .then(data => res.json(data.row))
+      .then(data => {
+        console.log("**** deleted ", req.params.id)
+        return res.json(data.row);
+      })
       .catch(err => console.log('delete error: ', err));
   })
   return router;

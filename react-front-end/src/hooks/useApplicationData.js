@@ -136,6 +136,7 @@ export default function useApplicationData(){
     })
     .catch((e) => {
       console.log("*************Error Deleting Job************");
+      console.log("error", e);
       return e;
     });
   };
@@ -204,6 +205,7 @@ export default function useApplicationData(){
         let output = [...old]
         let job = output.filter((tempJob) => newRequirement.job_id === tempJob.id)[0];
         job = {...job};
+        console.log(job);
         let requirement = job.requirements.filter((requirement) => newRequirement.id === requirement.id)[0];
         if (requirement) {
           requirement = {...newRequirement};

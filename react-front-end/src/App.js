@@ -11,6 +11,32 @@ export default function App(){
   const [{message, message2}, setState] = useState({message: 'Click the button to load data!', message2: 'Click to get a query'})
   const [id, setID] = useState(0);
   function fetchData() {
+
+    // let job = jobs.filter((job) => job.id === id)[0];
+    // console.log(job)
+    // cancelJob(id)
+    //   .then(() => {
+    //     console.log("deleted ID", id);
+    //     let job = jobs.filter((job) => job.id === id)[0];
+    //     console.log("*** exit", job);
+    //   });
+    // cancelRequirement(id)
+    //   .then(() => {
+    //     console.log("deleted ID", id);
+    //     let job = jobs.filter((job) => job.id === 5)[0];
+    //     console.log("*** exit", job.requirements);
+    //   });
+    // let job = jobs.filter((job) => job.id === 5)[0];
+    // console.log(job.assignments);
+    // cancelAssignment(id)
+    // .then(() => {
+    //   console.log("deleted ID", id);
+    //   let job = jobs.filter((job) => job.id === 5)[0];
+    //   console.log("*** exit", job);
+    // });
+  }
+
+  function query() {
     // addChangeJob({
     //   name: 'total Junk',
     //   notes: 'you do not want to know',
@@ -25,38 +51,27 @@ export default function App(){
     //   customer_phone_number: '994-624-0020',
     //   customer_email: 'jverecker1q@imageshack.us',
     // })
-    
-    
-    cancelRequirement(id)
-      .then(() => {
-        console.log("deleted ID", id);
-        let job = jobs.filter((job) => job.id === 5)[0];
-        console.log("*** exit", job.requirements);
-      });
-    // console.log(job.assignments);
-    // cancelAssignment(id)
-    // .then(() => {
-    //   console.log("deleted ID", id);
-    //   let job = jobs.filter((job) => job.id === 5)[0];
-    //   console.log("*** exit", job);
-    // });
-  }
-
-  function query() {
-    addChangeRequirement({
-      job_id: 5,
-      task_id: 5,
-      difficulty: 5,
-      estimate_time: 50,
-      estimate_workers: 5,
-    })
-      .then((asignID) => {
-        setID(asignID);
-        console.log("assgned ID",asignID);
-        let job = jobs.filter((job) => job.id === 5)[0];
-        //let assignment = job.assignments.filter((assignment) => assignment.id === asignID)[0];
-        console.log("*** enter", job.requirements);
-      });
+    //   .then((assignID) => {
+    //     setID(assignID);
+    //     console.log("assgned ID",assignID);
+    //     let job = jobs.filter((job) => job.id === assignID)[0];
+    //     console.log("*** enter", job);
+        
+    //   });
+    // addChangeRequirement({
+    //   job_id: 5,
+    //   task_id: 5,
+    //   difficulty: 5,
+    //   estimate_time: 50,
+    //   estimate_workers: 5,
+    // })
+    //   .then((asignID) => {
+    //     setID(asignID);
+    //     console.log("assgned ID",asignID);
+    //     let job = jobs.filter((job) => job.id === 5)[0];
+    //     //let assignment = job.assignments.filter((assignment) => assignment.id === asignID)[0];
+    //     console.log("*** enter", job.requirements);
+    //   });
     // addChangeAssignment({
     //   job_id: 5,
     //   user_id: 49,
@@ -73,7 +88,7 @@ export default function App(){
     //   });
   }
 
-  const {jobs, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement} = useApplicationData();
+  const {jobs, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob} = useApplicationData();
   return (
     <div className="App">
       <h1>{ message }</h1>
