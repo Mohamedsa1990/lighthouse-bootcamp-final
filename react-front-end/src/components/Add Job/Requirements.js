@@ -10,8 +10,7 @@ import { Paper, Button } from '@material-ui/core';
 
 
 export default function Requirements({setTotalTime,setTotalWorker,totalTime,totalWorker , tasks, requirements, setRequirements}) {
-  // let workers = 0;
-  // let time = 0;
+  
   const [taskDialogOpen, setTaskDialogOpen] = useState(false)
   const formik = useFormik({
     initialValues: {
@@ -26,8 +25,6 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
       setTaskDialogOpen(false);
     },
   });
-  console.log('time',totalTime)
-  console.log('worker',totalWorker)
   
   const sumWorker = function(array){
     let total = 0;

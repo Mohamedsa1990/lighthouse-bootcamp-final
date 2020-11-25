@@ -55,7 +55,7 @@ export default function App(){
           </Grid>
           <Grid  item xs>
             {/* <JobSummary jobs={jobs}/> */}
-            <AddJob tasks={tasks} users={users}/>
+            <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/>
           </Grid>
         </Grid>
     </div>

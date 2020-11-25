@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -10,46 +10,55 @@ import Avatar from '@material-ui/core/Avatar';
 import { Grid } from '@material-ui/core';
 import { Typography,TextField } from '@material-ui/core'
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    justifyContent: 'center',
+    width: '100%',
+    maxWidth: 600,
     flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
+    backgroundColor: theme.palette.background.paper,
   },
 }));
 
-export default function AssignWorker({requirements, users, checkedEmployee, setCheckedEmployee, start, end, setStart, setEnd}) {
-  const classes = useStyles();
-  // const filteredUsers = function (employees , skills){
-  //   if (skills.length === 0) {
-  //     return employees
-  //   } else {
-  //     skills.forEach(skill => {
-  //       return 
-  //     }
-  //     )
-  //   }
-  // }
-  const filter = users.filter(user => user.task_id === requirements[0].task_id);
-  // console.log(filter)
-  // console.log(requirements)
-  // console.log(users)
-
+export default function AssignWorker({requirements, users, start, end, setStart, setEnd, assignments, setAssignments}) {
   
+  const classes = useStyles();
+  const [checkedEmployee, setCheckedEmployee] = useState([]);
+
+  const jobSkills = requirements.map(requirement => requirement.task_id)
+  
+  const filteredUsers = function (users, jobSkills) {
+    const userAccum = [];
+    users.forEach (user => {
+      user.skills.forEach(skill => {
+        if (jobSkills.includes(skill.task_id)) {
+          userAccum.push(user)
+        }
+      })
+    })
+    return userAccum;
+  } 
+
+  console.log(checkedEmployee)
+  console.log('assignments', assignments)
+  
+  const userList = filteredUsers(users,jobSkills)
+
+  const usersWithoutDuplicate = userList.filter((item, index) => userList.indexOf(item) === index)
+
   const handleToggle = (value) => () => {
-    const currentIndex = checkedEmployee.map(e => e.user_id).indexOf(value.user_id);
+    const currentIndex = checkedEmployee.map(e => e.id).indexOf(value.id);
+    const newAssigned = [...assignments]
     const newChecked = [...checkedEmployee];
 
     if (currentIndex === -1) {
       newChecked.push(value);
+      newAssigned.push({user_id: value.id, start: start, end: end});
+
     } else {
       newChecked.splice(currentIndex, 1);
+      newAssigned.splice(currentIndex, 1);
     }
-
+    setAssignments(newAssigned);
     setCheckedEmployee(newChecked);
   };
   return (
@@ -57,8 +66,8 @@ export default function AssignWorker({requirements, users, checkedEmployee, setC
       <Typography variant="h6" gutterBottom align="left">
         Assign Worker
       </Typography>
-      <Grid container>
-      <Grid item xs={12} sm={6}>
+      <Grid container justify="space-between">
+      <Grid item xs={12} sm={5}>
           <TextField
             required
             id="datetime-local"
@@ -72,7 +81,7 @@ export default function AssignWorker({requirements, users, checkedEmployee, setC
             onChange={e => setStart(e.target.value)}
             />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={5}>
           <TextField
             required
             id="datetime-local"
@@ -87,10 +96,10 @@ export default function AssignWorker({requirements, users, checkedEmployee, setC
             />
         </Grid>
         <List dense className={classes.root}>
-        {filter.map((value) => {
+        {usersWithoutDuplicate.map((value) => {
           const labelId = `checkbox-list-secondary-label-${value}`;
           return (
-            <ListItem key={value.user_id} button>
+            <ListItem key={value.id} button >
               <ListItemAvatar>
                 <Avatar
                   alt={`${value.first_name[0]}`}
@@ -102,7 +111,7 @@ export default function AssignWorker({requirements, users, checkedEmployee, setC
                 <Checkbox
                   edge="end"
                   onChange={handleToggle(value)}
-                  checked={checkedEmployee.map(e => e.user_id).indexOf(value.user_id) !== -1}
+                  checked={checkedEmployee.map(e => e.id).indexOf(value.id) !== -1}
                   inputProps={{ 'aria-labelledby': labelId }}
                 />
               </ListItemSecondaryAction>

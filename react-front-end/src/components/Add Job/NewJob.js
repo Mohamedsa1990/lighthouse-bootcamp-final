@@ -92,20 +92,15 @@ export default function NewJob({travelTime, setTravelTime, status, setStatus, jo
             />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel id="Status">Status</InputLabel>
-              <Select
-                align="left"
-                labelId="Status"
-                id="simple-select"
-                value={status}
-                onChange={e => setStatus(e.target.value)}
-              >
-                <MenuItem value={"Qouted"}>Qouted</MenuItem>
-                <MenuItem value={"In process"}>In process</MenuItem>
-                <MenuItem value={"Done"}>Done</MenuItem>
-            </Select>
-          </FormControl>
+          <TextField
+            required
+            id="Status"
+            name="status"
+            label="status"
+            fullWidth
+            value={status}
+            onChange={e => setStatus(e.target.value)}
+            />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
