@@ -43,8 +43,8 @@ export default function App(){
   //END EXAMPLE STATE
   
   function fetchData() {
-    console.log("YYYYYYYYYYYYYY")
-    console.log(moment("2020-11-18T20:59"));
+    // console.log("YYYYYYYYYYYYYY")
+    // console.log(moment("2020-11-18T20:59"));
     // let job = jobs.filter((job) => job.id === id)[0];
     // console.log(job)
     // cancelJob(id)
@@ -70,7 +70,7 @@ export default function App(){
   }
 
   function query() {
-    console.log(day);
+    // console.log(day);
     // addChangeJob({
     //   name: 'total Junk',
     //   notes: 'you do not want to know',

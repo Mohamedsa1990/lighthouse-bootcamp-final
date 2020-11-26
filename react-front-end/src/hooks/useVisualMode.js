@@ -27,7 +27,7 @@ const useVisualMode = (initial) => {
     mode: mode,
     transition: transition,
     back: back
-   };
+  };
 };
 
 export default useVisualMode;
