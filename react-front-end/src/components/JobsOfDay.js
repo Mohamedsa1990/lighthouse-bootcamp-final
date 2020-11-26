@@ -108,6 +108,7 @@ export default function JobsOfDay({details, edit, newJob, toolChest}) {
   const jobsPerDay = day.map((job, index) => {
     return (
     <JobItem
+      key={index}
       toolChest={toolChest}
       details={details}
       edit={edit}
@@ -119,7 +120,7 @@ export default function JobsOfDay({details, edit, newJob, toolChest}) {
   return (
     <main className={classes.root}>
       <Container >
-        <Paper key={"1"} elevation={4} >
+        <Paper elevation={4} >
           <Header newJob={newJob} toolChest={toolChest}/> 
           <List 
             aria-labelledby="nested-list-subheader"

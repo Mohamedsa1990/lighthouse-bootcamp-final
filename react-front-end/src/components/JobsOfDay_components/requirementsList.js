@@ -85,19 +85,19 @@ export default function RequirementsList(props) {
       aria-labelledby="nested-list-subheader"
       className={classes.root}      
     >
-      <ListItem  button onClick={handleClick}>
+      <ListItem key={0}  button onClick={handleClick}>
         <ListItemText  primary="Requirements" />
         {open ? <ExpandLess /> : <ExpandMore  />}
       </ListItem>
-      <Collapse  in={open} timeout="auto" unmountOnExit>
+      <Collapse key={1}  in={open} timeout="auto" unmountOnExit>
         <Paper   className={classes.root}>
           <TableContainer className={classes.container}>
             <Table  size="small" stickyHeader aria-label="sticky table">
               <TableHead >
                 <TableRow >
-                  {columns.map((column) => (                    
+                  {columns.map((column, index) => (                    
                     <TableCell
-                      key={column.id}
+                      key={index}
                       align={column.align}
                       style={{ minWidth: column.minWidth }}
                     >
@@ -107,13 +107,13 @@ export default function RequirementsList(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, rIndex) => {
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                      {columns.map((column) => {
+                    <TableRow key={rIndex} hover role="checkbox" tabIndex={-1}>
+                      {columns.map((column, cIndex) => {
                         const value = row[column.id];
                         return (
-                          <TableCell key={column.id} align={column.align}>
+                          <TableCell key={`${cIndex} ${rIndex}`} align={column.align}>
                             {column.format && typeof value === 'number' ? column.format(value) : value}
                           </TableCell>
                         );

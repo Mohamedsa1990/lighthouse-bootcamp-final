@@ -1,20 +1,33 @@
+
 import {Box, Divider, Paper} from '@material-ui/core';
 import ListItem from '@material-ui/core/ListItem';
+import { useEffect, useState } from 'react';
 import JobsNav from './jobsNav';
 import RequirementsList from './requirementsList';
 
 
 export default function JobItem({toolChest, details, edit, job, index}) {
   const {transition, setSelectedJob} = toolChest;
+  const [makeTransition, setMakeTransition] = useState([false, edit])
 
+  useEffect(() => {
+    if(makeTransition){
+      if(makeTransition[0]) {
+        transition(makeTransition[1]);
+      }
+    }
+  }, [toolChest.job]);
+  
   const onDetails = function() {
+    console.log("ondetails", job.id);
     setSelectedJob(job.id);
-    transition(details);
+    setMakeTransition([true, details])
   }
+
 
   const onEdit = function() {
     setSelectedJob(job.id);
-    transition(edit);
+    setMakeTransition([true, edit])
   }
 
   return (
