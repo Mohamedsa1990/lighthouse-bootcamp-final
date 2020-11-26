@@ -36,13 +36,13 @@ export default function JobSummary(props) {
         <Paper elevation={4} >
           <Box m={2}>
             <Typography variant="h5">Job Summary</Typography>
-            <Typography variant="h6" >Monday, January 8. 9:00 AM</Typography>
+            <Typography variant="h6" >Monday, January 8. Time ?</Typography>
             <ButtonGroup variant="outlined" aria-label="outlined primary button group">
               <Button color="secondary" onClick={props.onAllJobs}>All Jobs</Button>
               <Button onClick={props.onNewJob} color="primary">New Job</Button>
             </ButtonGroup>
-          </Box>
-          <QuoteNotes jobs={props.jobs}/>
+          </Box> 
+          <QuoteNotes jobs={props.jobs}/> 
           <Divider />
           <CustomerInfo jobs={props.jobs}/>
           <Divider/>

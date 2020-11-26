@@ -110,11 +110,11 @@ export default function JobsOfDay(props) {
     <main className={classes.root}>
       <Container >
         <Paper elevation={4} >
-          <Header onNewJob={props.onNewJob}/>
+          <Header onNewJob={props.onNewJob} selectDay={props.selectDay}/> 
           <List 
             aria-labelledby="nested-list-subheader"
           >
-            {jobsDataArray.map((obj, index) => {
+            {props.jobsPerDay.map((obj, index) => { 
               return (
                 <Paper variant="outlined">
                     <ListItem>
@@ -125,7 +125,7 @@ export default function JobsOfDay(props) {
                           onDetails={props.onDetails}
                           onEdit={props.onEdit}
                         />
-                        <RequirementsList jobObj={obj}/>
+                        <RequirementsList jobObj={obj}/> 
                         <Divider />
                       </Box>
                     </ListItem>

@@ -143,7 +143,7 @@ export default function App(){
           {/* <JobSummary jobs= {jobs} /> */}
           {/* <JobsOfDay jobs={day}/> */}
           {/* <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/> */}
-          
+          <JobsPanel jobsPerDay={day} selectDay={selectDay} jobs={jobs} />
         </Grid>
       </Grid>
     </div>
