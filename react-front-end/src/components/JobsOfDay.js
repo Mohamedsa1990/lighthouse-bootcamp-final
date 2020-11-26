@@ -105,27 +105,28 @@ const jobsDataArray = [{
 
 export default function JobsOfDay(props) {
   const classes = useStyles();
-  
+  console.log("props.jobsPerDay from JobsofDay: ", props.jobsPerDay);
   return (
     <main className={classes.root}>
       <Container >
-        <Paper elevation={4} >
+        <Paper key={"1"} elevation={4} >
           <Header onNewJob={props.onNewJob} selectDay={props.selectDay}/> 
           <List 
             aria-labelledby="nested-list-subheader"
           >
             {props.jobsPerDay.map((obj, index) => { 
               return (
-                <Paper variant="outlined">
+                <Paper key={"2"} variant="outlined">
                     <ListItem>
                       <Box>
                         <JobsNav 
                           jobObj={obj} 
-                          id={index} 
+                          id={index}
+                          
                           onDetails={props.onDetails}
                           onEdit={props.onEdit}
                         />
-                        <RequirementsList jobObj={obj}/> 
+                        <RequirementsList  jobObj={obj}/> 
                         <Divider />
                       </Box>
                     </ListItem>

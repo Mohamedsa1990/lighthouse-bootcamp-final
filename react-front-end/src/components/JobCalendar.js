@@ -45,7 +45,7 @@ export default function App({selectedDay, setDay, bookings, setSelectedJob}){
     else return {}
   }
   const selectBooking = function(booking){
-    console.log(booking.job_id);
+    console.log("booking.job_id: ", booking.job_id);
     setSelectedJob(booking.job_id);
   };
 

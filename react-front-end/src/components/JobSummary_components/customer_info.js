@@ -47,7 +47,7 @@ export default function CustomerInfo(props) {
       <ListItem button onClick={handleClick}>
         <ListItemText primary="Name:" 
 
-        secondary={props.jobs[0].customer_first_name + " " + props.jobs[0].customer_last_name}
+        secondary={props.job.customer_first_name + " " + props.job.customer_last_name}
         />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
@@ -59,19 +59,19 @@ export default function CustomerInfo(props) {
               <CallIcon color="primary"/>
             </ListItemIcon>
 
-            <ListItemText primary="Phone:" secondary={props.jobs[0].customer_phone_number} />
+            <ListItemText primary="Phone:" secondary={props.job.customer_phone_number} />
           </ListItem>
           <ListItem className={classes.nested}>
             <ListItemIcon>
               <AlternateEmailIcon color="primary"/>
             </ListItemIcon>
-            <ListItemText primary="Email:" secondary={props.jobs[0].customer_email} />        
+            <ListItemText primary="Email:" secondary={props.job.customer_email} />        
           </ListItem>
           <ListItem className={classes.nested}>
             <ListItemIcon>
               <LocationOnIcon color="primary"/>
             </ListItemIcon>
-            <ListItemText primary="Location:" secondary={props.jobs[0].customer_address + ", " + props.jobs[0].customer_city}/>
+            <ListItemText primary="Location:" secondary={props.job.customer_address + ", " + props.job.customer_city}/>
           </ListItem>
         </List>
       </Collapse>

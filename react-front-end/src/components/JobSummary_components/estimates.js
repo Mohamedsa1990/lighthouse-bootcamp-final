@@ -25,13 +25,13 @@ export default function Estimates(props) {
         <Grid  item xs>
           <Paper className={classes.paper}>
             <Typography color="textPrimary">Time Estimate: </Typography>
-            <Typography align="right"> {props.jobs[0].estimate_total_time} p-hrs</Typography>
+            <Typography align="right"> {props.job.estimate_total_time} p-hrs</Typography>
           </Paper>
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
             <Typography color="textPrimary" >Required Workers: </Typography>
-            <Typography align="right">{props.jobs[0].estimate_total_workers}</Typography>
+            <Typography align="right">{props.job.estimate_total_workers}</Typography>
           </Paper>
         </Grid>
       </Grid>

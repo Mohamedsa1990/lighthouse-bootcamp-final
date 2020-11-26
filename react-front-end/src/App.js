@@ -9,6 +9,42 @@ import JobsOfDay from './components/JobsOfDay';
 import AddJob from './components/Add Job/AddJob'
 import JobsPanel from './components/JobsPanel';
 
+const jobInitialState = {
+  assignments: [{
+    admin: null,
+    ends: "12/09/2020",
+    first_name: "Ardelle",
+    id: 90,
+    job_id: 6,
+    last_name: "MacCarrane",
+    starts: "08/12/2020",
+    user_id: 41
+  }],
+  customer_address: "8288 Coleman Plaza",
+  customer_city: "Oyonnax",
+  customer_email: "ypace5@businessinsider.com",
+  customer_first_name: "Yasmeen",
+  customer_last_name: "Pace",
+  customer_phone_number: "814-926-0171",
+  estimate_total_time: 1080,
+  estimate_total_workers: 10,
+  estimate_travel_time: 180,
+  id: 6,
+  name: "rutrum rutrum",
+  notes: "In congue. Etiam justo. Etiam pretium iaculis justo.",
+  requirements: [{
+    description: "Nunc nisl. Duis bibendum",
+    difficulty: 3,
+    estimate_time: 750,
+    estimate_workers: 3,
+    id: 52,
+    job_id: 6,
+    name: "Installing rock gardens",
+    task_id: 5
+  }],
+  status: "in process"
+};
+
 export default function App(){
   const {jobs, tasks, users, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob} = useApplicationData();
 
@@ -19,7 +55,7 @@ export default function App(){
   // selectedJob - the id of the currently selected job
   const [selectedJob, setSelectedJob] = useState(0);
   // job - the data for the currently selected job
-  const [job, setJob] = useState({})
+  const [job, setJob] = useState(jobInitialState);
 
   useEffect(() => {
     const dayJobs = jobs.filter((job) => {
@@ -32,7 +68,8 @@ export default function App(){
   }, [selectDay, jobs]);
 
   useEffect(() => {
-    setJob(jobs.filter((job) => (job.id === selectedJob))[0])
+    setJob(jobs.filter((job) => (job.id === selectedJob))[0]);
+    // send promise as prop to JobsPanel to make transition to JOB_SUMMARY
   }, [selectedJob, jobs]);
 
 
@@ -143,7 +180,7 @@ export default function App(){
           {/* <JobSummary jobs= {jobs} /> */}
           {/* <JobsOfDay jobs={day}/> */}
           {/* <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/> */}
-          <JobsPanel jobsPerDay={day} selectDay={selectDay} jobs={jobs} />
+          <JobsPanel jobsPerDay={day} selectDay={selectDay} jobs={jobs} job={job} />
         </Grid>
       </Grid>
     </div>

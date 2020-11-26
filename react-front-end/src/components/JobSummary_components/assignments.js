@@ -75,7 +75,7 @@ export default function Assignments(props) {
   };
 
 
-  const assignmentsArray = props.jobs[4].assignments;
+  const assignmentsArray = props.job.assignments;
   // console.log("assignmentsArray: ", assignmentsArray)
   const rows = assignmentsArray.map((obj) => {
     return createData(`${obj.first_name} ${obj.last_name}`, obj.starts, obj.estimate_hrs, <DeleteForeverIcon />)

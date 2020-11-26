@@ -30,7 +30,7 @@ export default function JobsPanel(props) {
       />)}
       {mode === JOB_SUMMARY && (
       <JobSummary 
-        jobs={props.jobs} 
+        job={props.job} 
         onNewJob={() => transition(JOB_CREATOR)} 
         onAllJobs={() => transition(JOBS_OF_DAY)}/>)}
       {mode === JOB_CREATOR && (

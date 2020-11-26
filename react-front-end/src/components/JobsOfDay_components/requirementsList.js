@@ -82,19 +82,19 @@ export default function RequirementsList(props) {
     <List
       component="nav"
       aria-labelledby="nested-list-subheader"
-      className={classes.root}
+      className={classes.root}      
     >
-      <ListItem button onClick={handleClick}>
-        <ListItemText primary="Requirements" />
-        {open ? <ExpandLess /> : <ExpandMore />}
+      <ListItem  button onClick={handleClick}>
+        <ListItemText  primary="Requirements" />
+        {open ? <ExpandLess /> : <ExpandMore  />}
       </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <Paper className={classes.root}>
+      <Collapse  in={open} timeout="auto" unmountOnExit>
+        <Paper   className={classes.root}>
           <TableContainer className={classes.container}>
-            <Table size="small" stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
+            <Table  size="small" stickyHeader aria-label="sticky table">
+              <TableHead >
+                <TableRow >
+                  {columns.map((column) => (                    
                     <TableCell
                       key={column.id}
                       align={column.align}
