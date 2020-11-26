@@ -16,6 +16,10 @@ export default function App(){
   const [selectDay, setSelectDay] = useState({starts: moment().startOf('day').toDate(), ends: moment().endOf('day').toDate()});
   // day - contains all the jobs for the selected day
   const [day, setDay] = useState([]);
+  // selectedJob - the id of the currently selected job
+  const [selectedJob, setSelectedJob] = useState(0);
+  // job - the data for the currently selected job
+  const [job, setJob] = useState({})
 
   useEffect(() => {
     const dayJobs = jobs.filter((job) => {
@@ -25,7 +29,12 @@ export default function App(){
       return dayAssignments.length !== 0;
     });
     setDay(dayJobs);
-  }, [selectDay, jobs])
+  }, [selectDay, jobs]);
+
+  useEffect(() => {
+    setJob(jobs.filter((job) => (job.id === selectedJob))[0])
+  }, [selectedJob, jobs]);
+
 
   //START EXAMPLE FUNCTIONS
   //START EXAMPLE STATE
@@ -34,7 +43,8 @@ export default function App(){
   //END EXAMPLE STATE
   
   function fetchData() {
-    console.log(selectDay);
+    console.log("YYYYYYYYYYYYYY")
+    console.log(moment("2020-11-18T20:59"));
     // let job = jobs.filter((job) => job.id === id)[0];
     // console.log(job)
     // cancelJob(id)
@@ -127,7 +137,7 @@ export default function App(){
       {/* END EXAMPLE COMPONENETS */}
       <Grid container spacing={1}>
         <Grid  item xs>
-          <JobCalendar bookings={calendar} setDay={setSelectDay} selectedDay={selectDay}/>
+          <JobCalendar bookings={calendar} setDay={setSelectDay} selectedDay={selectDay} setSelectedJob={setSelectedJob}/>
         </Grid>
         <Grid  item xs>
           {/* <JobSummary jobs= {jobs} /> */}

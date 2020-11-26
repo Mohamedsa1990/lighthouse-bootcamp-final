@@ -13,7 +13,7 @@ const section = {
 // to the correct localizer.
 const localizer = momentLocalizer(moment) // or globalizeLocalizer
 
-export default function App({selectedDay, setDay, bookings}){
+export default function App({selectedDay, setDay, bookings, setSelectedJob}){
   const selectDay = (info) => {
     //start and end are JS Date Objects so capture date and time
     let startDate = new Date(info.start.getTime());
@@ -46,6 +46,7 @@ export default function App({selectedDay, setDay, bookings}){
   }
   const selectBooking = function(booking){
     console.log(booking.job_id);
+    setSelectedJob(booking.job_id);
   };
 
   return (
