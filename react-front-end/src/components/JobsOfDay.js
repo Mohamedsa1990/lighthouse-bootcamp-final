@@ -2,10 +2,8 @@ import React from 'react';
 import { Container, Box, Divider, Paper} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import Header from './JobsOfDay_components/header';
-import JobsNav from './JobsOfDay_components/jobsNav';
-import RequirementsList from './JobsOfDay_components/requirementsList';
+import JobItem from './JobsOfDay_components/JobItem';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,36 +101,31 @@ const jobsDataArray = [{
   }
 ];
 
-export default function JobsOfDay(props) {
+export default function JobsOfDay({details, edit, newJob, toolChest}) {
   const classes = useStyles();
   // console.log("props.jobsPerDay from JobsofDay: ", props.jobsPerDay);
+  const {day} = toolChest;
+  const jobsPerDay = day.map((job, index) => {
+    return (
+    <JobItem
+      key={index}
+      toolChest={toolChest}
+      details={details}
+      edit={edit}
+      job={job}
+      index={index}
+    />
+    )
+  })
   return (
     <main className={classes.root}>
       <Container >
-        <Paper key={"1"} elevation={4} >
-          <Header onNewJob={props.onNewJob} selectDay={props.selectDay}/> 
+        <Paper elevation={4} >
+          <Header newJob={newJob} toolChest={toolChest}/> 
           <List 
             aria-labelledby="nested-list-subheader"
           >
-            {props.jobsPerDay.map((obj, index) => { 
-              return (
-                <Paper key={"2"} variant="outlined">
-                    <ListItem>
-                      <Box>
-                        <JobsNav 
-                          jobObj={obj} 
-                          id={index}
-                          
-                          onDetails={props.onDetails}
-                          onEdit={props.onEdit}
-                        />
-                        <RequirementsList  jobObj={obj}/> 
-                        <Divider />
-                      </Box>
-                    </ListItem>
-                </Paper>
-              )         
-            })} 
+            {jobsPerDay} 
           </List>
         </Paper>
       </Container>

@@ -58,6 +58,25 @@ export default function App(){
   const [job, setJob] = useState(jobInitialState);
   // console.log("job state: ", job)
 
+  const toolChest = {
+    jobs,
+    tasks,
+    users,
+    calendar,
+    addChangeAssignment,
+    cancelAssignment,
+    addChangeRequirement,
+    cancelRequirement,
+    addChangeJob,
+    cancelJob,
+    selectDay,
+    setSelectDay,
+    day,
+    selectedJob,
+    setSelectedJob,
+    job
+  }
+
   useEffect(() => {
     const dayJobs = jobs.filter((job) => {
       let dayAssignments = job.assignments.filter((assignment) => {
@@ -180,7 +199,7 @@ export default function App(){
           {/* <JobSummary jobs= {jobs} /> */}
           {/* <JobsOfDay jobs={day}/> */}
           {/* <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/> */}
-          <JobsPanel jobsPerDay={day} selectDay={selectDay} jobs={jobs} job={job} />
+          <JobsPanel toolChest={toolChest} />
         </Grid>
       </Grid>
     </div>
