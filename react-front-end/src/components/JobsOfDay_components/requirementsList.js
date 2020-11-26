@@ -75,7 +75,8 @@ export default function RequirementsList(props) {
   const requirementsArray = props.jobObj.requirements;
   
   const rows = requirementsArray.map((obj) => {
-    return createData(obj.name, obj.estimate_workers, obj.estimate_time, obj.difficulty)
+    const quotedHrs = obj.estimate_time / 60;
+    return createData(obj.name, obj.estimate_workers, quotedHrs, obj.difficulty)
   });
 
   return (

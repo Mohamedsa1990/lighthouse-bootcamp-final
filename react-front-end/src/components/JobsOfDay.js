@@ -105,7 +105,7 @@ const jobsDataArray = [{
 
 export default function JobsOfDay(props) {
   const classes = useStyles();
-  console.log("props.jobsPerDay from JobsofDay: ", props.jobsPerDay);
+  // console.log("props.jobsPerDay from JobsofDay: ", props.jobsPerDay);
   return (
     <main className={classes.root}>
       <Container >

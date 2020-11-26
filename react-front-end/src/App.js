@@ -56,6 +56,7 @@ export default function App(){
   const [selectedJob, setSelectedJob] = useState(0);
   // job - the data for the currently selected job
   const [job, setJob] = useState(jobInitialState);
+  // console.log("job state: ", job)
 
   useEffect(() => {
     const dayJobs = jobs.filter((job) => {
@@ -69,7 +70,6 @@ export default function App(){
 
   useEffect(() => {
     setJob(jobs.filter((job) => (job.id === selectedJob))[0]);
-    // send promise as prop to JobsPanel to make transition to JOB_SUMMARY
   }, [selectedJob, jobs]);
 
 
