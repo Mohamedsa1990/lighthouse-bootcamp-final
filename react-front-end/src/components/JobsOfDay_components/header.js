@@ -18,11 +18,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
   const classes = useStyles();
+  const selectDay = props.selectDay.starts.toString();
 
   return (
     <Grid container spacing={3} >
       <Grid item xs>
-        <Typography variant="h6" >Monday, January 8</Typography>
+        <Typography variant="h6" >{selectDay.slice(0, 16)}</Typography>
       </Grid>
       <Grid item xs>  
         <Button

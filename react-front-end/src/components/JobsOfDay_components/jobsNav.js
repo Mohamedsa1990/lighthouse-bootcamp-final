@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function JobsNav(props) {
   const classes = useStyles();
-  const totalHrs = props.jobObj.estimate_total_time / props.jobObj.estimate_total_workers;
+  const totalHrs = props.jobObj.estimate_total_time / props.jobObj.estimate_total_workers; 
   
   const [open, setOpen] = React.useState(false);
   const handleClick = () => {
@@ -33,7 +33,7 @@ export default function JobsNav(props) {
   return ( 
     <Grid container spacing={1} >
       <Grid item xs={12}>
-          <Paper className={classes.paper}>Job {props.id + 1}:  {props.jobObj.estimate_total_workers} workers, {props.jobObj.estimate_total_time} p-hrs. Total: {totalHrs} hrs</Paper>
+          <Paper className={classes.paper}>Job {props.id + 1}:  {props.jobObj.estimate_total_workers} workers, {props.jobObj.estimate_total_time} p-hrs. Total: {totalHrs} hrs</Paper> 
       </Grid>
       <Grid align="center" item xs={12} >
         <ButtonGroup variant="outlined" aria-label="outlined primary button group">

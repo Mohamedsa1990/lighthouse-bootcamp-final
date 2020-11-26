@@ -25,9 +25,12 @@ export default function JobsPanel(props) {
         onDetails={() => transition(JOB_SUMMARY)}
         onEdit={() => transition(JOB_CREATOR)}
         onNewJob={() => transition(JOB_CREATOR)}
+        jobsPerDay={props.jobsPerDay}
+        selectDay={props.selectDay}
       />)}
       {mode === JOB_SUMMARY && (
-      <JobSummary jobs={props.jobs} 
+      <JobSummary 
+        jobs={props.jobs} 
         onNewJob={() => transition(JOB_CREATOR)} 
         onAllJobs={() => transition(JOBS_OF_DAY)}/>)}
       {mode === JOB_CREATOR && (
@@ -35,3 +38,4 @@ export default function JobsPanel(props) {
     </Fragment>
   );
 }
+
