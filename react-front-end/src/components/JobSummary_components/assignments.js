@@ -17,26 +17,19 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 const columns = [
-  { id: 'name', label: 'Name (TL=Team Lead)', minWidth: 50, maxWidth: 100, },
-  { id: 'date_time', label: 'Date/Time', minWidth: 10, maxWidth: 30, align: 'center' },
+  { id: 'name', label: 'Name (TL=Team Lead)', minWidth: 50, maxWidth: 100 },
+  { id: 'start_date_time', label: 'Start Date/Time', minWidth: 10, maxWidth: 30, align: 'center' },
   {
-    id: 'duration',
-    label: 'Duration',
+    id: 'end_date_time',
+    label: 'End Date/Time',
     minWidth: 10,
     maxWidth: 30,
     align: 'center',
-  },
-  {
-    id: 'remove',
-    label: 'Delete',
-    minWidth: 10,
-    maxWidth: 30,
-    align: 'center',
-  },
+  }
 ];
 
-function createData(name, date_time, duration, remove) {
-  return { name, date_time, duration, remove };
+function createData(name, start_date_time, end_date_time) {
+  return { name, start_date_time, end_date_time};
 }
 
 // const deleteIcon = <DeleteForeverIcon button onClick={handleClick}/>
@@ -78,7 +71,7 @@ export default function Assignments(props) {
   const assignmentsArray = props.job.assignments;
   // console.log("assignmentsArray: ", assignmentsArray)
   const rows = assignmentsArray.map((obj) => {
-    return createData(`${obj.first_name} ${obj.last_name}`, obj.starts, obj.estimate_hrs, <DeleteForeverIcon />)
+    return createData(`${obj.first_name} ${obj.last_name}`, obj.starts, obj.ends)
   });
 
   return (
