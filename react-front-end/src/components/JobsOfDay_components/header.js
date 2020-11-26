@@ -16,20 +16,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header(props) {
+export default function Header({toolChest, newJob}) {
   const classes = useStyles();
-  const selectDay = props.selectDay.starts.toString();
+  const {selectDay, transition} = toolChest;
+
+  const selectDayString = selectDay.starts.toString();
+  const onNewJob = function() {
+    transition(newJob);
+  };
 
   return (
     <Grid container spacing={3} >
       <Grid item xs>
-        <Typography variant="h6" >{selectDay.slice(0, 16)}</Typography>
+        <Typography variant="h6" >{selectDayString.slice(0, 16)}</Typography>
       </Grid>
       <Grid item xs>  
         <Button
           variant="outlined"
           color="primary"
-          onClick={props.onNewJob}
+          onClick={onNewJob}
           className={classes.button}
         >
           New Job

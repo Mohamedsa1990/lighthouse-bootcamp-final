@@ -11,30 +11,30 @@ const JOB_SUMMARY = "JOB_SUMMARY";
 const JOB_CREATOR ="JOB_CREATOR"; 
 
 export default function JobsPanel(props) {
+  //jobsPerDay={day} selectDay={selectDay} jobs={jobs} job={job}
   const { mode, transition, back } = useVisualMode(
     JOBS_OF_DAY
     // props. ? JOBS_OF_DAY : EMPTY 
   );
-
+  const toolChest = {...props.toolChest, mode, transition, back}
   return (
     <Fragment>
       {mode === EMPTY && (
       <Empty onClick={() => transition(JOBS_OF_DAY)} />)}
       {mode === JOBS_OF_DAY && (
       <JobsOfDay 
-        onDetails={() => transition(JOB_SUMMARY)}
-        onEdit={() => transition(JOB_CREATOR)}
-        onNewJob={() => transition(JOB_CREATOR)}
-        jobsPerDay={props.jobsPerDay}
-        selectDay={props.selectDay}
+        details={JOB_SUMMARY}
+        edit={JOB_CREATOR}
+        newJob={JOB_CREATOR}
+        toolChest={toolChest}
       />)}
       {mode === JOB_SUMMARY && (
       <JobSummary 
-        job={props.job} 
+        job={toolChest.job} 
         onNewJob={() => transition(JOB_CREATOR)} 
         onAllJobs={() => transition(JOBS_OF_DAY)}/>)}
       {mode === JOB_CREATOR && (
-      <AddJob tasks={props.tasks} users={props.users} addChangeJob={props.addChangeJob} />)}
+      <AddJob tasks={toolChest.tasks} users={toolChest.users} addChangeJob={toolChest.addChangeJob} />)}
     </Fragment>
   );
 }
