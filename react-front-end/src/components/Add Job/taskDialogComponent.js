@@ -44,9 +44,9 @@ export default function TaskDialogComponent (props) {
                   onChange={props.formik.handleChange}
                   value={props.formik.values.difficulty}
                   >
-                  <MenuItem value={1}>Low</MenuItem>
-                  <MenuItem value={2}>Medium</MenuItem>
-                  <MenuItem value={3}>High</MenuItem>
+                  <MenuItem value={"Easy"}>Easy</MenuItem>
+                  <MenuItem value={"Medium"}>Medium</MenuItem>
+                  <MenuItem value={"Hard"}>Hard</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

@@ -16,7 +16,7 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
     initialValues: {
       job_id: jobId,
       task_id: '',
-      difficulty: 0,
+      difficulty: '',
       estimate_workers: '',
       estimate_time: '',
     },

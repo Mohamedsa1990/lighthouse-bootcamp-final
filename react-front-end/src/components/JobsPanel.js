@@ -66,7 +66,14 @@ export default function JobsPanel(props) {
         onNewJob={onNewJob} 
         onAllJobs={() => transition(JOBS_OF_DAY)}/>)}
       {mode === JOB_CREATOR && (
-      <AddJob tasks={toolChest.tasks} users={toolChest.users} addChangeJob={toolChest.addChangeJob} />)}
+      <AddJob 
+      tasks={toolChest.tasks} 
+      users={toolChest.users} 
+      addChangeJob={toolChest.addChangeJob} 
+      addChangeAssignment={toolChest.addChangeAssignment} 
+      addChangeRequirement={toolChest.addChangeRequirement} 
+      cancelJob={toolChest.cancelJob}
+      onAllJobs={() => transition(JOBS_OF_DAY)} />)}
     </Fragment>
   );
 }
