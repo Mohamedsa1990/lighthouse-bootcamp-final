@@ -56,7 +56,9 @@ export default function App(){
   const [selectedJob, setSelectedJob] = useState(0);
   // job - the data for the currently selected job
   const [job, setJob] = useState(jobInitialState);
-  // console.log("job state: ", job)
+  // calendarSelectXXX - sets whether the selected day or job were selected in calendar
+  const [calendarSelectJob, setCalendarSelectJob] = useState(false);
+  const [calendarSelectDay, setCalendarSelectDay] = useState(false);
 
   const toolChest = {
     jobs,
@@ -74,7 +76,11 @@ export default function App(){
     day,
     selectedJob,
     setSelectedJob,
-    job
+    job,
+    calendarSelectJob,
+    setCalendarSelectJob,
+    calendarSelectDay,
+    setCalendarSelectDay
   }
 
   useEffect(() => {
@@ -104,6 +110,8 @@ export default function App(){
         customer_city: '',
         customer_phone_number: '',
         customer_email: '',
+        requirements: [],
+        assignments: [],
       }
     }
     setJob(jobData);
@@ -211,7 +219,7 @@ export default function App(){
       {/* END EXAMPLE COMPONENETS */}
       <Grid container spacing={1}>
         <Grid  item xs>
-          <JobCalendar bookings={calendar} setDay={setSelectDay} selectedDay={selectDay} setSelectedJob={setSelectedJob}/>
+          <JobCalendar toolChest={toolChest}/>
         </Grid>
         <Grid  item xs>
           {/* <JobSummary jobs= {jobs} /> */}
