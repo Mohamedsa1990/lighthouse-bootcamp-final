@@ -101,7 +101,7 @@ const jobsDataArray = [{
   }
 ];
 
-export default function JobsOfDay({details, edit, newJob, toolChest}) {
+export default function JobsOfDay({details, edit, onNewJob, toolChest}) {
   const classes = useStyles();
   // console.log("props.jobsPerDay from JobsofDay: ", props.jobsPerDay);
   const {day} = toolChest;
@@ -121,7 +121,7 @@ export default function JobsOfDay({details, edit, newJob, toolChest}) {
     <main className={classes.root}>
       <Container >
         <Paper elevation={4} >
-          <Header newJob={newJob} toolChest={toolChest}/> 
+          <Header onNewJob={onNewJob} selectDay={toolChest.selectDay}/> 
           <List 
             aria-labelledby="nested-list-subheader"
           >

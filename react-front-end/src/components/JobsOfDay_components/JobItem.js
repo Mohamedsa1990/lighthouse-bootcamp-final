@@ -8,32 +8,21 @@ import RequirementsList from './requirementsList';
 
 export default function JobItem({toolChest, details, edit, job, index}) {
   const {transition, setSelectedJob} = toolChest;
-  const [makeTransition, setMakeTransition] = useState([false, edit])
-
-  useEffect(() => {
-    if(makeTransition){
-      if(makeTransition[0]) {
-        transition(makeTransition[1]);
-      }
-    }
-  }, [toolChest.job]);
   
   const onDetails = function() {
     if (toolChest.job.id === job.id) {
-      transition(edit);
+      transition(details);
     } else {
       setSelectedJob(job.id);
-      setMakeTransition([true, details])
     }
   }
-
 
   const onEdit = function() {
     if (toolChest.job.id === job.id) {
       transition(edit);
     } else {
+      toolChest.setTransitionTo(edit);
       setSelectedJob(job.id);
-      setMakeTransition([true, edit])
     }
   }
 

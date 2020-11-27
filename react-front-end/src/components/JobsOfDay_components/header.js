@@ -16,26 +16,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header({toolChest, newJob}) {
+export default function Header({selectDay, onNewJob}) {
   const classes = useStyles();
-  const {selectDay, transition, setSelectedJob} = toolChest;
-  const [makeTransition, setMakeTransition] = useState(false);
-
-  useEffect(() => {
-    if (makeTransition) {
-      transition(newJob);
-    }
-  }, [toolChest.job])
 
   const selectDayString = selectDay.starts.toString();
-  const onNewJob = function() {
-    if(toolChest.job.id === 0){
-      transition(newJob);
-    } else {
-      setMakeTransition(true);
-      setSelectedJob(0);
-    }
-  };
+
 
   return (
     <Grid container spacing={3} >
