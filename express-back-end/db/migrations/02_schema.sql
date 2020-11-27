@@ -22,7 +22,7 @@ CREATE TABLE Requirements (
   id SERIAL PRIMARY KEY,
   job_id INTEGER REFERENCES jobs(id) ON DELETE CASCADE,
   task_id INTEGER REFERENCES tasks(id) ON DELETE CASCADE,
-  difficulty INTEGER,
+  difficulty VARCHAR(255),
   estimate_time INTEGER,
   estimate_workers INTEGER
 );

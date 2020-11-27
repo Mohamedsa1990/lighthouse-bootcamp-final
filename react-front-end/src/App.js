@@ -198,7 +198,7 @@ export default function App(){
         <Grid  item xs>
           {/* <JobSummary jobs= {jobs} /> */}
           {/* <JobsOfDay jobs={day}/> */}
-          {/* <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/> */}
+          {/* <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob} addChangeAssignment={addChangeAssignment} addChangeRequirement={addChangeRequirement} cancelJob={cancelJob}/> */}
           <JobsPanel toolChest={toolChest} />
         </Grid>
       </Grid>

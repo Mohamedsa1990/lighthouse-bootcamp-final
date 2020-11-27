@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 const steps = ['Job details', 'Requirement details', 'Assign employees'];
 
 
-export default function AddJob({tasks, users, addChangeAssignment, addChangeRequirement, addChangeJob, cancelJob}) {
+export default function AddJob({tasks, users, addChangeAssignment, addChangeRequirement, addChangeJob, cancelJob, onAllJobs}) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
 
@@ -159,7 +159,7 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
   
   const handleBack = () => {
     if (activeStep === 1) {
-      // cancelJob(jobId)
+      cancelJob(jobId)
     }
     
     setActiveStep(activeStep - 1);
@@ -170,7 +170,7 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
     addChangeJob(job);
     requirements.forEach(requirement => addChangeRequirement(requirement));
     assignments.forEach(assignment => addChangeAssignment(assignment));
-
+    onAllJobs();
   };
   
   function getStepContent(step) {
@@ -235,7 +235,7 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
   return (
     <React.Fragment>
       <main className={classes.layout}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} elevation={3}>
           <Typography component="h1" variant="h4" align="center">
             New Job
           </Typography>
@@ -257,7 +257,7 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
                 <div className={classes.buttons}>
                   {activeStep === 0 ?
                   (
-                    <Button onClick={handleBack} className={classes.button}>
+                    <Button onClick={onAllJobs} className={classes.button}>
                       Cancel
                     </Button>
                   )

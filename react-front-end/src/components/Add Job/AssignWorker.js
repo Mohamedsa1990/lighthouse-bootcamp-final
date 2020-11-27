@@ -25,7 +25,6 @@ export default function AssignWorker({requirements, users, start, end, setStart,
   const classes = useStyles();
   const [checkedEmployee, setCheckedEmployee] = useState([]);
   const jobSkills = requirements.map(requirement => requirement.task_id)
-  
   const filteredUsers = function (users, jobSkills) {
     const userAccum = [];
     users.forEach (user => {
@@ -58,6 +57,7 @@ export default function AssignWorker({requirements, users, start, end, setStart,
     setAssignments(newAssigned);
     setCheckedEmployee(newChecked);
   };
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom align="left">
@@ -100,7 +100,7 @@ export default function AssignWorker({requirements, users, start, end, setStart,
               <ListItemAvatar>
                 <Avatar
                   alt={`${value.first_name[0]}`}
-                  src={`/static/images/avatar/${value + 1}.jpg`}
+                  src={value.avatar}
                 />
               </ListItemAvatar>
               <ListItemText id={labelId} primary={`${value.first_name} ${value.last_name}`} />
