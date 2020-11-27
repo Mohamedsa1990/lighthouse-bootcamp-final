@@ -1,5 +1,33 @@
-.JobCalendar {
-  width: 100%;
-  min-width: 20rem;
-  min-height: 40rem;
+
+.rbc-event {
+  background-color: #80b98b;
+  border-radius: 7px;
 }
+.rbc-event.rbc-selected {
+  background-color: #638f6a;
+}
+.rbc-event:focus {
+  outline: 5px auto #91d19d; 
+}
+
+.rbc-toolbar button:active, .rbc-toolbar button.rbc-active {
+  background-color: #80b98b;
+}
+  .rbc-toolbar button:active:hover, .rbc-toolbar button:active:focus, .rbc-toolbar button.rbc-active:hover, .rbc-toolbar button.rbc-active:focus {
+    background-color: #80b98b;
+  }
+.rbc-toolbar button:focus {
+  background-color: #80b98b;
+}
+.rbc-toolbar button:hover {
+  background-color: #91d19d;
+}
+
+.rbc-current-time-indicator {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #cc2528;
+  pointer-events: none; }
