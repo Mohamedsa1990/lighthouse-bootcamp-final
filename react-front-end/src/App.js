@@ -88,7 +88,25 @@ export default function App(){
   }, [selectDay, jobs]);
 
   useEffect(() => {
-    setJob(jobs.filter((job) => (job.id === selectedJob))[0]);
+    let jobData = jobs.filter((job) => (job.id === selectedJob))[0]
+    if (!jobData) {
+      jobData = {
+        id: 0,
+        name: '',
+        notes: '',
+        status: '',
+        estimate_total_time: 0,
+        estimate_total_workers: 0,
+        estimate_travel_time: 0,
+        customer_first_name: '',
+        customer_last_name: '',
+        customer_address: '',
+        customer_city: '',
+        customer_phone_number: '',
+        customer_email: '',
+      }
+    }
+    setJob(jobData);
   }, [selectedJob, jobs]);
 
 
@@ -182,14 +200,14 @@ export default function App(){
   return (
     <div className="App">
       {/* START EXAMPLE COMPONENTS */}
-      <h1>{ message }</h1>
+      {/* <h1>{ message }</h1>
       <button onClick={fetchData} >
         Fetch Data
       </button> 
       <h1>{ message2 }</h1>
       <button onClick={query} >
         query
-      </button>
+      </button> */}
       {/* END EXAMPLE COMPONENETS */}
       <Grid container spacing={1}>
         <Grid  item xs>
