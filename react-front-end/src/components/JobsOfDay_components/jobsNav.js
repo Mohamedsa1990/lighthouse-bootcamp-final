@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function JobsNav(props) {
   const classes = useStyles();
   const totalHrs = props.jobObj.estimate_total_time / props.jobObj.estimate_total_workers; 
@@ -30,6 +31,8 @@ export default function JobsNav(props) {
   const handleClick = () => {
     setOpen(!open);
   };
+  
+  
   return ( 
     <Grid container spacing={1} >
       <Grid item xs={12}>
@@ -42,7 +45,7 @@ export default function JobsNav(props) {
           <Button onClick={props.onDetails} color="default">Details</Button>
         </ButtonGroup>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          <Paper>
+          <Paper onClick={handleClick}>
             <Box m={1}>
             <Grid>
               <Box m={1}>
@@ -52,8 +55,8 @@ export default function JobsNav(props) {
               </Box>
               <Grid>
                 <ButtonGroup variant="outlined" aria-label="outlined primary button group">
-                  <Button color="primary" variant="outlined" onClick={handleClick}>Cancel</Button>
-                  <Button color="secondary" variant="outlined">Delete</Button>
+                  <Button color="primary" variant="outlined">Cancel</Button>
+                  <Button color="secondary" variant="outlined" onClick={() => {props.toolChest.cancelJob(props.jobObj.id)}} >Delete</Button>            
                 </ButtonGroup>
               </Grid>
             </Grid>

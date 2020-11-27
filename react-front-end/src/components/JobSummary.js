@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     '& > *': {
-      margin: theme.spacing(1),
-      width: theme.spacing(80),
+      marginTop: theme.spacing(8),
+      width: theme.spacing(70),
       height: theme.spacing(30),
     },
   },
@@ -36,7 +36,7 @@ export default function JobSummary(props) {
         <Paper elevation={4} >
           <Box m={2}>
             <Typography variant="h5">Job Summary</Typography>
-            <Typography variant="h6" >{props.job.assignments[0].starts} - {props.job.assignments[0].ends}</Typography>
+            {/* <Typography variant="h6" >{props.job.assignments[0].starts} - {props.job.assignments[0].ends}</Typography> */}
             <ButtonGroup variant="outlined" aria-label="outlined primary button group">
               <Button color="secondary" onClick={props.onAllJobs}>All Jobs</Button>
               <Button onClick={props.onNewJob} color="primary">New Job</Button>

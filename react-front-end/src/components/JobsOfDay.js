@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     '& > *': {
-      margin: theme.spacing(1),
-      width: theme.spacing(80),
+      marginTop: theme.spacing(10),
+      width: theme.spacing(75),
       height: theme.spacing(30),
     },
   },
@@ -103,7 +103,6 @@ const jobsDataArray = [{
 
 export default function JobsOfDay({details, edit, onNewJob, toolChest}) {
   const classes = useStyles();
-  // console.log("props.jobsPerDay from JobsofDay: ", props.jobsPerDay);
   const {day} = toolChest;
   const jobsPerDay = day.map((job, index) => {
     return (

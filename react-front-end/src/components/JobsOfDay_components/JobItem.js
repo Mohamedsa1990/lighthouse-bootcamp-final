@@ -33,7 +33,7 @@ export default function JobItem({toolChest, details, edit, job, index}) {
             <JobsNav 
               jobObj={job} 
               id={index}
-              
+              toolChest={toolChest}
               onDetails={onDetails}
               onEdit={onEdit}
             />
