@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import './JobCalendar.css'
 import moment from 'moment'
 
 //calendar styling
@@ -8,6 +9,7 @@ const section = {
   height: "90vh",
   width: "50vw",
   padding: "2rem",
+  font: "inherit",
 };
 
 // Setup the localizer by providing the moment (or globalize) Object
@@ -66,6 +68,8 @@ export default function JobCalendar({toolChest}){
   return (
     <div className="JobCalendar" style={section}>
       <Calendar
+        popup
+        views={['month', 'week', 'day']}
         date={selectedDay.starts}
         events={calendar}
         selectable={true}
