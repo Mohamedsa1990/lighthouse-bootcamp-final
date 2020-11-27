@@ -5,10 +5,11 @@ import moment from 'moment'
 
 //calendar styling
 const section = {
-  height: "100%",
-  padding: 5,
-  minWidth: "20rem",
-  minHeight: "30rem",
+  height: "90vh",
+  width: "50vw",
+  padding: "2rem",
+  // minWidth: "20rem",
+  // minHeight: "30rem",
 };
 
 // Setup the localizer by providing the moment (or globalize) Object
