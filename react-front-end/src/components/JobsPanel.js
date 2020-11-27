@@ -13,37 +13,42 @@ const JOB_CREATOR ="JOB_CREATOR";
 export default function JobsPanel(props) {
   const { mode, transition, back } = useVisualMode(JOBS_OF_DAY);
   const [transitionTo, setTransitionTo] = useState(undefined);
+  const [newJob, setNewJob] = useState(true);
+  const {day, job, selectedJob, setSelectedJob, calendarSelectDay, calendarSelectJob, setCalendarSelectDay, setCalendarSelectJob} = props.toolChest;
 
   useEffect(() => {
     if(mode === JOB_SUMMARY) {
       transition(JOBS_OF_DAY);
+      setCalendarSelectDay(false);
     }
-  }, [props.toolChest.day])
+  }, [day, calendarSelectDay])
 
   useEffect(() => {
     if(mode === JOB_SUMMARY || (mode === JOBS_OF_DAY)) {
       if(transitionTo === JOB_CREATOR){
         transition(JOB_CREATOR);
+        setNewJob(false);
         setTransitionTo(undefined);
       } else if (mode !== JOB_SUMMARY){
-        if (toolChest.selectedJob !== 0){
+        if (selectedJob !== 0){
           transition(JOB_SUMMARY);
+          setCalendarSelectJob(false);
         }
       }
     }
-  }, [props.toolChest.job])
+  }, [job, calendarSelectJob])
 
   const onNewJob = function() {
-    if (props.toolChest.job.id === 0) {
+    if (job.id === 0) {
       transition(JOB_CREATOR);
     } else {
       setTransitionTo(JOB_CREATOR);
-      props.toolChest.setSelectedJob(0);
+      setSelectedJob(0);
     }
   };
 
 
-  const toolChest = {...props.toolChest, mode, transition, back, setTransitionTo}
+  const toolChest = {...props.toolChest, mode, transition, back, setTransitionTo, newJob, setNewJob}
   return (
     <Fragment>
       {mode === EMPTY && (

@@ -14,14 +14,23 @@ const section = {
 // to the correct localizer.
 const localizer = momentLocalizer(moment) // or globalizeLocalizer
 
-export default function JobCalendar({selectedDay, setDay, bookings, setSelectedJob}){
+export default function JobCalendar({toolChest}){
+  const {setSelectDay, calendar, setSelectedJob, setCalendarSelectDay, setCalendarSelectJob, selectedJob} = toolChest
+  const selectedDay = toolChest.selectDay;
   const selectDay = (info) => {
     //start and end are JS Date Objects so capture date and time
     let startDate = new Date(info.start.getTime());
     let endDate = new Date(info.end.getTime());
     startDate.setHours( 0, 0, 0);
     endDate.setHours(23, 59, 59);
-    setDay({starts: startDate, ends: endDate});
+    if (startDate.toISOString() === selectedDay.starts.toISOString()){
+      console.log("HHHHHHHHHHHHHH")
+      console.log(startDate.toISOString)
+      setCalendarSelectDay(true);
+    } else {
+      setSelectDay({starts: startDate, ends: endDate});
+    }
+    
   };
 
   const onNavigate = (date) => {
@@ -47,14 +56,18 @@ export default function JobCalendar({selectedDay, setDay, bookings, setSelectedJ
   }
   const selectBooking = function(booking){
     console.log("booking.job_id: ", booking.job_id);
-    setSelectedJob(booking.job_id);
+    if (selectedJob === booking.job_id){
+      setCalendarSelectJob(true);
+    } else {
+      setSelectedJob(booking.job_id);
+    }
   };
 
   return (
     <div className="JobCalendar" style={section}>
       <Calendar
         date={selectedDay.starts}
-        events={bookings}
+        events={calendar}
         selectable={true}
         onSelectSlot={selectDay}
         onNavigate={onNavigate}
