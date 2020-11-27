@@ -9,13 +9,14 @@ import {useFormik} from 'formik'
 import { Paper, Button } from '@material-ui/core';
 
 
-export default function Requirements({setTotalTime,setTotalWorker,totalTime,totalWorker , tasks, requirements, setRequirements}) {
+export default function Requirements({setTotalTime,setTotalWorker,totalTime,totalWorker , tasks, requirements, setRequirements, jobId}) {
   
   const [taskDialogOpen, setTaskDialogOpen] = useState(false)
   const formik = useFormik({
     initialValues: {
+      job_id: jobId,
       task_id: '',
-      difficulty: '',
+      difficulty: 0,
       estimate_workers: '',
       estimate_time: '',
     },
@@ -29,7 +30,7 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
   const sumWorker = function(array){
     let total = 0;
     for (let i = 0 ; i < array.length; i++) {
-      total += parseInt(array[i].estimate_workers);
+      total += array[i].estimate_workers;
     };
     return total;
   };
@@ -37,11 +38,10 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
   const sumTime = function(array){
     let total = 0;
     for (let i = 0 ; i < array.length; i++) {
-      total += parseInt(array[i].estimate_time);
+      total += array[i].estimate_time;
     }
     return total;
   } 
-
   useEffect(()=> {
     setTotalWorker(sumWorker(requirements));
     setTotalTime(sumTime(requirements));
@@ -57,7 +57,6 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
     const newTasks = [...requirements];
     setRequirements([...newTasks.filter(t => t.task_id !== task_id)])
   }
-
   
   return (
     <React.Fragment>

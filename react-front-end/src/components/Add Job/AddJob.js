@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
@@ -53,10 +53,36 @@ const useStyles = makeStyles((theme) => ({
 const steps = ['Job details', 'Requirement details', 'Assign employees'];
 
 
-export default function AddJob({tasks, users, addChangeAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob}) {
+export default function AddJob({tasks, users, addChangeAssignment, addChangeRequirement, addChangeJob, cancelJob}) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
 
+  const [errorState, setErrorState] = useState ({
+    nameError: false,
+    customer_first_nameError: false,
+    customer_last_nameError: false,
+    customer_addressError: false,
+    customer_cityError: false,
+    customer_phone_numberError: false,
+    customer_emailError: false,
+    startError: false,
+    endError: false,
+    estimate_total_workersError: false,
+    estimate_total_timeError: false,
+    nameErrorMessage: "",
+    customer_first_nameErrorMessage: "",
+    customer_last_nameErrorMessage: "",
+    customer_addressErrorMessage: "",
+    customer_cityErrorMessage: "",
+    customer_phone_numberErrorMessage: "",
+    customer_emailErrorMessage: "",
+    startErrorMessage: "",
+    endErrorMessage: "",
+    estimate_total_workersErrorMessage: "",
+    estimate_total_timeErrorMessage: "",
+  });
+  
+  
   const [name, setname] = useState('');
   const [customer_first_name, setCustomer_first_name] = useState('');
   const [customer_last_name, setCustomer_last_name] = useState('');
@@ -70,14 +96,14 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
   const [estimate_total_time, setEstimate_total_time] = useState();
   const [notes, setNotes] = useState('')
   const [status, setStatus] = useState('')
-  const [estimate_travel_time, setEstimate_travel_time] = useState('')
-  
+  const [estimate_travel_time, setEstimate_travel_time] = useState()
 
   const [requirements, setRequirements] = useState([]);
-
+  const [jobId, setJobId] = useState(0)
   const [assignments, setAssignments] = useState([]);
   
   const job = {
+    id: jobId,
     name,
     notes, 
     status, 
@@ -119,19 +145,32 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
     //   ends: '2020-24-16T13:00:00-06:00',
     //   estimate_hrs: 4, 
     // })
-
   const handleNext = () => {
     if (activeStep === 0) {
-      console.log(job)
+      addChangeJob(job)
+        .then(data => {
+          setJobId(data)
+          setActiveStep(activeStep + 1);
+      })
+    } else {
+      setActiveStep(activeStep + 1);
     }
-    if(activeStep === 1) {
-      console.log(requirements)
-    }
-    setActiveStep(activeStep + 1);
   };
   
   const handleBack = () => {
+    if (activeStep === 1) {
+      // cancelJob(jobId)
+    }
+    
     setActiveStep(activeStep - 1);
+  };
+
+
+  const onSubmit = () => {
+    addChangeJob(job);
+    requirements.forEach(requirement => addChangeRequirement(requirement));
+    assignments.forEach(assignment => addChangeAssignment(assignment));
+
   };
   
   function getStepContent(step) {
@@ -158,6 +197,8 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
                 setStatus={setStatus}
                 travelTime={estimate_travel_time}
                 setTravelTime={setEstimate_travel_time}
+                errorState={errorState}
+                setErrorState={setErrorState}
                 />
       case 1:
         return <Requirements 
@@ -168,6 +209,9 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
                 setTotalTime={setEstimate_total_time}
                 totalWorker={estimate_total_workers}
                 setTotalWorker={setEstimate_total_workers}
+                jobId={jobId}
+                errorState={errorState}
+                setErrorState={setErrorState}
                 />
       case 2:
         return <AssignWorker 
@@ -179,6 +223,9 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
                 requirements={requirements} 
                 assignments={assignments} 
                 setAssignments={setAssignments}
+                jobId={jobId}
+                errorState={errorState}
+                setErrorState={setErrorState}
                 />
     default:
       throw new Error('Unknown step');
@@ -202,28 +249,39 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
           <React.Fragment>
             {activeStep === steps.length ? (
               <React.Fragment>
-                {/* {console.log('job', job)}
-                {console.log('requirements', requirements)}
-                {setCheckedEmployee([...checkedEmployee, start, end])}
-                {console.log('assignments', checkedEmployee)} */}
+                {/* Use this as condition of going back to the normal view*/}
               </React.Fragment>
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
-                  {activeStep !== 0 && (
+                  {activeStep === 0 ?
+                  (
+                    <Button onClick={handleBack} className={classes.button}>
+                      Cancel
+                    </Button>
+                  )
+                  :
+                  (
                     <Button onClick={handleBack} className={classes.button}>
                       Back
                     </Button>
                   )}
+                  {
+                    activeStep === steps.length - 1 ?
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleNext}
+                    onClick={onSubmit}
                     className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Save Job' : 'Next'}
-                  </Button>
+                  >Save Job
+                  </Button> : <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleNext}
+                  className={classes.button}
+                  >Next</Button>
+                  }
                 </div>
               </React.Fragment>
             )}

@@ -44,16 +44,16 @@ export default function TaskDialogComponent (props) {
                   onChange={props.formik.handleChange}
                   value={props.formik.values.difficulty}
                   >
-                  <MenuItem value={"Low"}>Low</MenuItem>
-                  <MenuItem value={"Medium"}>Medium</MenuItem>
-                  <MenuItem value={"High"}>High</MenuItem>
+                  <MenuItem value={1}>Low</MenuItem>
+                  <MenuItem value={2}>Medium</MenuItem>
+                  <MenuItem value={3}>High</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item>
               <TextField
               fullWidth
-              id="outlined-number"
+              id="Worker"
               label="Worker"
               type="number"
               variant="outlined"
