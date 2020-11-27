@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import {Typography, Container, Box, Divider, Paper} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -18,11 +18,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header({toolChest, newJob}) {
   const classes = useStyles();
-  const {selectDay, transition} = toolChest;
+  const {selectDay, transition, setSelectedJob} = toolChest;
+  const [makeTransition, setMakeTransition] = useState(false);
+
+  useEffect(() => {
+    if (makeTransition) {
+      transition(newJob);
+    }
+  }, [toolChest.job])
 
   const selectDayString = selectDay.starts.toString();
   const onNewJob = function() {
-    transition(newJob);
+    if(toolChest.job.id === 0){
+      transition(newJob);
+    } else {
+      setMakeTransition(true);
+      setSelectedJob(0);
+    }
   };
 
   return (

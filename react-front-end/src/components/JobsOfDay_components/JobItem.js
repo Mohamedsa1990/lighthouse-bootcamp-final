@@ -19,15 +19,22 @@ export default function JobItem({toolChest, details, edit, job, index}) {
   }, [toolChest.job]);
   
   const onDetails = function() {
-    console.log("ondetails", job.id);
-    setSelectedJob(job.id);
-    setMakeTransition([true, details])
+    if (toolChest.job.id === job.id) {
+      transition(edit);
+    } else {
+      setSelectedJob(job.id);
+      setMakeTransition([true, details])
+    }
   }
 
 
   const onEdit = function() {
-    setSelectedJob(job.id);
-    setMakeTransition([true, edit])
+    if (toolChest.job.id === job.id) {
+      transition(edit);
+    } else {
+      setSelectedJob(job.id);
+      setMakeTransition([true, edit])
+    }
   }
 
   return (
