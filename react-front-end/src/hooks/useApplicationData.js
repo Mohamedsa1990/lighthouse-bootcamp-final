@@ -171,8 +171,7 @@ export default function useApplicationData(){
     console.log("************saving Job*************")
     return axios.put(`/api/jobs/${jobDetails.id}`, jobDetails)
     .then((response) => {
-      let newJob = {...jobDetails, id: response.data};
-      
+      let newJob = {...jobDetails, id: parseInt(response.data)};
       setJobs((old) => {
         let output = [...old]
         let oldJob = output.filter((job) => newJob.id === job.id)[0];
@@ -185,7 +184,7 @@ export default function useApplicationData(){
         }
         return output;
       });
-      return response.data;
+      return newJob.id;
     })
     .catch((e) => {
       console.log("*************Error Saving Job************");
@@ -234,7 +233,7 @@ export default function useApplicationData(){
       return response.data.id;
     })
     .catch((e) => {
-      console.log("*************Error Saving Job************");
+      console.log("*************Error Saving Assignment************");
       return e;
     });
   };
@@ -254,7 +253,7 @@ export default function useApplicationData(){
       setJobs(jobList)
     })
     .catch((e) => {
-      console.log("*************Error Deleting Job************");
+      console.log("*************Error Deleting Assignment************");
       return e;
     });
   };
@@ -271,9 +270,10 @@ export default function useApplicationData(){
       let newRequirement = {...response.data};
       setJobs((old) => {
         let output = [...old]
-        let job = output.filter((tempJob) => newRequirement.job_id === tempJob.id)[0];
+        let job = output.filter((tempJob) => {
+          return newRequirement.job_id === tempJob.id
+        })[0];
         job = {...job};
-        console.log(job);
         let requirement = job.requirements.filter((requirement) => newRequirement.id === requirement.id)[0];
         if (requirement) {
           requirement = {...newRequirement};
@@ -285,7 +285,7 @@ export default function useApplicationData(){
       return response.data.id;
     })
     .catch((e) => {
-      console.log("*************Error Saving Job************");
+      console.log("*************Error Saving Requirement************");
       return e;
     });
   };
@@ -314,7 +314,7 @@ export default function useApplicationData(){
       setJobs(jobList)
     })
     .catch((e) => {
-      console.log("*************Error Deleting Job************");
+      console.log("*************Error Deleting Requirement************");
       return e;
     });
   };

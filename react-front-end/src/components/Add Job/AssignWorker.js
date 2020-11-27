@@ -8,7 +8,8 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import { Grid } from '@material-ui/core';
-import { Typography,TextField } from '@material-ui/core'
+import { Typography,TextField } from '@material-ui/core';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,11 +20,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AssignWorker({requirements, users, start, end, setStart, setEnd, assignments, setAssignments}) {
+export default function AssignWorker({requirements, users, start, end, setStart, setEnd, assignments, setAssignments, jobId}) {
   
   const classes = useStyles();
   const [checkedEmployee, setCheckedEmployee] = useState([]);
-
   const jobSkills = requirements.map(requirement => requirement.task_id)
   
   const filteredUsers = function (users, jobSkills) {
@@ -37,9 +37,6 @@ export default function AssignWorker({requirements, users, start, end, setStart,
     })
     return userAccum;
   } 
-
-  console.log(checkedEmployee)
-  console.log('assignments', assignments)
   
   const userList = filteredUsers(users,jobSkills)
 
@@ -52,7 +49,7 @@ export default function AssignWorker({requirements, users, start, end, setStart,
 
     if (currentIndex === -1) {
       newChecked.push(value);
-      newAssigned.push({user_id: value.id, start: start, end: end});
+      newAssigned.push({job_id: jobId, user_id: value.id, starts: start, ends: end});
 
     } else {
       newChecked.splice(currentIndex, 1);

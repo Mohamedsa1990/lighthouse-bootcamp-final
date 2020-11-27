@@ -25,18 +25,18 @@ export default function App(){
         return (new Date(assignment.starts)) < selectDay.ends && (new Date(assignment.ends)) > selectDay.starts;
       })
       if(job.id === 5){
-        console.log(new Date("2020-03-25T12:00:00-06:30"), selectDay.ends);
-        console.log(dayAssignments);
+        // console.log(new Date("2020-03-25T12:00:00-06:30"), selectDay.ends);
+        // console.log(dayAssignments);
       } 
       
       return dayAssignments.length !== 0;
     });
-    console.log(dayJobs);
+    // console.log(dayJobs);
     setDay(dayJobs);
   }, [selectDay, jobs])
 
   function fetchData() {
-    console.log(selectDay);
+    // console.log(selectDay);
     // let job = jobs.filter((job) => job.id === id)[0];
     // console.log(job)
     // cancelJob(id)
@@ -132,7 +132,7 @@ export default function App(){
         <Grid  item xs>
           {/* <JobSummary jobs= {jobs} /> */}
           <JobsOfDay jobs={jobs}/>
-          <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob}/>
+          <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob} addChangeAssignment={addChangeAssignment} addChangeRequirement={addChangeRequirement} cancelJob={cancelJob}/>
           
         </Grid>
       </Grid>
