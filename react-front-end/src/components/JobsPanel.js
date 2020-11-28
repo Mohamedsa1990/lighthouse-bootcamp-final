@@ -66,7 +66,9 @@ export default function JobsPanel(props) {
       />)}
       {mode === JOB_SUMMARY && (
       <JobSummary 
-        job={toolChest.job} 
+        job={toolChest.job}
+        toolChest={toolChest}
+        edit={JOB_CREATOR}
         onNewJob={onNewJob} 
         onAllJobs={() => transition(JOBS_OF_DAY)}/>)}
       {mode === JOB_CREATOR && (

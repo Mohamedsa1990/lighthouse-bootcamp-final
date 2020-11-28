@@ -29,9 +29,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function JobSummary(props) {
   const classes = useStyles();
+  const {setNewJob, transition} = props.toolChest;
 
   const onEdit = function() {
-    console.log("this is an edit stub in Job Summary")
+    setNewJob(false);
+    transition(props.edit);
   }
 
   return (
