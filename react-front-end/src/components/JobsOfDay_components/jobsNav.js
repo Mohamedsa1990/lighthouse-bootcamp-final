@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function JobsNav(props) {
   const classes = useStyles();
-  const totalHrs = props.jobObj.estimate_total_time / props.jobObj.estimate_total_workers; 
+  const totalHrs = Math.round((props.jobObj.estimate_total_time / props.jobObj.estimate_total_workers) * 100) / 100; 
   
   const [open, setOpen] = React.useState(false);
   const handleClick = () => {
