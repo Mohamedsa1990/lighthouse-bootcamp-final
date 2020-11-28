@@ -35,7 +35,7 @@ export default function JobSummary(props) {
       <Container>
         <Paper elevation={4} >
           <Box m={2}>
-            <Typography variant="h5">Job Summary</Typography>
+            <Typography variant="h5">{props.job.name}</Typography>
             {/* <Typography variant="h6" >{props.job.assignments[0].starts} - {props.job.assignments[0].ends}</Typography> */}
             <ButtonGroup variant="outlined" aria-label="outlined primary button group">
               <Button color="secondary" onClick={props.onAllJobs}>All Jobs</Button>
