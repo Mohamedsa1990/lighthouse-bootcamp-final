@@ -9,7 +9,7 @@ import {useFormik} from 'formik'
 import { Paper, Button } from '@material-ui/core';
 
 
-export default function Requirements({setTotalTime,setTotalWorker,totalTime,totalWorker , tasks, requirements, setRequirements, jobId}) {
+export default function Requirements({setTotalTime,setTotalWorker,totalTime,totalWorker , tasks, requirements, setRequirements, jobId, newJob, cancelRequirement}) {
   
   const [taskDialogOpen, setTaskDialogOpen] = useState(false)
   const formik = useFormik({
@@ -34,7 +34,6 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
     };
     return total;
   };
-
   const sumTime = function(array){
     let total = 0;
     for (let i = 0 ; i < array.length; i++) {
@@ -55,9 +54,14 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
   }
   const handleDelete = (task_id) => {
     const newTasks = [...requirements];
-    setRequirements([...newTasks.filter(t => t.task_id !== task_id)])
+    if(!newJob) {
+      const deleteReq = requirements.filter(t => t.task_id === task_id);
+      cancelRequirement(deleteReq[0].id); 
+    }
+    setRequirements([...newTasks.filter(t => t.task_id !== task_id)]);
   }
-  
+
+
   return (
     <React.Fragment>
       <Grid container spacing={3} justify="space-between" alignItems="center">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
@@ -41,10 +41,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3, 0, 5),
   },
   buttons: {
+    
+    color: '#638F6A',
     display: 'flex',
     justifyContent: 'flex-end',
   },
   button: {
+    background: '#638F6A',
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
@@ -53,55 +56,33 @@ const useStyles = makeStyles((theme) => ({
 const steps = ['Job details', 'Requirement details', 'Assign employees'];
 
 
-export default function AddJob({tasks, users, addChangeAssignment, addChangeRequirement, addChangeJob, cancelJob, onAllJobs}) {
+export default function AddJob({tasks, users, addChangeAssignment, addChangeRequirement, addChangeJob, cancelJob, onAllJobs, jobInfo, newJob, setNewJob, cancelAssignment, cancelRequirement}) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+  const modifiedReq = [];
+  jobInfo.requirements.forEach(req =>  modifiedReq.push({id:req.id, job_id: req.job_id, task_id:req.task_id, difficulty: req.difficulty , estimate_workers: req.estimate_workers, estimate_time: req.estimate_time}));
+  const modifiedAssignments = [];
+  jobInfo.assignments.forEach(assignment => modifiedAssignments.push({id:assignment.id, job_id: assignment.job_id,user_id:assignment.user_id, starts: assignment.starts, ends:assignment.ends}))
+  
 
-  const [errorState, setErrorState] = useState ({
-    nameError: false,
-    customer_first_nameError: false,
-    customer_last_nameError: false,
-    customer_addressError: false,
-    customer_cityError: false,
-    customer_phone_numberError: false,
-    customer_emailError: false,
-    startError: false,
-    endError: false,
-    estimate_total_workersError: false,
-    estimate_total_timeError: false,
-    nameErrorMessage: "",
-    customer_first_nameErrorMessage: "",
-    customer_last_nameErrorMessage: "",
-    customer_addressErrorMessage: "",
-    customer_cityErrorMessage: "",
-    customer_phone_numberErrorMessage: "",
-    customer_emailErrorMessage: "",
-    startErrorMessage: "",
-    endErrorMessage: "",
-    estimate_total_workersErrorMessage: "",
-    estimate_total_timeErrorMessage: "",
-  });
-  
-  
-  const [name, setname] = useState('');
-  const [customer_first_name, setCustomer_first_name] = useState('');
-  const [customer_last_name, setCustomer_last_name] = useState('');
-  const [customer_address, setCustomer_address] = useState('');
-  const [customer_city, setCustomer_city] = useState('');
-  const [customer_phone_number, setCustomer_phone_number] = useState('');
-  const [customer_email, setCustomer_email] = useState('');
-  const [start, setStart] = useState('');
-  const [end, setEnd] = useState('');
-  const [estimate_total_workers, setEstimate_total_workers] = useState();
-  const [estimate_total_time, setEstimate_total_time] = useState();
-  const [notes, setNotes] = useState('')
-  const [status, setStatus] = useState('')
-  const [estimate_travel_time, setEstimate_travel_time] = useState()
+  const [name, setname] = useState(newJob ? '' : jobInfo.name);
+  const [customer_first_name, setCustomer_first_name] = useState(newJob ? '' :jobInfo.customer_first_name);
+  const [customer_last_name, setCustomer_last_name] = useState(newJob ? '' :jobInfo.customer_last_name);
+  const [customer_address, setCustomer_address] = useState(newJob ? '' :jobInfo.customer_address);
+  const [customer_city, setCustomer_city] = useState(newJob ? '' :jobInfo.customer_city);
+  const [customer_phone_number, setCustomer_phone_number] = useState(newJob ? '' :jobInfo.customer_phone_number);
+  const [customer_email, setCustomer_email] = useState(newJob ? '' :jobInfo.customer_email);
+  const [start, setStart] = useState(newJob ? '' :jobInfo.assignments[0].starts);
+  const [end, setEnd] = useState(newJob ? '' :jobInfo.assignments[0].ends);
+  const [estimate_total_workers, setEstimate_total_workers] = useState(newJob ? 0 :jobInfo.estimate_total_workers);
+  const [estimate_total_time, setEstimate_total_time] = useState(newJob ? 0 :jobInfo.estimate_total_time);
+  const [notes, setNotes] = useState(newJob ? '' :jobInfo.notes)
+  const [status, setStatus] = useState(newJob ? '' :jobInfo.status)
+  const [estimate_travel_time, setEstimate_travel_time] = useState(newJob ? undefined :jobInfo.estimate_travel_time)
 
-  const [requirements, setRequirements] = useState([]);
-  const [jobId, setJobId] = useState(0)
-  const [assignments, setAssignments] = useState([]);
-  
+  const [requirements, setRequirements] = useState(newJob ? [] : modifiedReq);
+  const [jobId, setJobId] = useState(newJob ? 0 :jobInfo.id)
+  const [assignments, setAssignments] = useState(newJob ? [] : modifiedAssignments);
   const job = {
     id: jobId,
     name,
@@ -117,36 +98,8 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
     customer_phone_number, 
     customer_email};
 
-    // addChangeJob({
-    //   name: 'total Junk',
-    //   notes: 'you do not want to know',
-    //   status: 'Quote Requested',
-    //   estimate_total_time: 15,
-    //   estimate_total_workers: 25,
-    //   estimate_travel_time: 45,
-    //   customer_first_name: 'Jackie',
-    //   customer_last_name: 'Verecker',
-    //   customer_address: '8607 Meadow Vale Avenue',
-    //   customer_city: 'Zlataritsa',
-    //   customer_phone_number: '994-624-0020',
-    //   customer_email: 'jverecker1q@imageshack.us',
-    // })
-    // addChangeRequirement({
-    //   job_id: 5,
-    //   task_id: 5,
-    //   difficulty: 5,
-    //   estimate_time: 50,
-    //   estimate_workers: 5,
-    // })
-    // addChangeAssignment({
-    //   job_id: 5,
-    //   user_id: 49,
-    //   starts: '2015-03-25T12:00:00-06:30',
-    //   ends: '2020-24-16T13:00:00-06:00',
-    //   estimate_hrs: 4, 
-    // })
   const handleNext = () => {
-    if (activeStep === 0) {
+    if (activeStep === 0 && newJob) {
       addChangeJob(job)
         .then(data => {
           setJobId(data)
@@ -158,7 +111,7 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
   };
   
   const handleBack = () => {
-    if (activeStep === 1) {
+    if (activeStep === 1 && newJob) {
       cancelJob(jobId)
     }
     
@@ -170,14 +123,21 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
     addChangeJob(job);
     requirements.forEach(requirement => addChangeRequirement(requirement));
     assignments.forEach(assignment => addChangeAssignment(assignment));
-    onAllJobs();
+    
+    onAllJobs(setNewJob(true));
   };
+
+  const onCancel = () => {
+    setNewJob(true);
+    onAllJobs();
+    console.log("setting newJob true in Add Job")
+  }
   
   function getStepContent(step) {
     switch (step) {
       case 0:
         return <NewJob 
-                jobName = {name} 
+                name = {name} 
                 setJobName = {setname} 
                 firstName = {customer_first_name} 
                 setFirstName= {setCustomer_first_name}
@@ -197,8 +157,6 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
                 setStatus={setStatus}
                 travelTime={estimate_travel_time}
                 setTravelTime={setEstimate_travel_time}
-                errorState={errorState}
-                setErrorState={setErrorState}
                 />
       case 1:
         return <Requirements 
@@ -210,8 +168,8 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
                 totalWorker={estimate_total_workers}
                 setTotalWorker={setEstimate_total_workers}
                 jobId={jobId}
-                errorState={errorState}
-                setErrorState={setErrorState}
+                cancelRequirement={cancelRequirement}
+                newJob={newJob}
                 />
       case 2:
         return <AssignWorker 
@@ -224,8 +182,8 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
                 assignments={assignments} 
                 setAssignments={setAssignments}
                 jobId={jobId}
-                errorState={errorState}
-                setErrorState={setErrorState}
+                cancelAssignment={cancelAssignment}
+                newJob={newJob}
                 />
     default:
       throw new Error('Unknown step');
@@ -237,7 +195,7 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
       <main className={classes.layout}>
         <Paper className={classes.paper} elevation={3}>
           <Typography component="h1" variant="h4" align="center">
-            New Job
+            {newJob ? "New Job" : "Edit Job"}
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
@@ -257,7 +215,7 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
                 <div className={classes.buttons}>
                   {activeStep === 0 ?
                   (
-                    <Button onClick={onAllJobs} className={classes.button}>
+                    <Button onClick={onCancel} className={classes.button}>
                       Cancel
                     </Button>
                   )
@@ -276,8 +234,8 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
                     className={classes.button}
                   >Save Job
                   </Button> : <Button
-                  variant="contained"
-                  color="primary"
+                  variant="outlined"
+                  color="Default"
                   onClick={handleNext}
                   className={classes.button}
                   >Next</Button>

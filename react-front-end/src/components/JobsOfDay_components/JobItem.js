@@ -7,7 +7,14 @@ import RequirementsList from './requirementsList';
 
 
 export default function JobItem({toolChest, details, edit, job, index}) {
-  const {transition, setSelectedJob} = toolChest;
+  const {transition, setSelectedJob, newJob, setNewJob} = toolChest;
+  const {trigger, setTrigger} = useState(false);
+
+  useEffect(() => {
+    if (trigger){
+      transition(edit);
+    }
+  }, [newJob])
   
   const onDetails = function() {
     if (toolChest.job.id === job.id) {
@@ -19,7 +26,9 @@ export default function JobItem({toolChest, details, edit, job, index}) {
 
   const onEdit = function() {
     if (toolChest.job.id === job.id) {
-      transition(edit);
+      setTrigger(true)
+      setNewJob(false);
+      console.log("setting new Job: false in JobItem")
     } else {
       toolChest.setTransitionTo(edit);
       setSelectedJob(job.id);
