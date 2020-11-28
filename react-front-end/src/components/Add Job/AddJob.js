@@ -41,13 +41,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3, 0, 5),
   },
   buttons: {
-    
-    color: '#638F6A',
     display: 'flex',
     justifyContent: 'flex-end',
   },
   button: {
-    background: '#638F6A',
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
@@ -130,7 +127,6 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
   const onCancel = () => {
     setNewJob(true);
     onAllJobs();
-    console.log("setting newJob true in Add Job")
   }
   
   function getStepContent(step) {
@@ -228,14 +224,14 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
                   {
                     activeStep === steps.length - 1 ?
                   <Button
-                    variant="contained"
+                    variant="outlined"
                     color="primary"
                     onClick={onSubmit}
                     className={classes.button}
                   >Save Job
                   </Button> : <Button
                   variant="outlined"
-                  color="Default"
+                  color="primary"
                   onClick={handleNext}
                   className={classes.button}
                   >Next</Button>

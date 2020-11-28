@@ -27,7 +27,6 @@ export default function AssignWorker({requirements, users, start, end, setStart,
   const jobSkills = requirements.map(requirement => requirement.task_id);
   const checkedUsers = [];
   assignments.forEach(assignment => checkedUsers.push(assignment.user_id));
-  console.log('checked',checkedUsers)
   const filteredUsers = function (users, jobSkills, checkedUsers) {
     const userAccum = [];
     users.forEach (user => {
@@ -41,9 +40,7 @@ export default function AssignWorker({requirements, users, start, end, setStart,
       })
     })
     return userAccum;
-  } 
-
-  console.log('users',users)
+  };
   
   const userList = filteredUsers(users,jobSkills, checkedUsers)
 
@@ -63,7 +60,6 @@ export default function AssignWorker({requirements, users, start, end, setStart,
     setAssignments(newChecked);
     setCheckedEmployee(newChecked);
   };
-  console.log('assignments', assignments)
   
 
   return (

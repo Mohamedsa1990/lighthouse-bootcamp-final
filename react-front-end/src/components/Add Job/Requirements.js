@@ -12,6 +12,7 @@ import { Paper, Button } from '@material-ui/core';
 export default function Requirements({setTotalTime,setTotalWorker,totalTime,totalWorker , tasks, requirements, setRequirements, jobId, newJob, cancelRequirement}) {
   
   const [taskDialogOpen, setTaskDialogOpen] = useState(false)
+  
   const formik = useFormik({
     initialValues: {
       job_id: jobId,
@@ -71,7 +72,7 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
           </Typography>
         </Grid>
         <Grid item >
-          <Fab color="primary" aria-label="add" size="small" onClick={handleaTaskDialogOpen}>
+          <Fab color="primary"  aria-label="add" size="small" onClick={handleaTaskDialogOpen}>
           <AddIcon />
           </Fab>
         </Grid>
