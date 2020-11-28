@@ -61,6 +61,10 @@ module.exports = (db) => {
         console.log("******************************");
         console.log(output[5]);
         return res.json(output);
+      })
+      .catch(err => {
+        console.log(err);
+        return res.status(500).json(err)
       });
   });
 
@@ -97,7 +101,10 @@ module.exports = (db) => {
           console.log("response for successfully saved new job");
           return res.json(data2.rows[0].currval);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          return res.status(500).json(err)
+        });
     }
     let setString = ``;
     for (const key in incoming) {
@@ -121,7 +128,10 @@ module.exports = (db) => {
           console.log("response for successfully saved job update")
           return res.json(incomingID);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          return res.status(500).json(err)
+        });
   });
 
   router.delete('/:id', (req, res) => {
@@ -131,7 +141,10 @@ module.exports = (db) => {
         console.log("**** deleted ", req.params.id)
         return res.json(data.row);
       })
-      .catch(err => console.log('delete error: ', err));
+      .catch(err => {
+        console.log(err);
+        return res.status(500).json(err)
+      });
   })
   return router;
 };

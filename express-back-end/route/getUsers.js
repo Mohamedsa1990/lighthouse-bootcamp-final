@@ -30,7 +30,10 @@ module.exports = (db) => {
           console.log(output[29])
           return res.json(output);
         })
-        
+        .catch(err => {
+          console.log(err);
+          return res.status(500).json(err)
+        });
       });
       console.log("******************************");
       console.log("response for Users sent");

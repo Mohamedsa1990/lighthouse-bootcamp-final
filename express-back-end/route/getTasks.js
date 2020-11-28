@@ -11,6 +11,10 @@ module.exports = (db) => {
           console.log("response for Tasks sent");
           console.log("******************************");
           return res.json(data.rows)
+        })
+        .catch(err => {
+          console.log(err);
+          return res.status(500).json(err)
         });
     });
   return router;

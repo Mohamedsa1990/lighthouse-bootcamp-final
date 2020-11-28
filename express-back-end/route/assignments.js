@@ -55,7 +55,10 @@ module.exports = (db) => {
           console.log(data3.rows[0]);
           return res.json(data3.rows[0]);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          return res.status(500).json(err)
+        });
     }
     let setString = ``;
     for (const key in incoming) {
@@ -91,12 +94,18 @@ module.exports = (db) => {
         console.log("response for successfully saved assignment update");
         return res.json(data3.rows[0]);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        return res.status(500).json(err)
+      });
   });
   router.delete('/:id', (req, res) => {
     return db.query(`DELETE FROM assignments WHERE id = $1`, [req.params.id])
       .then(data => res.json(data.row))
-      .catch(err => console.log('delete error: ', err));
+      .catch(err => {
+        console.log(err);
+        return res.status(500).json(err)
+      });
   })
   return router;
 }
