@@ -125,6 +125,20 @@ export default function App(){
   //END EXAMPLE STATE
   
   function fetchData() {
+    let job = jobs.filter((job) => job.id === 54)[0];
+    console.log(job.name)
+    // addChangeAssignment({
+    //   job_id: id,
+    //   user_id: 49,
+    //   starts: '2020-11-15T12:00:00-06:00',
+    //   ends: '2020-11-15T13:00:00-06:00',
+    //   estimate_hrs: 4, 
+    // })
+    //   .then((asignID) => {
+    //     console.log("assgned ID",asignID);
+    //     let job = jobs.filter((job) => job.id === id)[0];
+    //     console.log("*** enter", job.assignments);
+    //   });
     // console.log("YYYYYYYYYYYYYY")
     // console.log(moment("2020-11-18T20:59"));
     // let job = jobs.filter((job) => job.id === id)[0];
@@ -152,28 +166,28 @@ export default function App(){
   }
 
   function query() {
-    // console.log(day);
-    // addChangeJob({
-    //   name: 'total Junk',
-    //   notes: 'you do not want to know',
-    //   status: 'Quote Requested',
-    //   estimate_total_time: 15,
-    //   estimate_total_workers: 25,
-    //   estimate_travel_time: 45,
-    //   customer_first_name: 'Jackie',
-    //   customer_last_name: 'Verecker',
-    //   customer_address: '8607 Meadow Vale Avenue',
-    //   customer_city: 'Zlataritsa',
-    //   customer_phone_number: '994-624-0020',
-    //   customer_email: 'jverecker1q@imageshack.us',
-    // })
-    //   .then((assignID) => {
-    //     setID(assignID);
-    //     console.log("assgned ID",assignID);
-    //     let job = jobs.filter((job) => job.id === assignID)[0];
-    //     console.log("*** enter", job);
-        
-    //   });
+    console.log(day);
+    addChangeJob({
+      id: 54,
+      name: 'total Junk',
+      notes: 'you do not want to know',
+      status: 'Quote Requested',
+      estimate_total_time: 15,
+      estimate_total_workers: 25,
+      estimate_travel_time: 45,
+      customer_first_name: 'Jackie',
+      customer_last_name: 'Verecker',
+      customer_address: '8607 Meadow Vale Avenue',
+      customer_city: 'Zlataritsa',
+      customer_phone_number: '994-624-0020',
+      customer_email: 'jverecker1q@imageshack.us',
+    })
+      .then((assignID) => {
+        setID(assignID);
+        console.log("assgned ID",assignID);
+        let job = jobs.filter((job) => job.id === assignID)[0];
+        console.log("*** enter", job);
+      });
     // addChangeRequirement({
     //   job_id: 5,
     //   task_id: 5,
@@ -208,14 +222,14 @@ export default function App(){
   return (
     <div className="App">
       {/* START EXAMPLE COMPONENTS */}
-      {/* <h1>{ message }</h1>
+      <h1>{ message }</h1>
       <button onClick={fetchData} >
         Fetch Data
       </button> 
       <h1>{ message2 }</h1>
       <button onClick={query} >
         query
-      </button> */}
+      </button>
       {/* END EXAMPLE COMPONENETS */}
       <Grid container spacing={1}>
         <Grid  item xs>

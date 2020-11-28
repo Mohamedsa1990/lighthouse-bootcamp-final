@@ -141,9 +141,13 @@ export default function useApplicationData(){
   }, []);
 
   useEffect(() => {
+    console.log("calendar Regen")
     let calendarEntries = [];
     for (const job of jobs) {
       let dates = [];
+      if (job.id === 54) {
+        console.log("GGGG", job.name);
+      } 
       for (const assignment of job.assignments) {
         if (!dates.includes(assignment.starts)) {
           dates.push(assignment.starts);
@@ -171,17 +175,23 @@ export default function useApplicationData(){
     console.log("************saving Job*************")
     return axios.put(`/api/jobs/${jobDetails.id}`, jobDetails)
     .then((response) => {
+      console.log("addChangeJob response",response.data);
       let newJob = {...jobDetails, id: parseInt(response.data)};
       setJobs((old) => {
         let output = [...old]
-        let oldJob = output.filter((job) => newJob.id === job.id)[0];
-        if (oldJob) {
-          oldJob = {...oldJob, ...newJob};//replaces only the keys in newJob
+        let index = output.map((job) => job.id).indexOf(newJob.id);
+        // let oldJob = output.filter((job) => newJob.id === job.id)[0];
+        console.log("addChangeJob oldName",output[index].name);
+        if (index >= 0) {
+          output[index] = {...output[index], ...newJob};//replaces only the keys in newJob
+          console.log("addChangeJob newName",output[index].name)
         } else {
           newJob.assignments = [];
           newJob.requirements = [];
           output.push(newJob);
         }
+        let tempJob = output.filter((job) => job.id === 54)[0];
+        console.log("output", tempJob.name);
         return output;
       });
       return newJob.id;
