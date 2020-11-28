@@ -180,7 +180,6 @@ export default function useApplicationData(){
       setJobs((old) => {
         let output = [...old]
         let index = output.map((job) => job.id).indexOf(newJob.id);
-        // let oldJob = output.filter((job) => newJob.id === job.id)[0];
         console.log("addChangeJob oldName",output[index].name);
         if (index >= 0) {
           output[index] = {...output[index], ...newJob};//replaces only the keys in newJob
@@ -230,13 +229,12 @@ export default function useApplicationData(){
       let newAssignment = {...response.data};
       setJobs((old) => {
         let output = [...old]
-        let job = output.filter((tempJob) => newAssignment.job_id === tempJob.id)[0];
-        job = {...job};
-        let assignment = job.assignments.filter((assignment) => newAssignment.id === assignment.id)[0];
-        if (assignment) {
-          assignment = {...newAssignment};
+        let jobIndex = output.map((job) => job.id).indexOf(newAssignment.job_id);
+        let assignmentIndex = output[jobIndex].assignments.map((assignment) => assignment.id).indexOf(newAssignment.id);
+        if (assignmentIndex >= 0) {
+          output[jobIndex].assignments[assignmentIndex] = {...newAssignment};
         } else {
-          job.assignments.push(newAssignment);
+          output[jobIndex].assignments.push(newAssignment);
         }
         return output;
       });
@@ -280,15 +278,12 @@ export default function useApplicationData(){
       let newRequirement = {...response.data};
       setJobs((old) => {
         let output = [...old]
-        let job = output.filter((tempJob) => {
-          return newRequirement.job_id === tempJob.id
-        })[0];
-        job = {...job};
-        let requirement = job.requirements.filter((requirement) => newRequirement.id === requirement.id)[0];
-        if (requirement) {
-          requirement = {...newRequirement};
+        let jobIndex = output.map((job) => job.id).indexOf(newRequirement.job_id);
+        let requirementIndex = output[jobIndex].requirements.map((requirement) => requirement.id).indexOf(newRequirement.id);
+        if (requirementIndex >= 0) {
+          output[jobIndex].requirements[requirementIndex] = {...newRequirement};
         } else {
-          job.requirements.push(newRequirement);
+          output[jobIndex].requirements.push(newRequirement);
         }
         return output;
       });
