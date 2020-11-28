@@ -125,6 +125,32 @@ export default function App(){
   //END EXAMPLE STATE
   
   function fetchData() {
+    // addChangeRequirement({
+    //   id: 103,
+    //   job_id: 54,
+    //   task_id: 5,
+    //   difficulty: 5,
+    //   estimate_time: 55,
+    //   estimate_workers: 5,
+    // })
+    //   .then((asignID) => {
+      
+    //     console.log("assgned ID",asignID);
+    //     let job = jobs.filter((job) => job.id === 54)[0];
+    //     //let assignment = job.assignments.filter((assignment) => assignment.id === asignID)[0];
+    //     console.log("*** enter", job.requirements);
+    //   });
+    // addChangeAssignment({
+      
+    //   job_id: 54,
+    //   user_id: 49,
+    //   starts: '2020-11-16T12:00:00-06:00',
+    //   ends: '2020-11-16T13:00:00-06:00', 
+    // })
+    //   .then((asignID) => {
+    //     setID(asignID);
+    //     console.log("assgned ID",asignID);
+    //   });
     // console.log("YYYYYYYYYYYYYY")
     // console.log(moment("2020-11-18T20:59"));
     // let job = jobs.filter((job) => job.id === id)[0];
@@ -135,25 +161,27 @@ export default function App(){
     //     let job = jobs.filter((job) => job.id === id)[0];
     //     console.log("*** exit", job);
     //   });
-    // cancelRequirement(id)
+    // cancelRequirement(103)
     //   .then(() => {
-    //     console.log("deleted ID", id);
-    //     let job = jobs.filter((job) => job.id === 5)[0];
+    //     console.log("deleted ID", 103);
+    //     let job = jobs.filter((job) => job.id === 54)[0];
     //     console.log("*** exit", job.requirements);
     //   });
     // let job = jobs.filter((job) => job.id === 5)[0];
     // console.log(job.assignments);
-    // cancelAssignment(id)
+    // cancelAssignment(109)
     // .then(() => {
-    //   console.log("deleted ID", id);
-    //   let job = jobs.filter((job) => job.id === 5)[0];
+    //   console.log("deleted ID", 106);
+    //   let job = jobs.filter((job) => job.id === 54)[0];
     //   console.log("*** exit", job);
     // });
   }
 
   function query() {
-    // console.log(day);
+    // let job = jobs.filter((job) => job.id === 54)[0];
+    // console.log(job)
     // addChangeJob({
+    //   id: 54,
     //   name: 'total Junk',
     //   notes: 'you do not want to know',
     //   status: 'Quote Requested',
@@ -172,7 +200,6 @@ export default function App(){
     //     console.log("assgned ID",assignID);
     //     let job = jobs.filter((job) => job.id === assignID)[0];
     //     console.log("*** enter", job);
-        
     //   });
     // addChangeRequirement({
     //   job_id: 5,
