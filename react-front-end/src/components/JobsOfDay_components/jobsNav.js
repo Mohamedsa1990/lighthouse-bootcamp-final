@@ -41,8 +41,8 @@ export default function JobsNav(props) {
       <Grid align="center" item xs={12} >
         <ButtonGroup variant="outlined" aria-label="outlined primary button group">
           <Button color="secondary" onClick={handleClick}>Delete</Button>
-          <Button onClick={props.onEdit} color="primary">Edit</Button>
-          <Button onClick={props.onDetails} color="default">Details</Button>
+          <Button onClick={props.onEdit} color="default">Edit</Button>
+          <Button onClick={props.onDetails} color="primary">Details</Button>
         </ButtonGroup>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <Paper onClick={handleClick}>

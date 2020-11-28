@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
 export default function JobSummary(props) {
   const classes = useStyles();
 
+  const onEdit = function() {
+    console.log("this is an edit stub in Job Summary")
+  }
+
   return (
     <main className={classes.root}>
       <Container>
@@ -38,7 +42,8 @@ export default function JobSummary(props) {
             <Typography variant="h5">{props.job.name}</Typography>
             {/* <Typography variant="h6" >{props.job.assignments[0].starts} - {props.job.assignments[0].ends}</Typography> */}
             <ButtonGroup variant="outlined" aria-label="outlined primary button group">
-              <Button color="secondary" onClick={props.onAllJobs}>All Jobs</Button>
+              <Button color="secondary" onClick={props.onAllJobs}>Back</Button>
+              <Button onClick={onEdit} color="default">Edit</Button>
               <Button onClick={props.onNewJob} color="primary">New Job</Button>
             </ButtonGroup>
           </Box> 

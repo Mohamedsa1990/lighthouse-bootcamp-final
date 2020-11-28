@@ -71,7 +71,11 @@ export default function Assignments(props) {
   const assignmentsArray = props.job.assignments;
   // console.log("assignmentsArray: ", assignmentsArray)
   const rows = assignmentsArray.map((obj) => {
-    return createData(`${obj.first_name} ${obj.last_name}`, obj.starts, obj.ends)
+    const starts = new Date(obj.starts)
+    const startsString = starts.toLocaleDateString() + " " + starts.toLocaleTimeString();
+    const ends = new Date(obj.ends)
+    const endsString = ends.toLocaleDateString() + " " + ends.toLocaleTimeString();
+    return createData(`${obj.first_name} ${obj.last_name}`, startsString, endsString)
   });
 
   return (
@@ -116,7 +120,6 @@ export default function Assignments(props) {
                         );
                       })}
                     </TableRow>
-                     
                   );
                 })}
               </TableBody>
