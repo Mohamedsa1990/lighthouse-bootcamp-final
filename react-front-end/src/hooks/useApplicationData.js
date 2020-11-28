@@ -123,7 +123,6 @@ export default function useApplicationData(){
       //OTHER INITIAL SITE LOAD DATA REQUESTS HERE
     ])
       .then((all) => {
-        // console.log("response for jobs request: ", all[0].data)
         //load bookings into calendar array
         let jobList = all[0].data;
         setJobs(jobList);
@@ -132,7 +131,6 @@ export default function useApplicationData(){
         setTasks(all[1].data);
         // sets the users data
         setUsers(all[2].data);
-        // console.log(all[2].data);
       })
       .catch((e) => {
         console.log(e);
@@ -141,13 +139,10 @@ export default function useApplicationData(){
   }, []);
 
   useEffect(() => {
-    console.log("calendar Regen")
+    console.log("calendar Update")
     let calendarEntries = [];
     for (const job of jobs) {
       let dates = [];
-      if (job.id === 54) {
-        console.log("GGGG", job.name);
-      } 
       for (const assignment of job.assignments) {
         if (!dates.includes(assignment.starts)) {
           dates.push(assignment.starts);
@@ -175,22 +170,17 @@ export default function useApplicationData(){
     console.log("************saving Job*************")
     return axios.put(`/api/jobs/${jobDetails.id}`, jobDetails)
     .then((response) => {
-      console.log("addChangeJob response",response.data);
       let newJob = {...jobDetails, id: parseInt(response.data)};
       setJobs((old) => {
         let output = [...old]
         let index = output.map((job) => job.id).indexOf(newJob.id);
-        console.log("addChangeJob oldName",output[index].name);
         if (index >= 0) {
           output[index] = {...output[index], ...newJob};//replaces only the keys in newJob
-          console.log("addChangeJob newName",output[index].name)
         } else {
           newJob.assignments = [];
           newJob.requirements = [];
           output.push(newJob);
         }
-        let tempJob = output.filter((job) => job.id === 54)[0];
-        console.log("output", tempJob.name);
         return output;
       });
       return newJob.id;
@@ -251,14 +241,15 @@ export default function useApplicationData(){
     return axios.delete(`/api/assignments/${id}`)
     .then(() => {
       let jobList = [...jobs];
-      let job = jobList.filter((job) => {
-        let assignment = job.assignments.filter((assignment) => id === assignment.id)[0];
-        if (assignment) return true; else return false;
-      })[0];
-      job = {...job};
-      let index = job.assignments.map((assignment) => assignment.id).indexOf(id);
-      job.assignments.splice(index, 1);
-      setJobs(jobList)
+      for (let i = 0; i < jobList.length; i++) {
+        for(let j = 0; j < jobList[i].assignments.length; j++) {
+          if (jobList[i].assignments[j].id === id) {
+            jobList[i].assignments.splice(j, 1);
+            setJobs(jobList);
+            return;
+          }
+        }
+      }
     })
     .catch((e) => {
       console.log("*************Error Deleting Assignment************");
@@ -297,26 +288,18 @@ export default function useApplicationData(){
 
   function cancelRequirement(id) {
     //request that the server delete the Job
-    console.log("enter cancelRequirement",id);
     return axios.delete(`/api/requirements/${id}`)
     .then(() => {
       let jobList = [...jobs];
-      let job = jobList.filter((job) => {
-        let requirement = job.requirements.filter((requirement) => id === requirement.id)[0];
-        if (requirement) return true; else return false;
-      })[0];
-      job = {...job};
-      console.log("before");
-      for(const requirement of job.requirements){
-        console.log(requirement.id);
+      for (let i = 0; i < jobList.length; i++) {
+        for(let j = 0; j < jobList[i].requirements.length; j++) {
+          if (jobList[i].requirements[j].id === id) {
+            jobList[i].requirements.splice(j, 1);
+            setJobs(jobList);
+            return;
+          }
+        }
       }
-      let index = job.requirements.map((requirement) => requirement.id).indexOf(id);
-      job.requirements.splice(index, 1);
-      console.log("after");
-      for(const requirement of job.requirements){
-        console.log(requirement.id);
-      }
-      setJobs(jobList)
     })
     .catch((e) => {
       console.log("*************Error Deleting Requirement************");
