@@ -28,6 +28,7 @@ export default function JobsPanel(props) {
     if(mode === JOB_SUMMARY || (mode === JOBS_OF_DAY)) {
       if(transitionTo === JOB_CREATOR){
         transition(JOB_CREATOR);
+        console.log("AAAAAAJobsPanel:UseEffect(Job)")
         setNewJob(false);
         console.log("setting newJob false in Job Pannel")
         setTransitionTo(undefined);
@@ -43,9 +44,11 @@ export default function JobsPanel(props) {
   const onNewJob = function() {
     if (job.id === 0) {
       transition(JOB_CREATOR);
+      console.log("AAAAAAJobsPanel:onNewJob 1")
     } else {
       setSelectedJob(0);
       transition(JOB_CREATOR)
+      console.log("AAAAAAJobsPanel:onNewJob 2")
     }
   };
 
