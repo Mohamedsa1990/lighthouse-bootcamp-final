@@ -7,7 +7,7 @@ import RequirementsList from './requirementsList';
 
 
 export default function JobItem({toolChest, details, edit, job, index}) {
-  const {transition, setSelectedJob} = toolChest;
+  const {transition, setSelectedJob, setNewJob} = toolChest;
   
   const onDetails = function() {
     if (toolChest.job.id === job.id) {
@@ -19,7 +19,9 @@ export default function JobItem({toolChest, details, edit, job, index}) {
 
   const onEdit = function() {
     if (toolChest.job.id === job.id) {
+      setNewJob(false);
       transition(edit);
+      console.log("AAAAAAJobItem:OnEdit")
     } else {
       toolChest.setTransitionTo(edit);
       setSelectedJob(job.id);

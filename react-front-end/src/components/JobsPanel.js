@@ -15,6 +15,7 @@ export default function JobsPanel(props) {
   const [transitionTo, setTransitionTo] = useState(undefined);
   const [newJob, setNewJob] = useState(true);
   const {day, job, selectedJob, setSelectedJob, calendarSelectDay, calendarSelectJob, setCalendarSelectDay, setCalendarSelectJob} = props.toolChest;
+  
 
   useEffect(() => {
     if(mode === JOB_SUMMARY) {
@@ -27,13 +28,15 @@ export default function JobsPanel(props) {
     if(mode === JOB_SUMMARY || (mode === JOBS_OF_DAY)) {
       if(transitionTo === JOB_CREATOR){
         transition(JOB_CREATOR);
+        console.log("AAAAAAJobsPanel:UseEffect(Job)")
         setNewJob(false);
+        console.log("setting newJob false in Job Pannel")
         setTransitionTo(undefined);
       } else if (mode !== JOB_SUMMARY){
         if (selectedJob !== 0){
           transition(JOB_SUMMARY);
           setCalendarSelectJob(false);
-        }
+        } 
       }
     }
   }, [job, calendarSelectJob])
@@ -41,12 +44,13 @@ export default function JobsPanel(props) {
   const onNewJob = function() {
     if (job.id === 0) {
       transition(JOB_CREATOR);
+      console.log("AAAAAAJobsPanel:onNewJob 1")
     } else {
-      setTransitionTo(JOB_CREATOR);
       setSelectedJob(0);
+      transition(JOB_CREATOR)
+      console.log("AAAAAAJobsPanel:onNewJob 2")
     }
   };
-
 
   const toolChest = {...props.toolChest, mode, transition, back, setTransitionTo, newJob, setNewJob}
   return (
@@ -73,7 +77,13 @@ export default function JobsPanel(props) {
       addChangeAssignment={toolChest.addChangeAssignment} 
       addChangeRequirement={toolChest.addChangeRequirement} 
       cancelJob={toolChest.cancelJob}
-      onAllJobs={() => transition(JOBS_OF_DAY)} />)}
+      cancelRequirement={toolChest.cancelRequirement}
+      cancelAssignment={toolChest.cancelAssignment}
+      jobInfo={toolChest.job}
+      onAllJobs={() => transition(JOBS_OF_DAY)} 
+      newJob={toolChest.newJob}
+      setNewJob={toolChest.setNewJob}
+      />)}
     </Fragment>
   );
 }

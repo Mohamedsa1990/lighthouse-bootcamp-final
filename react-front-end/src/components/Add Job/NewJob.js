@@ -4,8 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
 
-export default function NewJob({travelTime, setTravelTime, status, setStatus, jobname, setJobName, firstName, setFirstName, lastName, setLastName, address,setAddress
-  , city, setCity,phoneNumber, setPhoneNumber, email, setEmail, notes, setNotes,errorState }) {
+export default function NewJob({travelTime, setTravelTime, status, setStatus, name, setJobName, firstName, setFirstName, lastName, setLastName, address,setAddress
+  , city, setCity,phoneNumber, setPhoneNumber, email, setEmail, notes, setNotes}) {
 
   return (
     <React.Fragment>
@@ -16,13 +16,11 @@ export default function NewJob({travelTime, setTravelTime, status, setStatus, jo
         <Grid item xs={12}>
           <TextField
             required
-            error={errorState.nameError}
-            helperText={''}
             id="Job name"
             name="Job name"
             label="Job name"
             fullWidth
-            value={jobname}
+            value={name}
             onChange={(event) => setJobName(event.target.value)}
             />
         </Grid>
@@ -32,7 +30,6 @@ export default function NewJob({travelTime, setTravelTime, status, setStatus, jo
             id="firstName"
             name="firstName"
             label="First name"
-            errorText={errorState.customer_first_nameError}
             fullWidth
             value={firstName}
             onChange={e => setFirstName(e.target.value)}
@@ -44,7 +41,6 @@ export default function NewJob({travelTime, setTravelTime, status, setStatus, jo
             id="lastName"
             name="lastName"
             label="Last name"
-            errorText={errorState.customer_last_nameError}
             fullWidth
             value={lastName}
             onChange={e => setLastName(e.target.value)}
@@ -56,7 +52,6 @@ export default function NewJob({travelTime, setTravelTime, status, setStatus, jo
             id="address"
             name="address"
             label="Address"
-            errorText={errorState.customer_addressError}
             fullWidth
             value={address}
             onChange={e => setAddress(e.target.value)}
@@ -68,7 +63,6 @@ export default function NewJob({travelTime, setTravelTime, status, setStatus, jo
             id="city"
             name="city"
             label="City"
-            errorText={errorState.customer_cityError}
             fullWidth
             value={city}
             onChange={e => setCity(e.target.value)}
@@ -80,7 +74,6 @@ export default function NewJob({travelTime, setTravelTime, status, setStatus, jo
             id="Phone number"
             name="Phone number"
             label="Phone number"
-            errorText={errorState.customer_phone_numberError}
             fullWidth
             value={phoneNumber}
             onChange={e => setPhoneNumber(e.target.value)}
@@ -92,7 +85,6 @@ export default function NewJob({travelTime, setTravelTime, status, setStatus, jo
             id="Email"
             name="email"
             label="email"
-            errorText={errorState.customer_emailError}
             fullWidth
             value={email}
             onChange={e => setEmail(e.target.value)}
