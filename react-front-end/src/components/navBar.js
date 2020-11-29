@@ -56,7 +56,7 @@ export default function NavBar(props) {
           <Typography variant="h6" className={classes.title}>
             Greener Side Landscaping
           </Typography>
-          <Typography variant="h8" className={classes.menuButton}>
+          <Typography variant="subtitle2" className={classes.menuButton}>
             Welcome: Admin
           </Typography>
         </Toolbar>

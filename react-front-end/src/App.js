@@ -248,7 +248,7 @@ export default function App(){
       </button> */}
       {/* END EXAMPLE COMPONENETS */}
       <Grid container>
-        <Grid lg={12}>
+        <Grid item lg={12}>
           <NavBar toolChest={toolChest} />
         </Grid>
       </Grid>
