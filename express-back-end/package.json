@@ -6,8 +6,6 @@
   "author": "garrettgsb",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js",
-    "build": "cd ../react-front-end && npm install && npm build",
     "go": "nodemon server.js",
     "reset": "psql -U development -d teams < ./db/migrations/01_schema.sql && psql -U development -d teams < ./db/migrations/02_schema.sql && psql -U development -d teams < ./db/seeds/01_Users.sql && psql -U development -d teams < ./db/seeds/02_Jobs.sql && psql -U development -d teams < ./db/seeds/03_Tasks.sql && psql -U development -d teams < ./db/seeds/04_Assignments.sql && psql -U development -d teams < ./db/seeds/05_Skills.sql && psql -U development -d teams < ./db/seeds/06_requirements.sql"
   },
