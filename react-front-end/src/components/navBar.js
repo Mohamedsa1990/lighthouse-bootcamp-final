@@ -23,7 +23,12 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const {setFireNewJob} = props.toolChest;
 
+  const onNewJob = function() {
+    setFireNewJob(true);
+    handleClose();
+  }
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -35,7 +40,7 @@ export default function NavBar(props) {
   return (
     <div className={classes.root}>
       <AppBar position="static" style={{backgroundColor: " #80B98B"}}>
-        <Toolbar style={{minHeight: 80}}>
+        <Toolbar style={{height: 80}}>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={handleClick}>
             <MenuIcon />
           </IconButton>
@@ -46,7 +51,7 @@ export default function NavBar(props) {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Add Job</MenuItem>
+            <MenuItem onClick={onNewJob}>Add Job</MenuItem>
           </Menu>
           <Typography variant="h6" className={classes.title}>
             Greener Side Landscaping

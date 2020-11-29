@@ -52,8 +52,8 @@ export default function JobCalendar({toolChest}){
   };
 
   return (
-    <div className="JobCalendar">
       <Calendar
+        className="JobCalendar"
         popup
         views={['month', 'week', 'day']}
         date={selectedDay.starts}
@@ -68,7 +68,6 @@ export default function JobCalendar({toolChest}){
         defaultDate={moment().toDate()}
         localizer={localizer}
       />
-    </div>
   );
 }
 
