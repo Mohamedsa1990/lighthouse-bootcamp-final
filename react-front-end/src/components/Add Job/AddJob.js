@@ -69,8 +69,8 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
   const [customer_city, setCustomer_city] = useState(newJob ? '' :jobInfo.customer_city);
   const [customer_phone_number, setCustomer_phone_number] = useState(newJob ? '' :jobInfo.customer_phone_number);
   const [customer_email, setCustomer_email] = useState(newJob ? '' :jobInfo.customer_email);
-  const [start, setStart] = useState(newJob ? '' :jobInfo.assignments[0].starts);
-  const [end, setEnd] = useState(newJob ? '' :jobInfo.assignments[0].ends);
+  const [start, setStart] = useState(newJob ? '' : jobInfo.assignments[0].starts);
+  const [end, setEnd] = useState(newJob ? '' : jobInfo.assignments[0].ends);
   const [estimate_total_workers, setEstimate_total_workers] = useState(newJob ? 0 :jobInfo.estimate_total_workers);
   const [estimate_total_time, setEstimate_total_time] = useState(newJob ? 0 :jobInfo.estimate_total_time);
   const [notes, setNotes] = useState(newJob ? '' :jobInfo.notes)

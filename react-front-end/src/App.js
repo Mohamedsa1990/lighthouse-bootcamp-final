@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import JobsOfDay from './components/JobsOfDay';
 import AddJob from './components/Add Job/AddJob'
 import JobsPanel from './components/JobsPanel';
+import NavBar from './components/navBar'
 
 const jobInitialState = {
   assignments: [{
@@ -244,6 +245,7 @@ export default function App(){
         query
       </button> */}
       {/* END EXAMPLE COMPONENETS */}
+      <NavBar/>
       <Grid container spacing={1}>
         <Grid  item xs>
           <JobCalendar toolChest={toolChest}/>
