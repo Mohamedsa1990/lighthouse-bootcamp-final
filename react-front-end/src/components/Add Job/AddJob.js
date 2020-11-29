@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
@@ -59,7 +59,6 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
   const modifiedReq = [];
   jobInfo.requirements.forEach(req =>  modifiedReq.push({id:req.id, job_id: req.job_id, task_id:req.task_id, difficulty: req.difficulty , estimate_workers: req.estimate_workers, estimate_time: req.estimate_time}));
   const modifiedAssignments = [];
-  jobInfo.assignments.forEach(assignment => modifiedAssignments.push({id:assignment.id, job_id: assignment.job_id,user_id:assignment.user_id, starts: assignment.starts, ends:assignment.ends}))
   
 
   const [name, setname] = useState(newJob ? '' : jobInfo.name);
@@ -69,8 +68,7 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
   const [customer_city, setCustomer_city] = useState(newJob ? '' :jobInfo.customer_city);
   const [customer_phone_number, setCustomer_phone_number] = useState(newJob ? '' :jobInfo.customer_phone_number);
   const [customer_email, setCustomer_email] = useState(newJob ? '' :jobInfo.customer_email);
-  const [start, setStart] = useState((newJob || jobInfo.assignments.length === 0) ? '' :jobInfo.assignments[0].starts);
-  const [end, setEnd] = useState((newJob || jobInfo.assignments.length === 0) ? '' :jobInfo.assignments[0].ends);
+
   const [estimate_total_workers, setEstimate_total_workers] = useState(newJob ? 0 :jobInfo.estimate_total_workers);
   const [estimate_total_time, setEstimate_total_time] = useState(newJob ? 0 :jobInfo.estimate_total_time);
   const [notes, setNotes] = useState(newJob ? '' :jobInfo.notes)
@@ -79,7 +77,15 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
 
   const [requirements, setRequirements] = useState(newJob ? [] : modifiedReq);
   const [jobId, setJobId] = useState(newJob ? 0 :jobInfo.id)
-  const [assignments, setAssignments] = useState(newJob ? [] : modifiedAssignments);
+  const [assignments, setAssignments] = useState([]);
+
+  useEffect(() => {
+    if (!newJob){
+      jobInfo.assignments.forEach(assignment => modifiedAssignments.push({id:assignment.id, job_id: assignment.job_id,user_id:assignment.user_id, starts: assignment.starts, ends:assignment.ends}))
+      setAssignments(modifiedAssignments)
+    }
+  }, [])
+  
   const job = {
     id: jobId,
     name,
@@ -170,10 +176,6 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
       case 2:
         return <AssignWorker 
                 users={users} 
-                start = {start}
-                setStart = {setStart}
-                end = {end} 
-                setEnd = {setEnd}
                 requirements={requirements} 
                 assignments={assignments} 
                 setAssignments={setAssignments}
