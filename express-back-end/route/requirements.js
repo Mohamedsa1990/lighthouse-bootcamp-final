@@ -46,8 +46,6 @@ module.exports = (db) => {
         .then((data3) => {
           console.log("*******************")
           console.log("response for successfully saved new requirement");
-          console.log(incoming);
-          console.log(data3.rows[0]);
           return res.json(data3.rows[0]);
         })
         .catch(err => {

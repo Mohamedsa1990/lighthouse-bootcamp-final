@@ -26,10 +26,6 @@ module.exports = (db) => {
         }
       }
       queryString = `INSERT INTO assignments (${keysString}) VALUES (${variableString})`;
-      console.log("XXXXXXXXXXXXXX")
-      console.log('query sring',queryString);
-      console.log("values", values)
-      console.log("XXXXXXXXXXXXXX")
 
       return db.query(queryString, values)
         .then((data) => {
