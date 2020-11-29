@@ -47,19 +47,11 @@ module.exports = (db) => {
           let assignments = allAssignments.filter((assignment) => {
             return assignment.job_id === job.id;
           });
-          if (job.id === 5) {
-            console.log("XXXXXXXXXXXXXXXX")
-            console.log(assignments);
-            console.log("XXXXXXXXXXXXXXXX")
-          }
           if (!assignments) {
             assignments = [];
           }
           return {...job, assignments};
         });
-        console.log("response for jobs request sent");
-        console.log("******************************");
-        console.log(output[5]);
         return res.json(output);
       })
       .catch(err => {
