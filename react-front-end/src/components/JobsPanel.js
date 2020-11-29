@@ -16,6 +16,7 @@ export default function JobsPanel(props) {
   const [newJob, setNewJob] = useState(true);
   const {day, job, selectedJob, setSelectedJob, calendarSelectDay, calendarSelectJob, setCalendarSelectDay, setCalendarSelectJob} = props.toolChest;
   
+  
 
   useEffect(() => {
     if(mode === JOB_SUMMARY) {
@@ -48,6 +49,13 @@ export default function JobsPanel(props) {
     }
   };
 
+
+  useEffect(() => {
+    if (props.toolChest.fireNewJob){
+      props.toolChest.setFireNewJob(false);
+      onNewJob();
+    }
+  }, [props.toolChest.fireNewJob])
   const toolChest = {...props.toolChest, mode, transition, back, setTransitionTo, newJob, setNewJob}
   return (
     <>

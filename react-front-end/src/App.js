@@ -7,6 +7,7 @@ import useApplicationData from './hooks/useApplicationData'
 import Grid from '@material-ui/core/Grid';
 import JobsPanel from './components/JobsPanel';
 import NavBar from './components/navBar'
+import { TabScrollButton } from '@material-ui/core';
 
 const jobInitialState = {
   assignments: [{
@@ -45,7 +46,8 @@ const jobInitialState = {
 };
 
 export default function App(){
-  const {jobs, tasks, users, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob} = useApplicationData();
+
+  const [fireNewJob, setFireNewJob] = useState(false);  const {jobs, tasks, users, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob} = useApplicationData();
 
   // selectDay - sets the currently selected day when navigating with the calendar
   const [selectDay, setSelectDay] = useState({starts: moment().startOf('day').toDate(), ends: moment().endOf('day').toDate()});
@@ -60,6 +62,8 @@ export default function App(){
   const [calendarSelectDay, setCalendarSelectDay] = useState(false);
 
   const toolChest = {
+    fireNewJob,
+    setFireNewJob,
     jobs,
     tasks,
     users,
@@ -243,13 +247,17 @@ export default function App(){
         query
       </button> */}
       {/* END EXAMPLE COMPONENETS */}
-      <NavBar/>
+      <Grid container>
+        <Grid lg={12}>
+          <NavBar toolChest={toolChest} />
+        </Grid>
+      </Grid>
       <Grid container spacing={1}>
-        <Grid  item xs>
+        <Grid  item xs={12} lg={8}>
           <JobCalendar toolChest={toolChest}/>
         </Grid>
-        <Grid  item xs>
-          <JobsPanel toolChest={toolChest} />
+        <Grid  item xs={12} lg={4}>
+          <JobsPanel toolChest={toolChest}/>
         </Grid>
       </Grid>
     </div>
