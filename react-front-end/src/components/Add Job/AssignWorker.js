@@ -20,8 +20,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AssignWorker({requirements, users, start, end, setStart, setEnd, assignments, setAssignments, jobId, newJob, cancelAssignment}) {
-  
+export default function AssignWorker({requirements, users, assignments, setAssignments, jobId, newJob, cancelAssignment}) {
+  //******************************************************************************************************* */
+  const [start, setStart] = useState((newJob || assignments.length === 0) ? '' : assignments[0].starts);
+  const [end, setEnd] = useState((newJob || assignments.length === 0) ? '' : assignments[0].ends);
+  //********************************************************************* */
   const classes = useStyles();
   const [checkedEmployee, setCheckedEmployee] = useState(newJob ? [] : assignments);
   const jobSkills = requirements.map(requirement => requirement.task_id);
@@ -60,7 +63,27 @@ export default function AssignWorker({requirements, users, start, end, setStart,
     setAssignments(newChecked);
     setCheckedEmployee(newChecked);
   };
-  
+  const setStartTime = function(time) {
+    setStart(time);
+    setAssignments((oldList) => {
+      let newList = [...oldList];
+      for (let i = 0; i < newList.length; i++) {
+        newList[i] = {...oldList[i], starts: time};
+      }
+      return newList;
+    })
+  }
+
+    const setEndTime = function(time) {
+    setEnd(time);
+    setAssignments((oldList) => {
+      let newList = [...oldList];
+      for (let i = 0; i < newList.length; i++) {
+        newList[i] = {...oldList[i], ends: time};
+      }
+      return newList;
+    })
+  }
 
   return (
     <>
@@ -79,7 +102,7 @@ export default function AssignWorker({requirements, users, start, end, setStart,
             }}
             fullWidth
             value={start}
-            onChange={e => setStart(e.target.value)}
+            onChange={e => setStartTime(e.target.value)}
             />
         </Grid>
         <Grid item xs={12} sm={5}>
@@ -93,7 +116,7 @@ export default function AssignWorker({requirements, users, start, end, setStart,
             }}
             fullWidth
             value={end}
-            onChange={e => setEnd(e.target.value)}
+            onChange={e => setEndTime(e.target.value)}
             />
         </Grid>
         <List dense className={classes.root}>
