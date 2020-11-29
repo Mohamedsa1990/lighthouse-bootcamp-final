@@ -5,8 +5,6 @@ import 'fontsource-roboto';
 import JobCalendar from './components/JobCalendar'
 import useApplicationData from './hooks/useApplicationData'
 import Grid from '@material-ui/core/Grid';
-import JobsOfDay from './components/JobsOfDay';
-import AddJob from './components/Add Job/AddJob'
 import JobsPanel from './components/JobsPanel';
 
 const jobInitialState = {
@@ -120,11 +118,11 @@ export default function App(){
 
   //START EXAMPLE FUNCTIONS
   //START EXAMPLE STATE
-  const [{message, message2}, setState] = useState({message: 'Click the button to load data!', message2: 'Click to get a query'})
-  const [id, setID] = useState(0);
+  // const [{message, message2}, setState] = useState({message: 'Click the button to load data!', message2: 'Click to get a query'})
+  // const [id, setID] = useState(0);
   //END EXAMPLE STATE
   
-  function fetchData() {
+  // function fetchData() {
     // addChangeRequirement({
     //   id: 103,
     //   job_id: 54,
@@ -175,9 +173,9 @@ export default function App(){
     //   let job = jobs.filter((job) => job.id === 54)[0];
     //   console.log("*** exit", job);
     // });
-  }
+  // }
 
-  function query() {
+  // function query() {
     // let job = jobs.filter((job) => job.id === 54)[0];
     // console.log(job)
     // addChangeJob({
@@ -229,7 +227,7 @@ export default function App(){
     //     let assignment = job.assignments.filter((assignment) => assignment.id === asignID)[0];
     //     console.log("*** enter", job.assignments);
     //   });
-  }
+  // }
   //END EXAMPLE FUNCTIONS
   
   return (
