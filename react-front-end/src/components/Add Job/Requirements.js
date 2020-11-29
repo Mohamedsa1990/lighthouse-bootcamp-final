@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid'
 import AddIcon from '@material-ui/icons/Add';
@@ -64,7 +64,7 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
 
 
   return (
-    <React.Fragment>
+    <>
       <Grid container spacing={3} justify="space-between" alignItems="center">
         <Grid item>
           <Typography variant="h6" align="left">
@@ -98,6 +98,6 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
           formik={formik}
         />
       </Grid>
-    </React.Fragment>
+    </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
@@ -187,7 +187,7 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
   }
 
   return (
-    <React.Fragment>
+    <>
       <main className={classes.layout}>
         <Paper className={classes.paper} elevation={3}>
           <Typography component="h1" variant="h4" align="center">
@@ -200,13 +200,13 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
               </Step>
             ))}
           </Stepper>
-          <React.Fragment>
+          <>
             {activeStep === steps.length ? (
-              <React.Fragment>
+              <>
                 {/* Use this as condition of going back to the normal view*/}
-              </React.Fragment>
+              </>
             ) : (
-              <React.Fragment>
+              <>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
                   {activeStep === 0 ?
@@ -237,11 +237,11 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
                   >Next</Button>
                   }
                 </div>
-              </React.Fragment>
+              </>
             )}
-          </React.Fragment>
+          </>
         </Paper>
       </main>
-    </React.Fragment>
+    </>
   );
 }

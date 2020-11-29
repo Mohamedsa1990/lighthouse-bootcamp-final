@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
@@ -17,7 +17,6 @@ import { Typography } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    // maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
   nested: {
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomerInfo(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClick = () => {
     setOpen(!open);

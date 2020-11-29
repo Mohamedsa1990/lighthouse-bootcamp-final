@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -63,7 +63,7 @@ export default function AssignWorker({requirements, users, start, end, setStart,
   
 
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom align="left">
         Assign Worker
       </Typography>
@@ -121,6 +121,6 @@ export default function AssignWorker({requirements, users, start, end, setStart,
         })}
         </List>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }

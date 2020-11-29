@@ -1,11 +1,11 @@
-import React from 'react';
+import {useState} from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {Chip, Grid, Paper, ButtonGroup, IconButton} from '@material-ui/core';
 import {Box, Collapse, Button} from '@material-ui/core';
 
 
 export default function TaskComponent (props) {
-  const [dropDownOpen, setDropDownOpen] = React.useState(false);
+  const [dropDownOpen, setDropDownOpen] = useState(false);
   const handleOpen = () => {
     setDropDownOpen(!dropDownOpen);
   };

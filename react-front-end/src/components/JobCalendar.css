@@ -1,4 +1,9 @@
-
+.JobCalendar {
+  height: 90vh;
+  width: 50vw;
+  padding: 2rem;
+  font: inherit;
+}
 .rbc-event {
   background-color: #80b98b;
   border-radius: 7px;

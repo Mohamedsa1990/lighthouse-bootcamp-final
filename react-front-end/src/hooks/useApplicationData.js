@@ -139,7 +139,6 @@ export default function useApplicationData(){
   }, []);
 
   useEffect(() => {
-    console.log("calendar Update")
     let calendarEntries = [];
     for (const job of jobs) {
       let dates = [];

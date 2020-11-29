@@ -1,4 +1,3 @@
-import React from 'react';
 import {Typography, Container, Box, Divider, Paper, Button, ButtonGroup} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import CustomerInfo from './JobSummary_components/customer_info';
@@ -42,7 +41,6 @@ export default function JobSummary(props) {
         <Paper elevation={4} >
           <Box m={2}>
             <Typography variant="h5">{props.job.name}</Typography>
-            {/* <Typography variant="h6" >{props.job.assignments[0].starts} - {props.job.assignments[0].ends}</Typography> */}
             <ButtonGroup variant="outlined" aria-label="outlined primary button group">
               <Button color="secondary" onClick={props.onAllJobs}>Back</Button>
               <Button onClick={onEdit} color="default">Edit</Button>

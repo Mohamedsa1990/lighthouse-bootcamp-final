@@ -1,4 +1,3 @@
-import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +7,7 @@ export default function NewJob({travelTime, setTravelTime, status, setStatus, na
   , city, setCity,phoneNumber, setPhoneNumber, email, setEmail, notes, setNotes}) {
 
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom align="left">
         Job details
       </Typography>
@@ -121,8 +120,7 @@ export default function NewJob({travelTime, setTravelTime, status, setStatus, na
             onChange={e => setNotes(e.target.value)}
           />
         </Grid>
-        
       </Grid>
-    </React.Fragment>
+    </>
   );
 }

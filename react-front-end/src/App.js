@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import moment from 'moment';
 import './App.css';
 import 'fontsource-roboto';
@@ -247,9 +247,6 @@ export default function App(){
           <JobCalendar toolChest={toolChest}/>
         </Grid>
         <Grid  item xs>
-          {/* <JobSummary jobs= {jobs} /> */}
-          {/* <JobsOfDay jobs={day}/> */}
-          {/* <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob} addChangeAssignment={addChangeAssignment} addChangeRequirement={addChangeRequirement} cancelJob={cancelJob}/> */}
           <JobsPanel toolChest={toolChest} />
         </Grid>
       </Grid>

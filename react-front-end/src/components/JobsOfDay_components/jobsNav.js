@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import {Paper, ButtonGroup, Collapse, Box} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -27,7 +27,7 @@ export default function JobsNav(props) {
   const classes = useStyles();
   const totalHrs = Math.round((props.jobObj.estimate_total_time / props.jobObj.estimate_total_workers) * 100) / 100; 
   
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(!open);
   };

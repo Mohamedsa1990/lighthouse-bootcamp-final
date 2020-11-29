@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useVisualMode from '../hooks/useVisualMode'
 import Empty from './JobsPanel_components/empty';
 import JobsOfDay from './JobsOfDay';
@@ -28,9 +28,7 @@ export default function JobsPanel(props) {
     if(mode === JOB_SUMMARY || (mode === JOBS_OF_DAY)) {
       if(transitionTo === JOB_CREATOR){
         transition(JOB_CREATOR);
-        console.log("AAAAAAJobsPanel:UseEffect(Job)")
         setNewJob(false);
-        console.log("setting newJob false in Job Pannel")
         setTransitionTo(undefined);
       } else if (mode !== JOB_SUMMARY){
         if (selectedJob !== 0){
@@ -44,17 +42,15 @@ export default function JobsPanel(props) {
   const onNewJob = function() {
     if (job.id === 0) {
       transition(JOB_CREATOR);
-      console.log("AAAAAAJobsPanel:onNewJob 1")
     } else {
       setSelectedJob(0);
       transition(JOB_CREATOR)
-      console.log("AAAAAAJobsPanel:onNewJob 2")
     }
   };
 
   const toolChest = {...props.toolChest, mode, transition, back, setTransitionTo, newJob, setNewJob}
   return (
-    <Fragment>
+    <>
       {mode === EMPTY && (
       <Empty onClick={() => transition(JOBS_OF_DAY)} />)}
       {mode === JOBS_OF_DAY && (
@@ -86,7 +82,7 @@ export default function JobsPanel(props) {
       newJob={toolChest.newJob}
       setNewJob={toolChest.setNewJob}
       />)}
-    </Fragment>
+    </>
   );
 }
 

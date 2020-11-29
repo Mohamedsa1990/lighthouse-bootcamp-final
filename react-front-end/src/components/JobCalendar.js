@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './JobCalendar.css'
 import moment from 'moment'
 
-//calendar styling
-const section = {
-  height: "90vh",
-  width: "50vw",
-  padding: "2rem",
-  font: "inherit",
-};
-
-// Setup the localizer by providing the moment (or globalize) Object
+// Setup the localizer by providing the moment Object
 // to the correct localizer.
-const localizer = momentLocalizer(moment) // or globalizeLocalizer
+const localizer = momentLocalizer(moment);
 
 export default function JobCalendar({toolChest}){
-  const {setSelectDay, calendar, setSelectedJob, setCalendarSelectDay, setCalendarSelectJob, selectedJob} = toolChest
+  const {setSelectDay, calendar, setSelectedJob, setCalendarSelectDay, setCalendarSelectJob, selectedJob} = toolChest;
   const selectedDay = toolChest.selectDay;
   const selectDay = (info) => {
     //start and end are JS Date Objects so capture date and time
@@ -26,8 +17,6 @@ export default function JobCalendar({toolChest}){
     startDate.setHours( 0, 0, 0);
     endDate.setHours(23, 59, 59);
     if (startDate.toISOString() === selectedDay.starts.toISOString()){
-      console.log("HHHHHHHHHHHHHH")
-      console.log(startDate.toISOString)
       setCalendarSelectDay(true);
     } else {
       setSelectDay({starts: startDate, ends: endDate});
@@ -43,10 +32,8 @@ export default function JobCalendar({toolChest}){
     let currentDay = new Date();
     const currentMonth = currentDay.getMonth;
     currentDay = currentDay.getDate;
-    
     const selectDay = selectedDay.starts.getDate();
     const selectMonth = selectedDay.starts.getMonth();
-
     if ((date.getDate() === currentDay && date.getMonth() === currentMonth )|| (date.getDate() === selectDay && date.getMonth() === selectMonth))
       return {
         className: 'highlighted-day',
@@ -57,7 +44,6 @@ export default function JobCalendar({toolChest}){
     else return {}
   }
   const selectBooking = function(booking){
-    console.log("booking.job_id: ", booking.job_id);
     if (selectedJob === booking.job_id){
       setCalendarSelectJob(true);
     } else {
@@ -66,7 +52,7 @@ export default function JobCalendar({toolChest}){
   };
 
   return (
-    <div className="JobCalendar" style={section}>
+    <div className="JobCalendar">
       <Calendar
         popup
         views={['month', 'week', 'day']}
