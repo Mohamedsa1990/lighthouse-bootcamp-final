@@ -54,7 +54,6 @@ export default function JobCalendar({toolChest}){
   return (
       <Calendar
         className="JobCalendar"
-        popup
         views={['month', 'week', 'day']}
         date={selectedDay.starts}
         events={calendar}
