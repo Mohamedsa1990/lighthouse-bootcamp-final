@@ -6,6 +6,7 @@ import JobCalendar from './components/JobCalendar'
 import useApplicationData from './hooks/useApplicationData'
 import Grid from '@material-ui/core/Grid';
 import JobsPanel from './components/JobsPanel';
+import NavBar from './components/navBar'
 
 const jobInitialState = {
   assignments: [{
@@ -242,6 +243,7 @@ export default function App(){
         query
       </button> */}
       {/* END EXAMPLE COMPONENETS */}
+      <NavBar/>
       <Grid container spacing={1}>
         <Grid  item xs>
           <JobCalendar toolChest={toolChest}/>
