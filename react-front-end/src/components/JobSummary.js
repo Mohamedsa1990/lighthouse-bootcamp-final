@@ -1,4 +1,3 @@
-import React from 'react';
 import {Typography, Container, Box, Divider, Paper, Button, ButtonGroup} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import CustomerInfo from './JobSummary_components/customer_info';
@@ -29,16 +28,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function JobSummary(props) {
   const classes = useStyles();
+  const {setNewJob, transition} = props.toolChest;
+
+  const onEdit = function() {
+    setNewJob(false);
+    transition(props.edit);
+  }
 
   return (
     <main className={classes.root}>
       <Container>
         <Paper elevation={4} >
           <Box m={2}>
-            <Typography variant="h5">Job Summary</Typography>
-            {/* <Typography variant="h6" >{props.job.assignments[0].starts} - {props.job.assignments[0].ends}</Typography> */}
+            <Typography variant="h5">{props.job.name}</Typography>
             <ButtonGroup variant="outlined" aria-label="outlined primary button group">
-              <Button color="secondary" onClick={props.onAllJobs}>All Jobs</Button>
+              <Button color="secondary" onClick={props.onAllJobs}>Back</Button>
+              <Button onClick={onEdit} color="default">Edit</Button>
               <Button onClick={props.onNewJob} color="primary">New Job</Button>
             </ButtonGroup>
           </Box> 

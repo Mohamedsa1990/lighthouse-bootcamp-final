@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,7 +8,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -32,12 +31,9 @@ function createData(name, start_date_time, end_date_time) {
   return { name, start_date_time, end_date_time};
 }
 
-// const deleteIcon = <DeleteForeverIcon button onClick={handleClick}/>
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    // maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
   container: {
@@ -50,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Assignments(props) {
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -62,16 +58,19 @@ export default function Assignments(props) {
     setPage(0);
   };
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(!open);
   };
 
 
   const assignmentsArray = props.job.assignments;
-  // console.log("assignmentsArray: ", assignmentsArray)
   const rows = assignmentsArray.map((obj) => {
-    return createData(`${obj.first_name} ${obj.last_name}`, obj.starts, obj.ends)
+    const starts = new Date(obj.starts)
+    const startsString = starts.toLocaleDateString() + " " + starts.toLocaleTimeString();
+    const ends = new Date(obj.ends)
+    const endsString = ends.toLocaleDateString() + " " + ends.toLocaleTimeString();
+    return createData(`${obj.first_name} ${obj.last_name}`, startsString, endsString)
   });
 
   return (
@@ -116,7 +115,6 @@ export default function Assignments(props) {
                         );
                       })}
                     </TableRow>
-                     
                   );
                 })}
               </TableBody>

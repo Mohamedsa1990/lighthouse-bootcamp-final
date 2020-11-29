@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import moment from 'moment';
 import './App.css';
 import 'fontsource-roboto';
 import JobCalendar from './components/JobCalendar'
 import useApplicationData from './hooks/useApplicationData'
 import Grid from '@material-ui/core/Grid';
-import JobsOfDay from './components/JobsOfDay';
-import AddJob from './components/Add Job/AddJob'
 import JobsPanel from './components/JobsPanel';
+import NavBar from './components/navBar'
 
 const jobInitialState = {
   assignments: [{
@@ -120,11 +119,37 @@ export default function App(){
 
   //START EXAMPLE FUNCTIONS
   //START EXAMPLE STATE
-  const [{message, message2}, setState] = useState({message: 'Click the button to load data!', message2: 'Click to get a query'})
-  const [id, setID] = useState(0);
+  // const [{message, message2}, setState] = useState({message: 'Click the button to load data!', message2: 'Click to get a query'})
+  // const [id, setID] = useState(0);
   //END EXAMPLE STATE
   
-  function fetchData() {
+  // function fetchData() {
+    // addChangeRequirement({
+    //   id: 103,
+    //   job_id: 54,
+    //   task_id: 5,
+    //   difficulty: 5,
+    //   estimate_time: 55,
+    //   estimate_workers: 5,
+    // })
+    //   .then((asignID) => {
+      
+    //     console.log("assgned ID",asignID);
+    //     let job = jobs.filter((job) => job.id === 54)[0];
+    //     //let assignment = job.assignments.filter((assignment) => assignment.id === asignID)[0];
+    //     console.log("*** enter", job.requirements);
+    //   });
+    // addChangeAssignment({
+      
+    //   job_id: 54,
+    //   user_id: 49,
+    //   starts: '2020-11-16T12:00:00-06:00',
+    //   ends: '2020-11-16T13:00:00-06:00', 
+    // })
+    //   .then((asignID) => {
+    //     setID(asignID);
+    //     console.log("assgned ID",asignID);
+    //   });
     // console.log("YYYYYYYYYYYYYY")
     // console.log(moment("2020-11-18T20:59"));
     // let job = jobs.filter((job) => job.id === id)[0];
@@ -135,25 +160,27 @@ export default function App(){
     //     let job = jobs.filter((job) => job.id === id)[0];
     //     console.log("*** exit", job);
     //   });
-    // cancelRequirement(id)
+    // cancelRequirement(103)
     //   .then(() => {
-    //     console.log("deleted ID", id);
-    //     let job = jobs.filter((job) => job.id === 5)[0];
+    //     console.log("deleted ID", 103);
+    //     let job = jobs.filter((job) => job.id === 54)[0];
     //     console.log("*** exit", job.requirements);
     //   });
     // let job = jobs.filter((job) => job.id === 5)[0];
     // console.log(job.assignments);
-    // cancelAssignment(id)
+    // cancelAssignment(109)
     // .then(() => {
-    //   console.log("deleted ID", id);
-    //   let job = jobs.filter((job) => job.id === 5)[0];
+    //   console.log("deleted ID", 106);
+    //   let job = jobs.filter((job) => job.id === 54)[0];
     //   console.log("*** exit", job);
     // });
-  }
+  // }
 
-  function query() {
-    // console.log(day);
+  // function query() {
+    // let job = jobs.filter((job) => job.id === 54)[0];
+    // console.log(job)
     // addChangeJob({
+    //   id: 54,
     //   name: 'total Junk',
     //   notes: 'you do not want to know',
     //   status: 'Quote Requested',
@@ -172,7 +199,6 @@ export default function App(){
     //     console.log("assgned ID",assignID);
     //     let job = jobs.filter((job) => job.id === assignID)[0];
     //     console.log("*** enter", job);
-        
     //   });
     // addChangeRequirement({
     //   job_id: 5,
@@ -202,7 +228,7 @@ export default function App(){
     //     let assignment = job.assignments.filter((assignment) => assignment.id === asignID)[0];
     //     console.log("*** enter", job.assignments);
     //   });
-  }
+  // }
   //END EXAMPLE FUNCTIONS
   
   return (
@@ -217,14 +243,12 @@ export default function App(){
         query
       </button> */}
       {/* END EXAMPLE COMPONENETS */}
+      <NavBar/>
       <Grid container spacing={1}>
         <Grid  item xs>
           <JobCalendar toolChest={toolChest}/>
         </Grid>
         <Grid  item xs>
-          {/* <JobSummary jobs= {jobs} /> */}
-          {/* <JobsOfDay jobs={day}/> */}
-          {/* <AddJob tasks={tasks} users={users} addChangeJob={addChangeJob} addChangeAssignment={addChangeAssignment} addChangeRequirement={addChangeRequirement} cancelJob={cancelJob}/> */}
           <JobsPanel toolChest={toolChest} />
         </Grid>
       </Grid>

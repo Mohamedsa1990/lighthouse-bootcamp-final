@@ -1,4 +1,3 @@
-import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -30,7 +29,7 @@ export default function TaskDialogComponent (props) {
                   {props.tasks.map(task => {
                     return (
                       <MenuItem key={task.id} value={task.id}>{task.name}</MenuItem>
-                     )
+                    )
                   })}
                 </Select>
               </FormControl>

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useVisualMode from '../hooks/useVisualMode'
 import Empty from './JobsPanel_components/empty';
 import JobsOfDay from './JobsOfDay';
@@ -15,6 +15,7 @@ export default function JobsPanel(props) {
   const [transitionTo, setTransitionTo] = useState(undefined);
   const [newJob, setNewJob] = useState(true);
   const {day, job, selectedJob, setSelectedJob, calendarSelectDay, calendarSelectJob, setCalendarSelectDay, setCalendarSelectJob} = props.toolChest;
+  
 
   useEffect(() => {
     if(mode === JOB_SUMMARY) {
@@ -33,7 +34,7 @@ export default function JobsPanel(props) {
         if (selectedJob !== 0){
           transition(JOB_SUMMARY);
           setCalendarSelectJob(false);
-        }
+        } 
       }
     }
   }, [job, calendarSelectJob])
@@ -42,15 +43,14 @@ export default function JobsPanel(props) {
     if (job.id === 0) {
       transition(JOB_CREATOR);
     } else {
-      setTransitionTo(JOB_CREATOR);
       setSelectedJob(0);
+      transition(JOB_CREATOR)
     }
   };
 
-
   const toolChest = {...props.toolChest, mode, transition, back, setTransitionTo, newJob, setNewJob}
   return (
-    <Fragment>
+    <>
       {mode === EMPTY && (
       <Empty onClick={() => transition(JOBS_OF_DAY)} />)}
       {mode === JOBS_OF_DAY && (
@@ -62,7 +62,9 @@ export default function JobsPanel(props) {
       />)}
       {mode === JOB_SUMMARY && (
       <JobSummary 
-        job={toolChest.job} 
+        job={toolChest.job}
+        toolChest={toolChest}
+        edit={JOB_CREATOR}
         onNewJob={onNewJob} 
         onAllJobs={() => transition(JOBS_OF_DAY)}/>)}
       {mode === JOB_CREATOR && (
@@ -73,8 +75,14 @@ export default function JobsPanel(props) {
       addChangeAssignment={toolChest.addChangeAssignment} 
       addChangeRequirement={toolChest.addChangeRequirement} 
       cancelJob={toolChest.cancelJob}
-      onAllJobs={() => transition(JOBS_OF_DAY)} />)}
-    </Fragment>
+      cancelRequirement={toolChest.cancelRequirement}
+      cancelAssignment={toolChest.cancelAssignment}
+      jobInfo={toolChest.job}
+      onAllJobs={() => transition(JOBS_OF_DAY)} 
+      newJob={toolChest.newJob}
+      setNewJob={toolChest.setNewJob}
+      />)}
+    </>
   );
 }
 

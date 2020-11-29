@@ -1,13 +1,12 @@
 
 import {Box, Divider, Paper} from '@material-ui/core';
 import ListItem from '@material-ui/core/ListItem';
-import { useEffect, useState } from 'react';
 import JobsNav from './jobsNav';
 import RequirementsList from './requirementsList';
 
 
 export default function JobItem({toolChest, details, edit, job, index}) {
-  const {transition, setSelectedJob} = toolChest;
+  const {transition, setSelectedJob, setNewJob} = toolChest;
   
   const onDetails = function() {
     if (toolChest.job.id === job.id) {
@@ -19,6 +18,7 @@ export default function JobItem({toolChest, details, edit, job, index}) {
 
   const onEdit = function() {
     if (toolChest.job.id === job.id) {
+      setNewJob(false);
       transition(edit);
     } else {
       toolChest.setTransitionTo(edit);

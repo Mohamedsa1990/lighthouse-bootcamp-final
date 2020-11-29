@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -20,14 +20,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AssignWorker({requirements, users, start, end, setStart, setEnd, assignments, setAssignments, jobId}) {
+export default function AssignWorker({requirements, users, start, end, setStart, setEnd, assignments, setAssignments, jobId, newJob, cancelAssignment}) {
   
   const classes = useStyles();
-  const [checkedEmployee, setCheckedEmployee] = useState([]);
-  const jobSkills = requirements.map(requirement => requirement.task_id)
-  const filteredUsers = function (users, jobSkills) {
+  const [checkedEmployee, setCheckedEmployee] = useState(newJob ? [] : assignments);
+  const jobSkills = requirements.map(requirement => requirement.task_id);
+  const checkedUsers = [];
+  assignments.forEach(assignment => checkedUsers.push(assignment.user_id));
+  const filteredUsers = function (users, jobSkills, checkedUsers) {
     const userAccum = [];
     users.forEach (user => {
+      if (checkedUsers.includes(user.id) && !newJob) {
+        userAccum.push(user);
+      }
       user.skills.forEach(skill => {
         if (jobSkills.includes(skill.task_id)) {
           userAccum.push(user)
@@ -35,31 +40,30 @@ export default function AssignWorker({requirements, users, start, end, setStart,
       })
     })
     return userAccum;
-  } 
+  };
   
-  const userList = filteredUsers(users,jobSkills)
+  const userList = filteredUsers(users,jobSkills, checkedUsers)
 
   const usersWithoutDuplicate = userList.filter((item, index) => userList.indexOf(item) === index)
 
   const handleToggle = (value) => () => {
-    const currentIndex = checkedEmployee.map(e => e.id).indexOf(value.id);
-    const newAssigned = [...assignments]
+    const currentIndex = checkedEmployee.map(e => e.user_id).indexOf(value.id);
     const newChecked = [...checkedEmployee];
-
     if (currentIndex === -1) {
-      newChecked.push(value);
-      newAssigned.push({job_id: jobId, user_id: value.id, starts: start, ends: end});
-
+      newChecked.push({job_id: jobId, user_id: value.id, starts: start, ends: end});
     } else {
+      if (!newJob && newChecked[currentIndex].id){
+        cancelAssignment(newChecked[currentIndex].id);
+      }
       newChecked.splice(currentIndex, 1);
-      newAssigned.splice(currentIndex, 1);
     }
-    setAssignments(newAssigned);
+    setAssignments(newChecked);
     setCheckedEmployee(newChecked);
   };
+  
 
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom align="left">
         Assign Worker
       </Typography>
@@ -108,7 +112,7 @@ export default function AssignWorker({requirements, users, start, end, setStart,
                 <Checkbox
                   edge="end"
                   onChange={handleToggle(value)}
-                  checked={checkedEmployee.map(e => e.id).indexOf(value.id) !== -1}
+                  checked={checkedEmployee.map(e => e.user_id).indexOf(value.id) !== -1}
                   inputProps={{ 'aria-labelledby': labelId }}
                 />
               </ListItemSecondaryAction>
@@ -117,6 +121,6 @@ export default function AssignWorker({requirements, users, start, end, setStart,
         })}
         </List>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }
