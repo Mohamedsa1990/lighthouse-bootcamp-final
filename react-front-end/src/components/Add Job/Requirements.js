@@ -7,10 +7,23 @@ import TaskDialogComponent from './taskDialogComponent'
 import TaskListComponent from './taskListComponent'
 import {useFormik} from 'formik'
 import { Paper, Button } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/List';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: 10,
+    width: 'auto',
+    maxWidth: 'auto',
+    position: 'center',
+    overflow: 'auto',
+    maxHeight: '55vh',
+  },
+}));
 
 export default function Requirements({setTotalTime,setTotalWorker,totalTime,totalWorker , tasks, requirements, setRequirements, jobId, newJob, cancelRequirement}) {
-  
+  const classes = useStyles();
   const [taskDialogOpen, setTaskDialogOpen] = useState(false)
   
   const formik = useFormik({
@@ -66,22 +79,26 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
   return (
     <>
       <Grid container spacing={3} justify="space-between" alignItems="center">
-        <Grid item>
+        <Grid item xs={9}>
           <Typography variant="h6" align="left">
             Requirement details
           </Typography>
         </Grid>
-        <Grid item >
+        <Grid item xs={3} >
           <Fab color="primary"  aria-label="add" size="small" onClick={handleaTaskDialogOpen}>
           <AddIcon />
           </Fab>
         </Grid>
         <Grid container spacing={3} direction="column" align="center">
-          <TaskListComponent
-          requirements={requirements}
-          tasks={tasks}
-          delete={handleDelete}
-          />
+          <List dense className={classes.root}>
+            <ListItem  style={{marginLeft:10, marginRight:10}}>
+            <TaskListComponent
+            requirements={requirements}
+            tasks={tasks}
+            delete={handleDelete}
+            />
+            </ListItem>
+          </List>
         </Grid>
         <Grid container justify="space-around">
           <Paper>

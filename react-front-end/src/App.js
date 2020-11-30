@@ -248,11 +248,9 @@ export default function App(){
       </button> */}
       {/* END EXAMPLE COMPONENETS */}
       <Grid container>
-        <Grid lg={12}>
+        <Grid item xs={12}>
           <NavBar toolChest={toolChest} />
         </Grid>
-      </Grid>
-      <Grid container spacing={1}>
         <Grid  item xs={12} lg={8}>
           <JobCalendar toolChest={toolChest}/>
         </Grid>

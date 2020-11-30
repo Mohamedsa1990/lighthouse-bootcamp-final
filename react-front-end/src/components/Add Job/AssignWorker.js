@@ -13,10 +13,13 @@ import { Typography,TextField } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginBlock: 20,
     width: '100%',
-    maxWidth: 600,
-    flexWrap: 'wrap',
+    maxWidth: 'auto',
     backgroundColor: theme.palette.background.paper,
+    position: 'relative',
+    overflow: 'auto',
+    maxHeight: '51vh',
   },
 }));
 

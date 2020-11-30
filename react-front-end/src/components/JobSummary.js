@@ -6,25 +6,20 @@ import Estimates from './JobSummary_components/estimates';
 import QuoteNotes from './JobSummary_components/quote_notes';
 import Assignments from './JobSummary_components/assignments';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    '& > *': {
-      marginTop: theme.spacing(8),
-      width: theme.spacing(70),
-      height: theme.spacing(30),
-    },
+const useStyles = makeStyles({
+  paper: {
+    marginTop: 20,
+    marginBottom: 20,
+    marginRight:10,
+    marginLeft:10,
+    padding: 20,
+    height: "82vh",
   },
-  buttons: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  button: {
-    marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1),
-  },
-}));
+  title: {
+    marginBlock:10,
+  }
+ 
+});
 
 export default function JobSummary(props) {
   const classes = useStyles();
@@ -36,28 +31,26 @@ export default function JobSummary(props) {
   }
 
   return (
-    <main className={classes.root}>
-      <Container>
-        <Paper elevation={4} >
-          <Box m={2}>
-            <Typography variant="h5">{props.job.name}</Typography>
-            <ButtonGroup variant="outlined" aria-label="outlined primary button group">
-              <Button color="secondary" onClick={props.onAllJobs}>Back</Button>
-              <Button onClick={onEdit} color="default">Edit</Button>
-              <Button onClick={props.onNewJob} color="primary">New Job</Button>
-            </ButtonGroup>
-          </Box> 
-          <QuoteNotes job={props.job}/> 
-          <Divider />
-          <CustomerInfo job={props.job}/>
-          <Divider/>
-          <Estimates job={props.job}/>
-          <Divider/>
-          <Requirements job={props.job}/>
-          <Divider/>
-          <Assignments job={props.job}/>
-        </Paper>
-      </Container>
+    <main>
+      <Paper elevation={4} className={classes.paper}>
+        <Box m={2}>
+          <Typography variant="h5" className={classes.title}>{props.job.name}</Typography>
+          <ButtonGroup variant="outlined" aria-label="outlined primary button group">
+            <Button color="secondary" onClick={props.onAllJobs}>Back</Button>
+            <Button onClick={onEdit} color="default">Edit</Button>
+            <Button onClick={props.onNewJob} color="primary">New Job</Button>
+          </ButtonGroup>
+        </Box> 
+        <QuoteNotes job={props.job}/> 
+        <Divider />
+        <CustomerInfo job={props.job}/>
+        <Divider/>
+        <Estimates job={props.job}/>
+        <Divider/>
+        <Requirements job={props.job}/>
+        <Divider/>
+        <Assignments job={props.job}/>
+      </Paper>
     </main>
   )
 }

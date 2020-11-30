@@ -13,42 +13,32 @@ import AssignWorker from './AssignWorker';
 
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   appBar: {
     position: 'relative',
   },
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
   paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
-      padding: theme.spacing(3),
-    },
+    marginTop: 20,
+    marginBottom: 20,
+    marginRight:10,
+    marginLeft:10,
+    padding: 20,
+    height: "82vh",
   },
   stepper: {
-    padding: theme.spacing(3, 0, 5),
+    color: "black",
+    // padding: theme.spacing(3, 0, 5),
   },
   buttons: {
     display: 'flex',
+    alignContent: 'flex-end',
     justifyContent: 'flex-end',
   },
   button: {
-    marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1),
+    marginTop: 20,
+    marginLeft: 10,
   },
-}));
+});
 
 const steps = ['Job details', 'Requirement details', 'Assign employees'];
 
@@ -188,7 +178,7 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
 
   return (
     <>
-      <main className={classes.layout}>
+      <main>
         <Paper className={classes.paper} elevation={3}>
           <Typography component="h1" variant="h4" align="center">
             {newJob ? "New Job" : "Edit Job"}
