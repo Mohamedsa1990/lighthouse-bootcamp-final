@@ -7,7 +7,7 @@ import { FormControl, Select, InputLabel, MenuItem, TextField, Button } from '@m
 
 
 export default function TaskDialogComponent (props) {
-  
+  const disableAdd = (props.formik.values.task_id === "" || props.formik.values.difficulty === "")
   return (
     <Dialog open={props.open} onClose={props.handleClose} style={{minWidth: '100vw'}} >
       <form onSubmit={props.formik.handleSubmit}>
@@ -57,7 +57,7 @@ export default function TaskDialogComponent (props) {
               type="number"
               variant="outlined"
               name="estimate_workers"
-              onChange={props.formik.handleChange}
+              onChange={e => {if (e.target.value >= 0) props.formik.handleChange(e)}}
               value={props.formik.values.estimate_workers}
               />
             </Grid>
@@ -69,7 +69,7 @@ export default function TaskDialogComponent (props) {
               type="number"
               variant="outlined"
               name="estimate_time"
-              onChange={props.formik.handleChange}
+              onChange={e => {if (e.target.value >= 0) props.formik.handleChange(e)}}
               value={props.formik.values.estimate_time}
               />
             </Grid>
@@ -77,7 +77,7 @@ export default function TaskDialogComponent (props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={props.handleClose} color="secondary">Cancel</Button>
-          <Button onClick={props.formik.handleSubmit} color="primary">Add</Button>
+          <Button onClick={props.formik.handleSubmit} disabled={disableAdd} color="primary">Add</Button>
         </DialogActions>
       </form>
     </Dialog>
