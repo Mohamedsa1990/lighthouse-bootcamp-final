@@ -116,11 +116,13 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
 
 
   const onSubmit = () => {
-    addChangeJob(job);
-    requirements.forEach(requirement => addChangeRequirement(requirement));
-    assignments.forEach(assignment => addChangeAssignment(assignment));
-    
-    onAllJobs(setNewJob(true));
+    if (assignments.length !== 0){
+      addChangeJob(job);
+      requirements.forEach(requirement => addChangeRequirement(requirement));
+      assignments.forEach(assignment => addChangeAssignment(assignment));
+      
+      onAllJobs(setNewJob(true));
+    }
   };
 
   const onCancel = () => {
@@ -223,6 +225,7 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
                     color="primary"
                     onClick={onSubmit}
                     className={classes.button}
+                    disabled={assignments.length === 0}
                   >Save Job
                   </Button> : <Button
                   variant="outlined"
