@@ -3,7 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Header from './JobsOfDay_components/header';
 import JobItem from './JobsOfDay_components/JobItem';
-import useState from 'react';
+import {useState} from 'react';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableContainer from '@material-ui/core/TableContainer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,24 +17,27 @@ const useStyles = makeStyles((theme) => ({
       height: theme.spacing(30),
     },
   },
+  container: {
+    maxHeight: 400,
+  },
 }));
 
 export default function JobsOfDay({details, edit, onNewJob, toolChest}) {
   const classes = useStyles();
   const {day} = toolChest;
 
-  // const [page, setPage] = useState(0);
-  // const [rowsPerPage, setRowsPerPage] = useState(10);
-  // const handleChangePage = (event, newPage) => {
-  //   setPage(newPage);
-  // };
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(+event.target.value);
-  //   setPage(0);
-  // };
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(4);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   const jobsPerDay = day.map((job, index) => {
-    return (
+    return [
     <JobItem
       key={index}
       toolChest={toolChest}
@@ -41,7 +46,7 @@ export default function JobsOfDay({details, edit, onNewJob, toolChest}) {
       job={job}
       index={index}
     />
-  )
+    ]
   });
   console.log("jobsPerDay:", jobsPerDay);
   return (
@@ -49,12 +54,22 @@ export default function JobsOfDay({details, edit, onNewJob, toolChest}) {
       <Container >
         <Paper elevation={4} >
           <Header onNewJob={onNewJob} selectDay={toolChest.selectDay}/> 
-          <List 
-            aria-labelledby="nested-list-subheader"
-          >
-
-            {jobsPerDay} 
-          </List>
+          <TableContainer className={classes.container}>
+            <List 
+              aria-labelledby="nested-list-subheader"        
+            >
+            {jobsPerDay.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)} 
+            </List>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[4, 8, 12]}
+            component="div"
+            count={jobsPerDay.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
         </Paper>
       </Container>
     </main>

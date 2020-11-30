@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Requirements(props) {
   const classes = useStyles();
-//
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const handleChangePage = (event, newPage) => {
@@ -64,7 +64,7 @@ export default function Requirements(props) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-//
+
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -101,8 +101,7 @@ export default function Requirements(props) {
                     </TableCell>
                   ))}
                 </TableRow>
-              </TableHead>
-             
+              </TableHead>             
               <TableBody>
                 {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, rIndex) => {
                   //
@@ -120,10 +119,8 @@ export default function Requirements(props) {
                   );
                 })}
               </TableBody>
-
             </Table>
-          </TableContainer>
-          
+          </TableContainer>          
           <TablePagination
             rowsPerPageOptions={[5, 10, 20]}
             component="div"
@@ -132,8 +129,7 @@ export default function Requirements(props) {
             page={page}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-          
+          />          
         </Paper>
       </Collapse>
     </List>  
