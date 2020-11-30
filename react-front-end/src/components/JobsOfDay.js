@@ -55,7 +55,6 @@ export default function JobsOfDay({details, edit, onNewJob, toolChest}) {
     />
     ]
   });
-  console.log("jobsPerDay:", jobsPerDay);
   return (
     <main >
         <Paper elevation={4} className={classes.paper} >
