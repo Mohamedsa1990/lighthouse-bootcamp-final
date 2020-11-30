@@ -1,22 +1,19 @@
+import React from 'react';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-import splash from './splash.jpg'
+import Button from '@material-ui/core/Button'
+import './Cover.css';
+import { Link } from 'react-router-dom';
 
-const styling = {
-  height: "100vw",
-  width: "100vw",
-  background: "#37474f",
-};
-const imgStyle = {
-  height: "95vw",
-  width: "95vw"
-}
-
-export default function JobCalendar(){
+export default function LandingPage(){
 
   return (
-    <Box component="div" style={styling}>
-      <img src={splash} alt="splash" style={imgStyle}/>;
-    </Box>
+    <div className={'Cover'}>
+      <Link to="/app">
+        <Button variant="outlined" size={"large"} style={{color: "White", borderColor: "White", marginTop: "500px"}}>
+          Get started
+        </Button>
+      </Link>
+    </div>
   );
 }

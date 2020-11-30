@@ -125,7 +125,7 @@ export default function AssignWorker({requirements, users, assignments, setAssig
             onChange={e => setEndTime(e.target.value)}
             />
         </Grid>
-        <TableContainer className={classes.container}>  
+        {/* <TableContainer className={classes.container}>   */}
           <List dense className={classes.root}>
             {usersWithoutDuplicate.map((value) => {
               const labelId = `checkbox-list-secondary-label-${value}`;
@@ -150,7 +150,7 @@ export default function AssignWorker({requirements, users, assignments, setAssig
               );
             })}
           </List>
-        </TableContainer>
+        {/* </TableContainer> */}
       </Grid>
     </>
   );

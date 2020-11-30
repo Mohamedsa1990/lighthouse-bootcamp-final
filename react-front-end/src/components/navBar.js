@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {Menu,MenuItem}  from '@material-ui/core'
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +53,7 @@ export default function NavBar(props) {
             onClose={handleClose}
           >
             <MenuItem onClick={onNewJob}>Add Job</MenuItem>
+            <Link to="/"><MenuItem onClick={onNewJob}>Logout</MenuItem></Link>
           </Menu>
           <Typography variant="h6" className={classes.title}>
             Greener Side Landscaping

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '75vh',
   },
   container: {
-    maxHeight: 400,
+    maxHeight: 700,
   },
 }));
 
@@ -60,8 +60,8 @@ export default function JobsOfDay({details, edit, onNewJob, toolChest}) {
     <main >
         <Paper elevation={4} className={classes.paper} >
           <Header onNewJob={onNewJob} selectDay={toolChest.selectDay}/> 
-          {/* <TableContainer className={classes.container}> */}
-            {/* <List 
+          <TableContainer className={classes.container}> 
+            <List 
               aria-labelledby="nested-list-subheader"        
             >
             {jobsPerDay.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)} 
@@ -75,13 +75,13 @@ export default function JobsOfDay({details, edit, onNewJob, toolChest}) {
             page={page}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
-          /> */}
-          <List 
+          />
+          {/* <List 
             dense className={classes.root}
             aria-labelledby="nested-list-subheader"
           >
             {jobsPerDay} 
-          </List>
+          </List> */}
         </Paper>
     </main>
   )

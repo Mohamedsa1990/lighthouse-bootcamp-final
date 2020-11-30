@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import JobsPanel from './components/JobsPanel';
 import NavBar from './components/navBar'
 import { TabScrollButton } from '@material-ui/core';
+import LandingPage from './components/Cover'
 
 const jobInitialState = {
   assignments: [{
@@ -237,6 +238,7 @@ export default function App(){
   
   return (
     <div className="App">
+      {/* <LandingPage/> */}
       {/* START EXAMPLE COMPONENTS */}
       {/* <h1>{ message }</h1>
       <button onClick={fetchData} >
