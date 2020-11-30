@@ -57,7 +57,7 @@ export default function TaskDialogComponent (props) {
               type="number"
               variant="outlined"
               name="estimate_workers"
-              onChange={e => {if (e.target.value >= 0) props.formik.handleChange(e)}}
+              onChange={e => {if (e.target.value > 0) props.formik.handleChange(e)}}
               value={props.formik.values.estimate_workers}
               />
             </Grid>
