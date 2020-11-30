@@ -24,8 +24,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Requirements({setTotalTime,setTotalWorker,totalTime,totalWorker , tasks, requirements, setRequirements, jobId, newJob, cancelRequirement}) {
   const classes = useStyles();
-  const [taskDialogOpen, setTaskDialogOpen] = useState(false)
+  const [taskDialogOpen, setTaskDialogOpen] = useState(false);
+  const [selectableTasks, setSelectableTasks] = useState([]);
   
+  useEffect(() => {
+    let output = [];
+    const requireTasks = requirements.map((requirement) => requirement.task_id);
+    output = tasks.filter((task) => !requireTasks.includes(task.id));
+    setSelectableTasks(output);
+  }, [tasks, requirements])
+
   const formik = useFormik({
     initialValues: {
       job_id: jobId,
@@ -110,7 +118,7 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
       <Grid item xs={12}>
         <TaskDialogComponent 
           open={taskDialogOpen}
-          tasks={tasks}
+          tasks={selectableTasks}
           handleClose= {handleTaskDialogClose}
           formik={formik}
         />
