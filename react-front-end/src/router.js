@@ -1,15 +1,16 @@
 import React from 'react';
 import App from './App';
 import LandingPage from './components/Cover'
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function Pages() {
   return(
-    <Router>
-      <Route path='/' exact component={LandingPage}/>
-
-      <Route path='/app' exact component={App}/>
-
-    </Router>
+    <AnimatePresence>
+      <Router>
+        <Route path='/app' exact component={App}/>
+        <Route path='/' exact component={LandingPage}/>
+      </Router>
+    </AnimatePresence>
   );
 };

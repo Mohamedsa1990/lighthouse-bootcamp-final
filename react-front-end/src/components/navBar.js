@@ -3,11 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import {Menu,MenuItem}  from '@material-ui/core'
-import { Link } from 'react-router-dom';
+import {Container, Menu,MenuItem}  from '@material-ui/core'
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  subTitle: {
+    marginLeft: 500,
+    marginRight: 100,
+
+  }
 }));
 
 export default function NavBar(props) {
@@ -53,12 +57,17 @@ export default function NavBar(props) {
             onClose={handleClose}
           >
             <MenuItem onClick={onNewJob}>Add Job</MenuItem>
-            <Link to="/"><MenuItem onClick={onNewJob}>Logout</MenuItem></Link>
+            <NavLink to="/"><MenuItem onClick={onNewJob}>Logout</MenuItem></NavLink>
           </Menu>
-          <Typography variant="h6" className={classes.title}>
-            Greener Side Landscaping
-          </Typography>
-          <Typography variant="subtitle2" className={classes.menuButton}>
+          <Container>
+            <Typography variant="h4" className={classes.title}>
+              Greener Side Landscaping
+            </Typography>
+            <Typography variant="subtitle2" className={classes.subTitle}>
+              A WorkSuite App
+            </Typography>
+          </Container>
+          <Typography variant="h6" className={classes.menuButton}>
             Welcome: Admin
           </Typography>
         </Toolbar>

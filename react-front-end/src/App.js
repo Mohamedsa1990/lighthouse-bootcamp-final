@@ -7,8 +7,7 @@ import useApplicationData from './hooks/useApplicationData'
 import Grid from '@material-ui/core/Grid';
 import JobsPanel from './components/JobsPanel';
 import NavBar from './components/navBar'
-import { TabScrollButton } from '@material-ui/core';
-import LandingPage from './components/Cover'
+import { motion } from 'framer-motion';
 
 const jobInitialState = {
   assignments: [{
@@ -237,7 +236,16 @@ export default function App(){
   //END EXAMPLE FUNCTIONS
   
   return (
-    <div className="App">
+    <motion.div 
+    className="App"
+    initial={{ y:-100, opacity:0}}
+    animate={{ y: 0, opacity:1 }}
+    transition={{
+    type: "spring",
+    stiffness: 260,
+    damping: 20
+    }}
+    >
       {/* <LandingPage/> */}
       {/* START EXAMPLE COMPONENTS */}
       {/* <h1>{ message }</h1>
@@ -260,6 +268,6 @@ export default function App(){
           <JobsPanel toolChest={toolChest}/>
         </Grid>
       </Grid>
-    </div>
+    </motion.div>
   );
 }
