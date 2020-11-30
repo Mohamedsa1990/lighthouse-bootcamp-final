@@ -9,7 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import { Grid } from '@material-ui/core';
 import { Typography,TextField } from '@material-ui/core';
-
+import TableContainer from '@material-ui/core/TableContainer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 600,
     flexWrap: 'wrap',
     backgroundColor: theme.palette.background.paper,
+  },
+  container: {
+    maxHeight: 200,
   },
 }));
 
@@ -91,7 +94,7 @@ export default function AssignWorker({requirements, users, assignments, setAssig
         Assign Worker
       </Typography>
       <Grid container justify="space-between">
-      <Grid item xs={12} sm={5}>
+        <Grid item xs={12} sm={5}>
           <TextField
             required
             id="datetime-local"
@@ -119,30 +122,32 @@ export default function AssignWorker({requirements, users, assignments, setAssig
             onChange={e => setEndTime(e.target.value)}
             />
         </Grid>
-        <List dense className={classes.root}>
-        {usersWithoutDuplicate.map((value) => {
-          const labelId = `checkbox-list-secondary-label-${value}`;
-          return (
-            <ListItem key={value.id} button >
-              <ListItemAvatar>
-                <Avatar
-                  alt={`${value.first_name[0]}`}
-                  src={value.avatar}
-                />
-              </ListItemAvatar>
-              <ListItemText id={labelId} primary={`${value.first_name} ${value.last_name}`} />
-              <ListItemSecondaryAction>
-                <Checkbox
-                  edge="end"
-                  onChange={handleToggle(value)}
-                  checked={checkedEmployee.map(e => e.user_id).indexOf(value.id) !== -1}
-                  inputProps={{ 'aria-labelledby': labelId }}
-                />
-              </ListItemSecondaryAction>
-            </ListItem>
-          );
-        })}
-        </List>
+        <TableContainer className={classes.container}>  
+          <List dense className={classes.root}>
+            {usersWithoutDuplicate.map((value) => {
+              const labelId = `checkbox-list-secondary-label-${value}`;
+              return (
+                <ListItem key={value.id} button >
+                  <ListItemAvatar>
+                    <Avatar
+                      alt={`${value.first_name[0]}`}
+                      src={value.avatar}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText id={labelId} primary={`${value.first_name} ${value.last_name}`} />
+                  <ListItemSecondaryAction>
+                    <Checkbox
+                      edge="end"
+                      onChange={handleToggle(value)}
+                      checked={checkedEmployee.map(e => e.user_id).indexOf(value.id) !== -1}
+                      inputProps={{ 'aria-labelledby': labelId }}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+              );
+            })}
+          </List>
+        </TableContainer>
       </Grid>
     </>
   );

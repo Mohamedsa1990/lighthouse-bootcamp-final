@@ -54,13 +54,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Requirements(props) {
   const classes = useStyles();
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
@@ -75,7 +74,7 @@ export default function Requirements(props) {
   const rows = requirementsArray.map((obj) => {
     return createData(obj.name, obj.estimate_workers, obj.estimate_time, obj.difficulty)
   });
-
+  console.log("rows from Requirements:", rows);
   return (
     <List
       component="nav"
@@ -102,9 +101,10 @@ export default function Requirements(props) {
                     </TableCell>
                   ))}
                 </TableRow>
-              </TableHead>
+              </TableHead>             
               <TableBody>
                 {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, rIndex) => {
+                  //
                   return (
                     <TableRow hover role="checkbox" tabIndex={-1} key={rIndex}>
                       {columns.map((column, cIndex) => {
@@ -120,7 +120,7 @@ export default function Requirements(props) {
                 })}
               </TableBody>
             </Table>
-          </TableContainer>
+          </TableContainer>          
           <TablePagination
             rowsPerPageOptions={[5, 10, 20]}
             component="div"
@@ -129,7 +129,7 @@ export default function Requirements(props) {
             page={page}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
+          />          
         </Paper>
       </Collapse>
     </List>  
