@@ -26,7 +26,8 @@ const useStyles = makeStyles({
     height: "82vh",
   },
   stepper: {
-    color: "black",
+    stepIcon: 'green',
+    color: "#80B98B",
     // padding: theme.spacing(3, 0, 5),
   },
   buttons: {
@@ -183,7 +184,7 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
           <Typography component="h1" variant="h4" align="center">
             {newJob ? "New Job" : "Edit Job"}
           </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
+          <Stepper activeStep={activeStep} className={classes.root} >
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>

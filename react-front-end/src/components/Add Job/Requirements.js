@@ -79,13 +79,13 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
   return (
     <>
       <Grid container spacing={3} justify="space-between" alignItems="center">
-        <Grid item xs={9}>
+        <Grid item xs={10}>
           <Typography variant="h6" align="left">
             Requirement details
           </Typography>
         </Grid>
-        <Grid item xs={3} >
-          <Fab color="primary"  aria-label="add" size="small" onClick={handleaTaskDialogOpen}>
+        <Grid item xs={2} >
+          <Fab style={{color: "#fff", backgroundColor:"#80B98B"}} aria-label="add" size="small" onClick={handleaTaskDialogOpen}>
           <AddIcon />
           </Fab>
         </Grid>
