@@ -1,4 +1,4 @@
-import { Container, Paper} from '@material-ui/core';
+import { Paper} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Header from './JobsOfDay_components/header';
@@ -8,14 +8,21 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableContainer from '@material-ui/core/TableContainer';
 
 const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: 20,
+    marginBottom: 20,
+    marginRight:10,
+    marginLeft:10,
+    padding: 20,
+    height: "82vh",
+  },
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    '& > *': {
-      marginTop: theme.spacing(10),
-      width: theme.spacing(75),
-      height: theme.spacing(30),
-    },
+    marginBlock: 20,
+    width: '100%',
+    maxWidth: 'auto',
+    position: 'relative',
+    overflow: 'auto',
+    maxHeight: '75vh',
   },
   container: {
     maxHeight: 400,
@@ -50,12 +57,11 @@ export default function JobsOfDay({details, edit, onNewJob, toolChest}) {
   });
   console.log("jobsPerDay:", jobsPerDay);
   return (
-    <main className={classes.root}>
-      <Container >
-        <Paper elevation={4} >
+    <main >
+        <Paper elevation={4} className={classes.paper} >
           <Header onNewJob={onNewJob} selectDay={toolChest.selectDay}/> 
-          <TableContainer className={classes.container}>
-            <List 
+          {/* <TableContainer className={classes.container}> */}
+            {/* <List 
               aria-labelledby="nested-list-subheader"        
             >
             {jobsPerDay.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)} 
@@ -69,9 +75,14 @@ export default function JobsOfDay({details, edit, onNewJob, toolChest}) {
             page={page}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
+          /> */}
+          <List 
+            dense className={classes.root}
+            aria-labelledby="nested-list-subheader"
+          >
+            {jobsPerDay} 
+          </List>
         </Paper>
-      </Container>
     </main>
   )
 }
