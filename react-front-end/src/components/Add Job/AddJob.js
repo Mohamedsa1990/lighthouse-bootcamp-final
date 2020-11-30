@@ -232,6 +232,7 @@ export default function AddJob({tasks, users, addChangeAssignment, addChangeRequ
                   color="primary"
                   onClick={handleNext}
                   className={classes.button}
+                  disabled={activeStep === 1 && requirements.length === 0}
                   >Next</Button>
                   }
                 </div>
