@@ -16,7 +16,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 const columns = [
-  { id: 'name', label: 'Name (TL=Team Lead)', minWidth: 50, maxWidth: 100 },
+  { id: 'name', label: 'Name', minWidth: 50, maxWidth: 100 },
   { id: 'start_date_time', label: 'Start Date/Time', minWidth: 10, maxWidth: 30, align: 'center' },
   {
     id: 'end_date_time',
