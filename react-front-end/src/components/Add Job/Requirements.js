@@ -39,8 +39,8 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
       job_id: jobId,
       task_id: '',
       difficulty: '',
-      estimate_workers: '',
-      estimate_time: '',
+      estimate_workers: 1,
+      estimate_time: 0,
     },
     onSubmit: (values, {resetForm}) => {
       setRequirements([...requirements, values])

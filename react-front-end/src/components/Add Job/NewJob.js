@@ -106,7 +106,7 @@ export default function NewJob({travelTime, setTravelTime, status, setStatus, na
           type="number"
           fullWidth
           value={travelTime}
-          onChange={e => setTravelTime(parseFloat(e.target.value))}
+          onChange={e => {if (e.target.value >= 0) setTravelTime(parseFloat(e.target.value))}}
         />
         </Grid>
         <Grid item xs={12} sm={12}>
