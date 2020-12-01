@@ -10,8 +10,8 @@ export default function LandingPage(){
   return (
     <motion.div 
     className={'Cover'}
-    initial={{ scale: 0 }}
-    animate={{ rotate: 360, scale: 1 }}
+    initial={{ y:-100, opacity:0}}
+    animate={{ y: 0, opacity:1 }}
     transition={{
     type: "spring",
     stiffness: 260,
