@@ -1,7 +1,5 @@
 const fs = require('fs');
 
-
-
 //insert into Skills (user_id, task_id, skill_level) values (36, 5, 6);
 let addSkill = "";
 let addRequirement = '';
@@ -11,9 +9,9 @@ let task = 0;
 let job = 0;
 let skillLevel = '';
 let skillLevels = ['Easy', 'Medium', 'Hard'];
-let months = [10, 11, 12, 1]
-let days = {'10': 31, '11': 30, '12': 31, '1': 31}
-let years = {'10': 2020, '11': 2020, '12': 2020, '1': 2021, '2': 2021, '3': 2021}
+let months = [11, 12, 1, 2]
+let days = {'11': 30, '12': 31, '1': 31, '2': 28}
+let years = {'11': 2020, '12': 2020, '1': 2021, '2': 2021, '3': 2021}
 let skillData = '';
 let assignmentsData = '';
 let requirementsData = '';
@@ -53,7 +51,7 @@ while (Object.keys(oldAssignments).length < 200){
   oldRequirements[job].push(task);
   let estimateTime = (Math.floor((Math.random() * 12) + 1));
   let estimateWorkers = Math.floor((Math.random() * 6) + 1);
-  addRequirement += `${job}, ${task}, '${skillLevel}', ${estimateTime}, ${estimateWorkers});\n`
+  addRequirement += `${job}, ${task}, '${skillLevels[skillLevel - 1]}', ${estimateTime}, ${estimateWorkers});\n`
   requirementsData += addRequirement;
 
   console.log("End Requirement")
