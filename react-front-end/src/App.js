@@ -46,7 +46,6 @@ const jobInitialState = {
 };
 
 export default function App(){
-
   const [fireNewJob, setFireNewJob] = useState(false);  const {jobs, tasks, users, calendar, addChangeAssignment, cancelAssignment, addChangeRequirement, cancelRequirement, addChangeJob, cancelJob} = useApplicationData();
 
   // selectDay - sets the currently selected day when navigating with the calendar
