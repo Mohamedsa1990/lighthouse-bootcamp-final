@@ -9,7 +9,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import { Grid } from '@material-ui/core';
 import { Typography,TextField } from '@material-ui/core';
-import TableContainer from '@material-ui/core/TableContainer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,11 +18,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     position: 'relative',
     overflow: 'auto',
-    maxHeight: '51vh',
+    maxHeight: '49vh',
   },
   container: {
     maxHeight: 200,
   },
+  mainContainer: {
+    height: "62vh",
+  }
 }));
 
 export default function AssignWorker({requirements, users, assignments, setAssignments, jobId, newJob, cancelAssignment}) {
@@ -92,7 +94,7 @@ export default function AssignWorker({requirements, users, assignments, setAssig
   }
 
   return (
-    <>
+    <div className={classes.mainContainer}>
       <Typography variant="h6" gutterBottom align="left">
         Assign Worker
       </Typography>
@@ -124,8 +126,7 @@ export default function AssignWorker({requirements, users, assignments, setAssig
             value={end}
             onChange={e => setEndTime(e.target.value)}
             />
-        </Grid>
-        {/* <TableContainer className={classes.container}>   */}
+        </Grid>        
           <List dense className={classes.root}>
             {usersWithoutDuplicate.map((value) => {
               const labelId = `checkbox-list-secondary-label-${value}`;
@@ -149,9 +150,8 @@ export default function AssignWorker({requirements, users, assignments, setAssig
                 </ListItem>
               );
             })}
-          </List>
-        {/* </TableContainer> */}
+          </List>       
       </Grid>
-    </>
+    </div>
   );
 }

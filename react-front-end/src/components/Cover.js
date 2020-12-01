@@ -10,9 +10,9 @@ import logoImg from '../wslogo.png';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-  root: {
-    width: 1340,
-    height: 690,
+  card: {
+    minWidth: "100vw",
+    minHeight: "100vh",
     backgroundColor: "transparent",
   },
   media: {
@@ -36,7 +36,7 @@ export default function LandingPage(){
     }}
     >      
       <Card 
-        className={classes.root} 
+        className={classes.card} 
         variant="outlined" 
         style={{ backgroundColor: 'rgba(0,0,0,.3)'}}
       >          
@@ -46,7 +46,7 @@ export default function LandingPage(){
           alt="WS logo"              
           title="WS logo"
           image={logoImg} 
-          style={{marginLeft: "524px", marginTop: "300px"}}          
+          style={{marginLeft: "690px", marginTop: "380px"}}          
         />      
       <NavLink to="/app">
         <Button variant="outlined" size={"large"} style={{color: "White", borderColor: "White", marginTop: "10px"}}>

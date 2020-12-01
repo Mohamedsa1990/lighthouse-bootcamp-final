@@ -1,13 +1,19 @@
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 
-
+const useStyles = makeStyles({
+  
+  container: {
+    height: "62vh",
+  }
+});
 export default function NewJob({travelTime, setTravelTime, status, setStatus, name, setJobName, firstName, setFirstName, lastName, setLastName, address,setAddress
   , city, setCity,phoneNumber, setPhoneNumber, email, setEmail, notes, setNotes}) {
-
+  const classes = useStyles();
   return (
-    <>
+    <div className={classes.container}>
       <Typography variant="h6" gutterBottom align="left">
         Job details
       </Typography>
@@ -115,12 +121,13 @@ export default function NewJob({travelTime, setTravelTime, status, setStatus, na
             label="Notes"
             placeholder="Notes"
             multiline
+            rowsMax={2}
             fullWidth
             value={notes}
             onChange={e => setNotes(e.target.value)}
           />
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 }

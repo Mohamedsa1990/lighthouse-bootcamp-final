@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     maxHeight: '55vh',
   },
+  container: {
+    height: "62vh",
+  }
 }));
 
 export default function Requirements({setTotalTime,setTotalWorker,totalTime,totalWorker , tasks, requirements, setRequirements, jobId, newJob, cancelRequirement}) {
@@ -85,7 +88,7 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
 
 
   return (
-    <>
+    <div className={classes.container}>
       <Grid container spacing={3} justify="space-between" alignItems="center">
         <Grid item xs={10}>
           <Typography variant="h6" align="left">
@@ -123,6 +126,6 @@ export default function Requirements({setTotalTime,setTotalWorker,totalTime,tota
           formik={formik}
         />
       </Grid>
-    </>
+    </div>
   );
 }

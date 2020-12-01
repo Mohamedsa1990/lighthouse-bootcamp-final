@@ -6,6 +6,8 @@ import Estimates from './JobSummary_components/estimates';
 import QuoteNotes from './JobSummary_components/quote_notes';
 import Assignments from './JobSummary_components/assignments';
 import {useState} from 'react';
+import List from '@material-ui/core/List';
+
 
 const useStyles = makeStyles({
   paper: {
@@ -18,6 +20,14 @@ const useStyles = makeStyles({
   },
   title: {
     marginBlock:10,
+  },
+  root: {
+    marginBlock: 20,
+    width: '100%',
+    maxWidth: 'auto',
+    position: 'relative',
+    overflow: 'auto',
+    maxHeight: '73vh',
   }
  
 });
@@ -38,46 +48,51 @@ export default function JobSummary(props) {
   return (
     <main>
       <Paper elevation={4} className={classes.paper}>
-        <Box m={2}>
-          <Typography variant="h5" className={classes.title}>{props.job.name}</Typography>
-          <ButtonGroup variant="outlined" aria-label="outlined primary button group">
-            <Button color="primary" onClick={props.onAllJobs}>Back</Button>
-            <Button color="secondary" onClick={handleClick}>Delete</Button>
-            <Button onClick={onEdit} color="default">Edit</Button>            
-          </ButtonGroup>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Paper onClick={handleClick}>
-              <Box m={1}>
-              <Grid>
+      <List 
+            dense className={classes.root}
+            aria-labelledby="nested-list-subheader"
+          >
+          <Box m={2}>
+            <Typography variant="h5" className={classes.title}>{props.job.name}</Typography>
+            <ButtonGroup variant="outlined" aria-label="outlined primary button group">
+              <Button color="primary" onClick={props.onAllJobs}>Back</Button>
+              <Button color="secondary" onClick={handleClick}>Delete</Button>
+              <Button onClick={onEdit} color="default">Edit</Button>            
+            </ButtonGroup>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <Paper onClick={handleClick}>
                 <Box m={1}>
                 <Grid>
-                  Delete this job? 
+                  <Box m={1}>
+                  <Grid>
+                    Delete this job? 
+                  </Grid>
+                  </Box>
+                  <Grid>
+                    <ButtonGroup variant="outlined" aria-label="outlined primary button group">
+                      <Button color="primary" variant="outlined">Cancel</Button>
+                      <Button 
+                        color="secondary" 
+                        variant="outlined" 
+                        onClick={() => {props.toolChest.cancelJob(props.toolChest.selectedJob)}} 
+                        >Delete</Button>            
+                    </ButtonGroup>
+                  </Grid>
                 </Grid>
                 </Box>
-                <Grid>
-                  <ButtonGroup variant="outlined" aria-label="outlined primary button group">
-                    <Button color="primary" variant="outlined">Cancel</Button>
-                    <Button 
-                      color="secondary" 
-                      variant="outlined" 
-                      onClick={() => {props.toolChest.cancelJob(props.toolChest.selectedJob)}} 
-                      >Delete</Button>            
-                  </ButtonGroup>
-                </Grid>
-              </Grid>
-              </Box>
-            </Paper>
-          </Collapse>
-        </Box> 
-        <QuoteNotes job={props.job}/> 
-        <Divider />
-        <CustomerInfo job={props.job}/>
-        <Divider/>
-        <Estimates job={props.job}/>
-        <Divider/>
-        <Requirements job={props.job}/>
-        <Divider/>
-        <Assignments job={props.job}/>
+              </Paper>
+            </Collapse>
+          </Box> 
+          <QuoteNotes job={props.job}/> 
+          <Divider />
+          <CustomerInfo job={props.job}/>
+          <Divider/>
+          <Estimates job={props.job}/>
+          <Divider/>
+          <Requirements job={props.job}/>
+          <Divider/>
+          <Assignments job={props.job}/>
+      </List>
       </Paper>
     </main>
   )

@@ -7,7 +7,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {Container, Menu,MenuItem}  from '@material-ui/core'
 import { NavLink } from 'react-router-dom';
-import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import logoImg from '../landlogow.png';
 
@@ -34,8 +33,9 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     flexGrow: 1,
-    width: "100%",
-    height: 75,
+    width: "40%",
+    height: 70,
+    align: "center"
   },
 }));
 
@@ -73,22 +73,14 @@ export default function NavBar(props) {
             <MenuItem onClick={onNewJob} style={{fontSize: "0.85em"}}>Add Job</MenuItem>
             <NavLink to="/"><MenuItem onClick={onNewJob} style={{fontSize: "0.85em"}}>Logout</MenuItem></NavLink>
           </Menu>
-          <Container>
-            <Card className={classes.card} style={{marginLeft: "300px"}}>          
+          <Container align="center" >            
               <CardMedia
                 className={classes.media}
                 component="img"
                 alt="WS logo"              
                 title="WS logo"
                 image={logoImg}           
-              />
-            </Card>
-            {/* <Typography variant="h4" className={classes.title}>
-              Greener Side Landscaping
-            </Typography> */}
-            {/* <Typography variant="subtitle2" className={classes.subTitle}>
-              A WorkSuite App
-            </Typography> */}
+              />            
           </Container>
           <Typography variant="h6" className={classes.menuButton} style={{fontSize: "1em"}}>
             Welcome: Admin
