@@ -11,8 +11,8 @@ let task = 0;
 let job = 0;
 let skillLevel = '';
 let skillLevels = ['Easy', 'Medium', 'Hard'];
-let months = [10, 11, 12, 1, 2, 3]
-let days = {'10': 31, '11': 30, '12': 31, '1': 31, '2': 28, '3': 31}
+let months = [11, 12, 1]
+let days = {'11': 30, '12': 31, '1': 31}
 let years = {'10': 2020, '11': 2020, '12': 2020, '1': 2021, '2': 2021, '3': 2021}
 let skillData = '';
 let assignmentsData = '';
@@ -22,7 +22,7 @@ const oldSkills = {};
 const oldRequirements = {};
 const oldAssignments = {};
 
-while (Object.keys(oldAssignments).length < 50){
+while (Object.keys(oldAssignments).length < 100){
   console.log(Object.keys(oldAssignments).length)
   //Skill
   user = 0;
@@ -45,7 +45,7 @@ while (Object.keys(oldAssignments).length < 50){
   addRequirement = "INSERT INTO requirements (job_id, task_id, difficulty, estimate_time, estimate_workers) values ("
   job = 0;
   while (job === 0 || (oldRequirements[job] && oldRequirements[job].includes(task))){
-    job = Math.floor((Math.random() * 50) + 1);
+    job = Math.floor((Math.random() * 100) + 1);
   }
   if (!oldRequirements[job]) {
     oldRequirements[job] = [];
@@ -60,7 +60,7 @@ while (Object.keys(oldAssignments).length < 50){
   //Assignment
   addAssignment = "INSERT INTO assignments (Job_id, user_id, starts, ends) values ("
   if (!oldAssignments[job]) {
-    let month = months[Math.floor(Math.random() * 6)];
+    let month = months[Math.floor(Math.random() * 3)];
     let day = Math.floor((Math.random() * days[month]) + 1);
     let year = years[month];
     let startTemp = Math.floor((Math.random() * 10));
