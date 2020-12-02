@@ -8,7 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import {Container, Menu,MenuItem}  from '@material-ui/core'
 import { NavLink } from 'react-router-dom';
 import CardMedia from '@material-ui/core/CardMedia';
-import logoImg from '../landlogow.png';
+import logoImg from '../landlogo2.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,13 +28,13 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     flexGrow: 1,
-    maxWidth: 550,
+    maxWidth: 700,
     backgroundColor: "transparent",
   },
   media: {
-    flexGrow: 1,
+    // flexGrow: 1,
     width: "40%",
-    height: 70,
+    height: 80,
     align: "center"
   },
 }));
@@ -59,7 +59,7 @@ export default function NavBar(props) {
   return (
     <div>
       <AppBar position="static" style={{backgroundColor: "#74b982", opacity: "0.9"}}>
-        <Toolbar style={{height: 80}}>
+        <Toolbar style={{height: 85}}>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={handleClick}>
             <MenuIcon />
           </IconButton>
