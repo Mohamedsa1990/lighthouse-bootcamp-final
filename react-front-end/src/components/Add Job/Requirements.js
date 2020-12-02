@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '55vh',
   },
   container: {
-    height: "62vh",
+    height: "65vh",
   }
 }));
 
