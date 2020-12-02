@@ -58,7 +58,7 @@ export default function NavBar(props) {
 
   return (
     <div>
-      <AppBar position="static" style={{backgroundColor: "#80B98B"}}>
+      <AppBar position="static" style={{backgroundColor: "#74b982", opacity: "0.9"}}>
         <Toolbar style={{height: 80}}>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={handleClick}>
             <MenuIcon />
