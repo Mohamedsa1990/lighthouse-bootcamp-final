@@ -76,7 +76,7 @@ export default function AssignWorker({requirements, users, assignments, setAssig
     setAssignments((oldList) => {
       let newList = [...oldList];
       for (let i = 0; i < newList.length; i++) {
-        newList[i] = {...oldList[i], starts: time};
+        newList[i].starts = time;
       }
       return newList;
     })
@@ -87,7 +87,7 @@ export default function AssignWorker({requirements, users, assignments, setAssig
     setAssignments((oldList) => {
       let newList = [...oldList];
       for (let i = 0; i < newList.length; i++) {
-        newList[i] = {...oldList[i], ends: time};
+        newList[i].ends = time;
       }
       return newList;
     })

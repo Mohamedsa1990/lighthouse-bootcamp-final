@@ -74,7 +74,6 @@ export default function Requirements(props) {
   const rows = requirementsArray.map((obj) => {
     return createData(obj.name, obj.estimate_workers, obj.estimate_time, obj.difficulty)
   });
-  console.log("rows from Requirements:", rows);
   return (
     <List
       component="nav"
